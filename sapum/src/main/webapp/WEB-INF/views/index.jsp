@@ -1,12 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="include/header.jsp"%>
+<%@ include file="include/index_header.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="${path}/resources/css/index.css?v=1">
-<link rel="stylesheet" href="${path}/resources/css/fullpage.css">
+<link rel="stylesheet" href="${path}/resources/css/include/fullpage.css">
 <title>SAPUM</title>
 </head>
 <body>

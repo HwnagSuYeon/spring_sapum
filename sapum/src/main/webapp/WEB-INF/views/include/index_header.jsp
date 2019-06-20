@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="${path}/resources/css/include/common.css?v=1">
-<link rel="stylesheet" href="${path}/resources/css/include/header.css?v=1">
+<link rel="stylesheet" href="${path}/resources/css/include/index_header.css?v=1">
 <title>Insert title here</title>
 </head>
 <body>

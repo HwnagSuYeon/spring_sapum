@@ -1,0 +1,223 @@
+/*-------header--------*/
+.header {
+    display: flex;
+    justify-content: center;
+    width: 100%
+}
+.heder_wrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 1320px;
+    height: 160px;
+}
+.logo {
+	margin: 0 50px;
+}
+.index_list {
+	margin: 50px;
+}
+.list {
+    padding: 0;
+    display: flex;
+    justify-content: space-evenly;
+    width: 390px;
+    font-size: 15px;
+    font-weight: 300;
+}
+.li1:hover {
+	text-decoration: line-through;
+}
+.li2:hover {
+	text-decoration: line-through;
+}
+.li3:hover {
+	text-decoration: line-through;
+}
+.li4:hover {
+	text-decoration: line-through;
+}
+/*햄버거버튼*/
+.menu-trigger,
+.menu-trigger span {
+    display: inline-block;
+    transition: all .4s;
+    box-sizing: border-box;
+}
+
+.menu-trigger {
+    position: relative;
+    width: 25px;
+    height: 42px;
+    margin: 0 70px;
+}
+
+.menu-trigger span {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: black;
+    border-radius: 1px;
+}
+
+.menu-trigger span:nth-of-type(1) {
+    top: 10px;
+}
+
+.menu-trigger span:nth-of-type(2) {
+    top: 20px;
+}
+
+.menu-trigger span:nth-of-type(3) {
+    bottom: 10px;
+}
+
+/* type-01 */
+/* 중앙 라인이 고정된 자리에서 투명하게 사라지며 상하라인 회전하며 엑스자 만들기 */
+.menu-trigger.active-1 span:nth-of-type(1) {
+    -webkit-transform: translateY (10px) rotate (-45deg);
+    transform: translateY(10px) rotate(-45deg);
+}
+
+.menu-trigger.active-1 span:nth-of-type(2) {
+    opacity: 0;
+}
+
+.menu-trigger.active-1 span:nth-of-type(3) {
+    -webkit-transform: translateY(-10px) rotate(45deg);
+    transform: translateY(-10px) rotate(45deg);
+}
+
+/*----햄버거버튼 누르면 나오는 인덱스-----*/
+.ham_index {
+	color: black;
+	text-align: center;
+	font-size: 3.5em;
+	font-weight: 500;
+	letter-spacing: 2px;
+	margin-top: 70px;
+	top: 0;
+}
+.ham_wrap {
+	z-index: 3;
+	position: absolute;
+    top: 100%;
+    background-color: white;
+    width: 100%;
+    height: 400%;
+}
+.ham_footer {
+	text-align: center;
+	margin: 50px 0 0 0;
+}
+.ft {
+    display: inline-flex;
+    justify-content: space-between;
+    width: 150px;
+    font-size: 23px;
+}
+.in-icon1 {
+	color: black;
+	opacity: .5;
+}
+.in-icon1:hover {
+	transition: .3s;
+	opacity: 1;
+}
+.in-icon2 {
+	color: black;
+	opacity: .5;
+}
+.in-icon2:hover {
+	transition: .3s;
+	opacity: 1;
+}
+.in-icon3 {
+	color: black;
+	opacity: .5;
+}
+.in-icon3:hover {
+	transition: .3s;
+	opacity: 1;
+}
+/*----login modal-----*/
+.lo_modal {
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, .6);
+	z-index: 5;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: fixed;
+}
+.modal_box {
+	width: 300px;
+	height: 420px;
+	background-color: white;
+	border-radius: 2px;
+}
+.modal_wrap{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-flow: column;
+}
+.lo_modal_close {
+	margin-top: 50px;
+	cursor: pointer;
+	color: #afafaf;
+}
+.lo_modal_close:hover {
+	transition: .3s;
+	color: #70D6C7;
+	cursor: pointer;
+}
+.lo_modal_title {
+	padding: 30px 0;
+	font-size: 1.7em;
+	color: #212121;
+}
+.ip_style {
+	margin-bottom: 20px;
+}
+.ip_style >input {
+	padding: 5px 0;
+	border-bottom: 1px solid #dadada;
+	width: 200px;
+	height: 12px;
+}
+.lo_btn {
+	margin-top: 30px;
+	margin-bottom: 20px;
+	font-size: 13px;
+	font-weight: lighter;
+	background-color: #dadada;
+	border-radius: 2px;
+	width: 200px;
+	height: 35px;
+	cursor: pointer;
+	color: white;
+}
+.lo_btn:hover {
+	background-color: #70D6C7;
+	transition: .3s;
+}
+.forgot {
+	margin-top: 5px;
+	font-size: 12px;
+	font-weight: normal;
+	color: #dadada;
+}
+.forgot:hover {
+	color: #70D6C7;
+}
+.err_msg {
+	font-size: 11px;
+    color: tomato;
+    font-weight: bold;
+    text-align: left;
+    padding-right: 115px;
+}

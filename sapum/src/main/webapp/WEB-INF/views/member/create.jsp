@@ -17,7 +17,7 @@
 			</div>
 			<form class="join_frm" action="" method="" name="">
 				<div class="mem_ipstyle">
-					<input id="email_val" class="mem_ipborder" type="email" name="email" placeholder="E-mail(ID)">
+					<input id="id_val" class="mem_ipborder" type="text" name="id" placeholder="User ID">
 					<span class="err_msg_eq"></span>
 				</div>
 				<div class="mem_ipstyle">
@@ -33,7 +33,11 @@
 					<span class="err_msg_eq"></span>
 				</div>
 				<div class="mem_ipstyle">
-					<input class="mem_ipborder" type="text" name="phone" placeholder="phone">
+					<input id="email_val" class="mem_ipborder" type="email" name="email" placeholder="E-mail(ID)">
+					<span class="err_msg_eq"></span>
+				</div>
+				<div class="mem_ipstyle">
+					<input id="phone_val" class="mem_ipborder" type="text" name="phone" placeholder="phone">
 					<span class="err_msg_eq"></span>
 				</div>
 				<div class="terms_wrap">
@@ -70,29 +74,20 @@
 			
 			//---- 유효성 검사: (선택자)에 값을 입력 후 blur하면 이벤트 발생  ----
 			//id
-			$('#email_val').blur(function () {
-				//2. input(#id) value값을 가져와 memId에 담는다
-				var memId = $.trim($('#email_val').val());
-				//3.joinValidate의 checkId()함수를 실행, memId를 매개변수로 validation.js로 보냄
-				//7.checkId()함수를 실행 후 결과값 code와 desc를 변수 checkResult에 담음.
+			$('#id_val').blur(function () {
+				var memId = $.trim($('#id_val').val());
 				var checkResult = joinValidate.checkId(memId);
-				
 				
 				if(checkResult.code != 0) {
 					console.log(checkResult.desc);
-					//8-1.(실패일 경우)code값이 0이 아닌경우->유효한 값이 아님(경고메세지 출력)
 					$(".err_msg_eq").eq(0).text(checkResult.desc)
-									   .css("display","block");
+									   	  .css("display","block");
 					return false;
 				} else {
-					//8-2.(성공일경우)code값이 0인 경우 ->유효한 값(중복값인지 Ajax로 검증 시작!)
-					//9. ajaxCheck()메서드 실행, memId를 매개변수로 보냄
-					// 31. ajaxCheck(memId)의 return값이 1 이면 return true;
 					if(ajaxCheck(memId) == "1") {
 						return true;
 					}
 				}
-				// 중복된 값은 무조건 false를 반환하기 위해서 return flase를 맨 뒤에 써주는 것.
 				return false;
 			});
 			
@@ -174,6 +169,45 @@
 				}
 				return false;
 			
+			});
+			
+			// email
+			$('#email_val').blur(function () {
+				var memEmail = $.trim($('#email_val').val());
+				var checkResult = joinValidate.checkEmail(memEmail);
+				
+				if(checkResult.code != 0) {
+					console.log(checkResult.desc);
+					$(".err_msg_eq").eq(4).text(checkResult.desc)
+									.css("display","block")
+									.css('color','tomato');
+					return false;
+				} else {
+					$(".err_msg_eq").eq(4).text(checkResult.desc)
+										  .css("display","block")
+										  .css('color','dodgerblue');
+					return false;
+				}
+				return false;
+				
+				
+			});
+			
+			// phone
+			$("#phone_val").blur(function () {
+				var phone = $.trim($(this).val());
+				var checkResult = joinValidate.checkPhone(phone);
+				
+				if(checkResult.code != 0) {
+					$(".err_msg_eq").eq(5).text(checkResult.desc)
+										  .css("display","block")
+										  .css('color','tomato');
+					return false;
+				} else {
+					$(".err_msg_eq").eq(5).text(checkResult.desc)
+										  .css("display","block")
+										  .css('color','dodgerblue');
+				}
 			});
 		});
 	</script>

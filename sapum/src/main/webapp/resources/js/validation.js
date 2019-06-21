@@ -60,6 +60,16 @@ var joinValidate = {
 			desc: '이름은 2자 이상~ 4자 이하로 써주세요'
 		},
 		
+		// email 유효성 출력문
+		success_email:{
+			code: 0,
+			desc: '사용 가능한 메일주소입니다'
+		},
+		invalid_email: {
+			code: 3,
+			desc: '올바른 이메일 주소를 입력해주세요'
+		},
+		
 		
 		// 핸드폰 번호 유효성 출력문
 		success_phone: {
@@ -78,33 +88,41 @@ var joinValidate = {
 			code: 5,
 			desc: '(-)없이 10~11자로 입력해주세요'
 		},
-		
+		leng_phone:{
+			code: 6,
+			desc: '8~11자리의 올바른 번호를 입력해 주세요'
+		},
 	},
 	
 	// 실제 유효성 체크하는 기능
 	checkId: function(memId) {
 		var regEmpty = /\s/g; //공백문자 정규식
-		var regEmail = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i; // 이메일이 적합한지 검사할 정규식
-		//id => 1.null 2.정규식 3.중복체크
-		
-		// 4. join.jsp에서 전달한 매개변수 memId로 유효성체크 시작
-		// Null값 체크					if
-		// 값 사이의 공백값 체크 			else if
-		// 유효한 값인지 체크(정규식) 		else if
-		// 6자~50자 이내 길이 체크 			else if
-		// 성공: 유효한 값 				else -> 중복유무체크 X
+		var reg = /[^a-z0-9-_.]+/g; // 올바른 아이디 형식
+
 		if(memId==""|| memId.length == 0){
 			return this.resultCode.empty_val;
 		} else if (memId.match(regEmpty)) {
 			return this.resultCode.space_length_val;
-		} else if (!regEmail.test(memId)) {
+		} else if (reg.test(memId)) {
 			return this.resultCode.invalid_id;
 		} else if (memId.length < 6 || memId.length > 50) {
 			return this.resultCode.length_id;
 		} else {
-			// 5. 입력받은 값이 위의 유효성체크 네 단계를 통과(유효한 값이나, DB로부터 중복되었는지 확인X)
-			// 6. return 결과값으로 success_id(code,desc)를 호출한 곳으로 전송!(전송하는 데이터->code:0, desc:'멋진아이디네요!')
 			return this.resultCode.success_id;
+		}
+	},
+	checkEmail: function(memEmail) {
+		var regEmpty = /\s/g; //공백문자 정규식
+		var regEmail = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i; // 이메일이 적합한지 검사할 정규식
+
+		if(memEmail==""|| memEmail.length == 0){
+			return this.resultCode.empty_val;
+		} else if (memEmail.match(regEmpty)) {
+			return this.resultCode.space_length_val;
+		} else if (!regEmail.test(memEmail)) {
+			return this.resultCode.invalid_email;
+		} else {
+			return this.resultCode.success_email;
 		}
 	},
 	checkPw: function(memPw, memRpw) {
@@ -137,18 +155,38 @@ var joinValidate = {
 	},
 	checkName: function(name) {
 		var regEmpty = /\s/g; //공백문자 정규식
-		var nameReg = /[^가-힣]/; // 한글문자 정규식
+		var nameReg = /^[가-힣]+$/; // 한글문자 정규식
 		
-		if(memRpw==""|| memRpw.length == 0){
+		if(name==""|| name.length == 0){
 			return this.resultCode.empty_val;
 		} else if (name.match(regEmpty)) {
 			return this.resultCode.space_length_val;
-		}  else if (!pwReg.test(name)) {
+		}  else if (!nameReg.test(name)) {
 			return this.resultCode.invalid_name;
 		} else if (name.length > 4 || name.length < 2) {
 			return this.resultCode.length_name;
 		} else {
 			return this.resultCode.success_name;
+		}
+	},
+	checkPhone: function(phone) {
+		var regEmpty = /\s/g; //공백문자 정규식
+		var regPhone = RegExp(/^[0-9]{8,11}$/);  //핸드폰번호  정규식
+		
+		if(phone ==""|| phone.length == 0){
+			return this.resultCode.empty_val;
+		} else if (phone.match(regEmpty)) {
+			return this.resultCode.space_length_val;
+		} else if ($.isNumeric(phone)==false) {
+			return this.resultCode.number_phone;
+		} else if(phone.indexOf("01") !=0) { 
+			return this.resultCode.invalid_phone
+		} else if (!(phone.length == 10 || phone.length == 11)) {
+			return this.resultCode.length_phone
+		} else if (!regPhone.test(phone)) {
+			return this.resultCode.leng_phone
+		} else {
+			return this.resultCode.success_phone
 		}
 		
 	}
@@ -167,16 +205,10 @@ function ajaxCheck(memId){
 	//	  결론: web.xml로 이동!
 	$.ajax({
 		url: "idCheck?memId="+memId,
-		// 아이디가 중복된 아이디인지 아닌지 판단하는 역할(Action)
 		type: "POST",
-		// 포장한 데이터를 어떤 운송수단(어떻게 보낼지)으로 태워 보낼지 정하는 것이 타입.
-		// 데이터는 id라는 이름을 붙여서 보냄. 쿼리스트링처럼 보내는 것을 나눠서 적은 것과 같다.
 		success: function(data){
 			console.log(data);
-			// 29. Action단에서 전송한 message, id를 data매개변수로 받음
-			// 30. data.message의 값이 -1이면 -> 중복메시지 출력
-			// 	   data.message의 값이 1 이면 -> 사용가능 메시지 출력
-			// url에서 성공시 매개변수로 data를 받아와서 검사해주는 기능
+			
 			if(data == 1){
 				$(".err_msg").eq(0).text("이미 사용중인 아이디 입니다.")
 									.css("display","block")

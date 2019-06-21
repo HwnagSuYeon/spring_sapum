@@ -11,10 +11,9 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 @Slf4j
 public class IndexController {
-	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	@RequestMapping("/") 
 	public String index(Model model) {
-		logger.info(">>> Index페이지");
+	log.info(">>> Index페이지");
 		
 		return "index";
 	}

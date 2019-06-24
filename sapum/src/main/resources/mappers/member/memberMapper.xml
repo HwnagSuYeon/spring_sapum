@@ -9,4 +9,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT COUNT(id) FROM tbl_sa_member
 		WHERE id = #{id}
 	</select>
+	
+	<insert id="create" parameterType="com.sapum.domain.member.MemberDTO">
+		INSERT INTO tbl_sa_member(id, pw, name, email, phone)
+		VALUES (#{id}, #{pw}, #{name}, #{email}, #{phone})
+	</insert>
+	
+	<select id="login" parameterType="com.sapum.domain.member.MemberDTO" resultType="String">
+		SELECT name FROM tbl_sa_member
+		WHERE id = #{id}
+		AND pw = #{pw}
+	</select>
 </mapper>

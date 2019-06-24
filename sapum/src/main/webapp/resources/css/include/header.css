@@ -2,6 +2,7 @@
 .header {
     display: flex;
     justify-content: center;
+    /* position: fixed; */
     width: 100%
 }
 .heder_wrap {
@@ -143,7 +144,6 @@
 }
 /*----login modal-----*/
 .lo_modal {
-	top: 0;
 	width: 100%;
 	height: 100%;
 	background-color: rgba(0, 0, 0, .6);
@@ -182,12 +182,12 @@
 }
 .ip_style {
 	margin-bottom: 20px;
-}
-.ip_style >input {
-	padding: 5px 0;
-	border-bottom: 1px solid #dadada;
 	width: 200px;
-	height: 12px;
+    height: 20px;
+    border-bottom: 1px solid rgb(218, 218, 218);
+}
+.ip_boder {
+	width: 200px;
 }
 .lo_btn {
 	margin-top: 30px;
@@ -214,10 +214,9 @@
 .forgot:hover {
 	color: #70D6C7;
 }
-.err_msg {
-	font-size: 11px;
+.modal_err_msg {
+	font-size: .8px;
     color: tomato;
     font-weight: bold;
-    text-align: left;
-    padding-right: 115px;
+    text-align: center;
 }

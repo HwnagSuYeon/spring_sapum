@@ -20,11 +20,20 @@
 			</div>
 			<div class="index_list">
 				<ul class="list">
-					<a href="#" class="li1 login_btn"><li>Login</li></a>
-					<a href="${path}/member/create" class="li2"><li>Join Us</li></a>
-					<a href="#" class="li3"><li>Gellary</li></a>
-					<a href="#" class="li2"><li>My page</li></a>
-					<a href="#" class="li4"><li>Q&A</li></a>
+					<c:choose>
+						<c:when test="${empty sessionScope.name}">
+							<li><a href="#" class="li1 login_btn">Login</a></li>
+							<li><a href="${path}/member/create" class="li2">Join Us</a></li>
+						</c:when>
+						<c:otherwise>
+							<li><a href="#" class="li3" style="color: #70D6C7; font-weight: bold; text-decoration: none;">${sessionScope.name}</a></li>
+							<li><a id="logout_btn" href="#" class="li3">Logout</a></li>
+							<li><a href="${path}/member/mypage" class="li2">My page</a></li>
+						</c:otherwise>
+					</c:choose>
+					
+					<li><a href="#" class="li3">Gellary</a></li>
+					<li><a href="#" class="li4">Q&A</a></li>
 				</ul>
 			</div>
 			<div class="controls" style="display: none;">
@@ -39,11 +48,20 @@
 		<div class="ham_wrap" style="display: none;">
 			<div class="ham_index">
 				<ul class="index_wrap">
-					<a href="#" class="li1 login_btn"><li>Login</li></a>
-					<a href="${path}/member/create" class="li2"><li>Join Us</li></a>
-					<a href="#" class="li3"><li>Gellary</li></a>
-					<a href="#" class="li3"><li>My Page</li></a>
-					<a href="#" class="li4"><li>Q&A</li></a>
+					<!-- jstl/el을 활용한 로그인유저/게스트유저 nav bar디자인 변경  -->
+					<c:choose>
+						<c:when test="${empty sessionScope.name}">
+							<li><a href="#" class="li1 login_btn">Login</a></li>
+							<li><a href="${path}/member/create" class="li2">Join Us</a></li>
+						</c:when>
+						<c:otherwise>
+							<li><a href="#" class="li3" style="font-weight: bold;">${sessionScope.name}</a></li>
+							<li><a href="#" class="li3">My Page</a></li>
+							<li><a id="logout_btn" href="#" class="li3">Logout</a></li>
+						</c:otherwise>
+					</c:choose>
+					<li><a href="#" class="li3">Gellary</a></li>
+					<li><a href="#" class="li4">Q&A</a></li>
 				</ul>
 			</div>
 			<div class="ham_footer">
@@ -63,15 +81,13 @@
 				<span class="lo_modal_close"><i class="fas fa-times"></i></span>
 				<h1 class="lo_modal_title">Signin</h1>
 				<div class="ip_style ip_id">
-					<input class="ip_border" type="text" name="id" placeholder="User ID">
-					<span class="err_msg"></span>
+					<input id="login_id" class="ip_border" type="text" name="id" placeholder="User ID">
 				</div>
 				<div class="ip_style ip_pw">
-					<input class="ip_border" type="password" name="pw" placeholder="Password">
-					<span class="err_msg"></span>
+					<input id="login_pw" class="ip_border" type="password" name="pw" placeholder="Password">
 				</div>
-				<span class="err_msg"></span>
-				<button type="button" class="lo_btn">login</button>
+				<span class="modal_err_msg"></span>
+				<button id="login_btn" type="button" class="lo_btn">login</button>
 				<a href="#" class="forgot"><span>Forgot Password?</span></a>
 			</form>
 		</div>
@@ -122,13 +138,17 @@
 			
 		});
 
+		// 로그인 성공시 어디로갈지 알려주는 경로(인터셉터에서 경로 보내줌)
+		var message = '${message}';
+		var uri = '${uri}';
+		
 		
 		$(document).ready(function() {
 			//인풋태그 focus시 라인색 바뀜
-			$('.ip_border').click(function(){
+			$('.ip_style').click(function(){
 				$(this).css('border-bottom','1px solid #70D6C7');
 			});
-			$('.ip_border').blur(function(){
+			$('.ip_style').blur(function(){
 				$(this).css('border-bottom','1px solid #dadada');
 			});
 
@@ -145,6 +165,76 @@
 				if (flag == 1) {
 					scrollTop().val(scrollVal);
 				}
+			});
+			// 로그인 인되었을 때 
+			if (message == "nologin") {
+				$('.lo_modal').css('display','flex');
+				$('.modal_err_msg').text('로그인이 필요한 기능입니다.');
+			}
+			// 로그인 버튼 눌렀을 때 동작(유효성검사 및 ajax기능실행 )
+			$('#login_btn').click(function () {
+				var id = $.trim($('#login_id').val());
+				var pw = $.trim($('#login_pw').val());
+				
+				var regEmpty = /\s/g; //공백문자 정규식
+				// null+공백체크 유효성 검사
+				if (id==null||id.length == 0) {
+					$('.modal_err_msg').text('필수정보 입니다')
+								 .css('display','block');
+					return false;
+				} else if (id.match(regEmpty)){
+					$('.modal_err_msg').text('공백없이 입력해주세요')
+					 			 .css('display','block');
+					return false;
+				}
+				
+				if (pw==null||pw.length == 0) {
+					$('.modal_err_msg').text('필수정보 입니다')
+								 .css('display','block');
+					return false;
+				} else if (pw.match(regEmpty)){
+					$('.modal_err_msg').text('공백없이 입력해주세요')
+					 			 .css('display','block');
+					return false;
+				}
+				// 로그인동작 실행  
+				$.ajax({
+					url: "${path}/member/login",
+					type: "POST",
+					dataType: "text",
+					// return데이터의 타입. controller에서 로그인 정보를 체크한후 반환해주는 타입이 String, 즉 문자열이므로 데이터타입을 text로 써준다.
+					data: "id="+id+"&pw="+pw,
+					success: function(data) {
+						if(data == "1") {
+							if(uri == '') {
+								location.reload();
+							} else {
+								location.href = uri;
+							}
+						} else if (data == "-1") {
+							$('#login_id').focus();
+							$('.modal_err_msg').text('아이디 또는 비밀번호가 일치하지 않습니다!')
+										 	   .css('display','block');
+						}
+					},
+					error:function(){
+						alert("system error♨♨♨")
+					}
+				});
+			});
+			
+			// 로그아웃 기능
+			$('#logout_btn').click(function () {
+				$.ajax({
+					url: "${path}/member/logout",
+					type: "POST",
+					success: function() {
+						location.reload();
+					},
+					error: function () {
+						alert("system error♨♨♨");
+					}
+				});
 			});
 		});
 		

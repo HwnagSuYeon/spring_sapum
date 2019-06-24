@@ -12,24 +12,22 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Repository
 public class MemberDAOImpl implements MemberDAO{
-	@Inject SqlSession session;
+	@Inject SqlSession sqlSession;
 
 	@Override
-	public int idCheck(String id) {
-		log.info("DAO>>>>"+id);
-		return session.selectOne("member.idCheck", id);
+	public int idCheck(String memId) {
+		log.info("DAO>>>>"+memId);
+		return sqlSession.selectOne("member.idCheck", memId);
 	}
-
+	
 	@Override
 	public int create(MemberDTO mDto) {
-		// TODO Auto-generated method stub
-		return 0;
+		return sqlSession.insert("member.create", mDto);
 	}
-
+	// 로그인
 	@Override
 	public String login(MemberDTO mDto) {
-		// TODO Auto-generated method stub
-		return null;
+		return sqlSession.selectOne("member.login", mDto);
 	}
 
 	@Override

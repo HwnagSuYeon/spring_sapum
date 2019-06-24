@@ -1,0 +1,204 @@
+/*---------mypage---------*/
+
+/*유저정보칸*/
+.user_wrap {
+	padding: 30px 120px;
+	margin-bottom: 30px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-top: 20px;
+}
+.icon {
+	display: flex;
+	justify-content: space-between;
+	width: 140px;
+	padding: 10px;
+}
+.icon i {
+	font-size: 1.2em;
+	color: #adadad;
+}
+.icon_wrap {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-radius: 40px;
+	width: 40px;
+	height: 40px;
+}
+.i_hover:hover {
+	background-color: #EAEAEA;
+	border-radius: 40px;
+}
+.i_hover {
+	line-height: 42px;
+	text-align: center;
+	display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/*최근 본 작품*/
+.new_title {
+	padding: 40px 0 40px 10px;
+	font-size: 1.8em;
+}
+.new_content {
+	padding: 0 110px;
+}.new_container {
+	display: flex;
+	justify-content: space-between;
+	padding-bottom: 10px;
+}
+.ne_con_wrap {
+	display: flex;
+    flex-flow: column;
+	width: 100%;
+	padding: 10px;
+}
+.img_wrap {
+	height: 100%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    border-radius: 3px;
+}
+.object_container {
+	max-width: 100%;
+	max-height: 100%!importent;
+	border-radius: 2px;
+	object-fit: cover;
+}
+.text_wrap {
+	padding: 15px 0;
+}
+.work_user {
+	font-size: 1.2em;
+	font-weight: bold;
+}
+.work_text {
+	font-size: .8em;
+	cursor: default;
+	color: #cdcdcd;
+}
+/*관심작가*/
+.inter_all {
+	padding: 0 110px;
+}
+.inter_container {
+	padding: 10px 20px;
+}
+.inter_box {
+	background-color: #a5a5a5;
+	text-align: center;
+	border-radius: 3px;
+	display: flex;
+	align-items: center;
+	width: auto;
+	height: 35px;
+	line-height: 30px;
+	padding: 0 10px;
+	transition: .3s;
+}
+.inter_box:hover {
+	background-color: #70D6C7;
+}
+.inter_name {
+	color: white;
+	font-size: 15px;
+	font-weight: normal;
+	padding: 5px;
+	margin-right: 5px;
+}
+.inter_del {
+	color: #E7E7E7;
+	font-size: 15px;
+	line-height: 25px;
+}
+.inter_title {
+	padding: 0 110px;
+	margin-bottom: 30px;
+	font-size: 1.8em;
+}
+.inter_all {
+	display: flex;
+	flex-flow: wrap;
+}
+
+
+
+/*내작품 관리*/
+.work_hover:hover {
+	background-color: #EAEAEA;
+	height: 100%;
+	border-radius: 5px;
+	transition: .3s;
+}
+.new_wrap {
+	margin-bottom: 100px;
+	height: 100%;
+}
+.ne_con_wrap {
+	position: relative;
+}
+.hover_del_btn {
+	position: absolute;
+	color: white;
+	right: 4%;
+    margin: 10px;
+    padding: 3px 7px;
+    font-size: 1em;
+    background-color: #70D6C7;
+    border-radius: 3px;
+    display: none;
+    transition: .3s;
+}
+.del_icon {
+	padding: 4px;
+}
+.del_text {
+	padding-right: 4px;
+}
+
+/*--삭제 모달창 디자인--*/
+.delete_title {
+	font-size: 1.5em;
+	text-align: center;
+}
+.btn_wrap {
+	display: flex;
+}
+.n_btn {
+	margin-top: 5px;
+	margin-bottom: 10px;
+	font-size: 13px;
+	font-weight: lighter;
+	background-color: #dadada;
+	border-radius: 2px;
+	width: 100px;
+	height: 35px;
+	cursor: pointer;
+	color: white;
+}
+.n_btn:hover {
+	background-color: #70D6C7;
+	transition: .3s;
+}
+.warring {
+	font-size: 6em;
+	color: #70D6C7;
+	display: inherit;
+	margin: 20px 0;
+}
+.btn_wrap {
+	display: flex;
+	justify-content: space-between;
+	width: 220px;
+}
+.de_modal_title {
+	padding: 30px 0 10px 0;
+	font-size: 1.5em;
+	color: #212121;
+}

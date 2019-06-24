@@ -203,30 +203,31 @@ function ajaxCheck(memId){
 	//	  데이터 포장방법: json
 	//	  데이터 전달방법: POST방식
 	//	  결론: web.xml로 이동!
+	
+	// async -> ajax의 결과를 받아주기 전 success코드를 띄워서 문제가 있음.데이터가 확실히 올 때 까지 기다려 주기위해 async false를 쓴다.
+	var result = 0;
 	$.ajax({
 		url: "idCheck?memId="+memId,
-		type: "POST",
+		type: "POST", 
+		async: false,
 		success: function(data){
-			console.log(data);
-			
 			if(data == 1){
-				$(".err_msg").eq(0).text("이미 사용중인 아이디 입니다.")
+				$(".err_msg_eq").eq(0).text("이미 사용중인 아이디 입니다.")
 									.css("display","block")
-									.css("color","tomato")
-									.css("text-align","right");
-				return "-1";
+									.css("color","tomato");
+				result = 0;
 			} else {
-				$(".err_msg").eq(0).text("멋진 아이디네요!")
+				$(".err_msg_eq").eq(0).text("멋진 아이디네요!")
 							 .css("display","block")
-				 			 .css("color","dodgerblue")
-				 			 .css("text-align","right");
-				return "1";
+				 			 .css("color","dodgerblue");
+				result = 1;
 			}
 		},
 		error: function(){
 			alert("System Error!");
 		}
 	});
+	return result;
 }
 
 

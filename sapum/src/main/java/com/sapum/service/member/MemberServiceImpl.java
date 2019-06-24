@@ -16,27 +16,34 @@ public class MemberServiceImpl implements MemberService{
 	@Inject MemberDAO mDao;
 	// 중복아이디체크 
 	@Override
-	public int idCheck(String id) {
-		log.info("service>>>"+id);
-		return mDao.idCheck(id);
+	public int idCheck(String memId) {
+		log.info("service>>>"+memId);
+		return mDao.idCheck(memId);
 	}
-
+	// 회원가입 
 	@Override
 	public int create(MemberDTO mDto) {
-		// TODO Auto-generated method stub
-		return 0;
+		return mDao.create(mDto);
 	}
-
+	// 로그인 
 	@Override
 	public boolean login(MemberDTO mDto, HttpSession session) {
-		// TODO Auto-generated method stub
-		return false;
+		String name = mDao.login(mDto);
+		boolean result = false;
+		if (name != null) {
+			//로그인 성공한 경우 
+			session.removeAttribute("userid");
+			session.setAttribute("userid", mDto.getId());
+			session.setAttribute("name", name);
+			result = true;
+			log.info("session>>>"+session.getAttribute("name"));
+		}
+		return result;
 	}
-
+	// 로그아웃 
 	@Override
 	public void logout(HttpSession session) {
-		// TODO Auto-generated method stub
-		
+		session.invalidate();
 	}
 
 	@Override

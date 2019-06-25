@@ -20,4 +20,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE id = #{id}
 		AND pw = #{pw}
 	</select>
+	
+	<delete id="delete" parameterType="String">
+		DELETE FROM tbl_sa_member
+		WHERE id = #{id}
+	</delete>
+	
+	<select id="viewMember" parameterType="String" resultType="com.sapum.domain.member.MemberDTO">
+		SELECT * FROM tbl_sa_member
+		WHERE id = #{id}
+	</select>
+	
+	<update id="update" parameterType="com.sapum.domain.member.MemberDTO">
+		UPDATE tbl_sa_member
+		SET pw = #{pw},
+			name = #{name},
+			email = #{email},
+			phone = #{phone}
+		WHERE id = #{id}
+	</update>
 </mapper>

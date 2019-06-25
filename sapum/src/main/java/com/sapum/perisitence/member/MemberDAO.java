@@ -16,8 +16,8 @@ public interface MemberDAO {
 		// 비밀번호 변경 수행
 		public void pwUpdate(MemberDTO mDto);
 		// 회원정보 수정 DB반영하는 작업 수행
-		public void memUpdate(MemberDTO mDto);
+		public int memUpdate(MemberDTO mDto);
 		// 회원정보 삭제
-		public void delete(String id);
+		public int delete(String id);
 
 }

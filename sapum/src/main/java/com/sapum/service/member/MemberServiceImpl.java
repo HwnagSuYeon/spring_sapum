@@ -45,11 +45,12 @@ public class MemberServiceImpl implements MemberService{
 	public void logout(HttpSession session) {
 		session.invalidate();
 	}
-
+	// 회원정보 수정시 기존 회원정보 보여주는 역할 
 	@Override
 	public MemberDTO viewMember(HttpSession session) {
-		// TODO Auto-generated method stub
-		return null;
+		String id = (String)session.getAttribute("userid");
+		MemberDTO mDto = mDao.viewMember(id);
+		return mDto;
 	}
 
 	@Override
@@ -63,17 +64,26 @@ public class MemberServiceImpl implements MemberService{
 		// TODO Auto-generated method stub
 		
 	}
-
+	// 회원수정기능 
 	@Override
 	public void memUpdate(MemberDTO mDto, HttpSession session) {
-		// TODO Auto-generated method stub
-		
+		int result =  mDao.memUpdate(mDto);
+		if(result > 0) {
+			session.removeAttribute("name");
+			session.setAttribute("name", mDto.getName());
+		}
 	}
-
+	// 회원삭제 
 	@Override
 	public void delete(HttpSession session) {
-		// TODO Auto-generated method stub
-		
+		String id = (String)session.getAttribute("userid");
+		log.info(id);
+		int result = mDao.delete(id);
+		// 삭제 성공시 세션값의 초기화
+		if(result > 0) {
+			session.invalidate();
+			log.info("계정삭제 성공");
+		}
 	}
 	
 	

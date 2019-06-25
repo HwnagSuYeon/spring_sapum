@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="board">
+	<!-- 게시글 목록 출력 -->
+	<select id="listAll" parameterType="HashMap" resultType="com.sapum.domain.board.BoardDTO">
+		<include refid="paging_header"/>
+		SELECT bno, title, content, writer, m.id, viewcnt, replycnt, b.regdate
+		FROM tbl_sa_board b, tbl_sa_member m
+		<include refid="search"/>
+		<if test="sort_option == 'new'">
+			ORDER BY bno DESC
+		</if>
+		<if test="sort_option == 'reply'">
+			ORDER BY replycnt DESC, bno DESC
+		</if>
+		<if test="sort_option == 'view'">
+			ORDER BY viewcnt DESC, bno DESC
+		</if>
+	</select>
+	<!-- header sql -->
+	<sql id="paging_header">
+		SELECT *
+		FROM (
+			SELECT rownum AS rnum, A.*
+			FROM )
+	</sql>
+	<!-- footer sql -->
+	<sql id="paging_footer">
+			) A
+		) WHERE rnum BETWEEN #{start} AND #{end}
+	</sql>
+	<!-- search sql -->
+	<sql id="search">
+		<choose>
+			<when test="search_option != 'all'">
+				<if test="search_option == 'title'">
+					AND title LIKE #{keyword}
+				</if>
+				<if test="search_option == 'writer'">
+					AND writer LIKE #{keyword}
+				</if>
+				<if test="search_option == 'content'">
+					AND content LIKE #{keyword}
+				</if>
+			</when>
+			<otherwise>
+				WHERE b.writer = m.id
+				AND (writer LIKE #{keyword}
+					 OR title LIKE #{keyword}
+					 OR content LIKE #{keyword})
+			</otherwise>
+		</choose>
+	</sql>
+	
+	<!-- 레코드 갯수 계산-->
+</mapper>

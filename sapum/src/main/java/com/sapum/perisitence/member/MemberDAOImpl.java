@@ -29,11 +29,10 @@ public class MemberDAOImpl implements MemberDAO{
 	public String login(MemberDTO mDto) {
 		return sqlSession.selectOne("member.login", mDto);
 	}
-
+	// 회원수정을 위한 기존정보 띄우는 역할 
 	@Override
 	public MemberDTO viewMember(String id) {
-		// TODO Auto-generated method stub
-		return null;
+		return sqlSession.selectOne("member.viewMember", id);
 	}
 
 	@Override
@@ -41,16 +40,14 @@ public class MemberDAOImpl implements MemberDAO{
 		// TODO Auto-generated method stub
 		
 	}
-
+	// 회원수정 
 	@Override
-	public void memUpdate(MemberDTO mDto) {
-		// TODO Auto-generated method stub
-		
+	public int memUpdate(MemberDTO mDto) {
+		return sqlSession.update("member.update", mDto);
 	}
-
+	// 회원삭제 
 	@Override
-	public void delete(String id) {
-		// TODO Auto-generated method stub
-		
+	public int delete(String id) {
+		return sqlSession.delete("member.delete", id);
 	}
 }

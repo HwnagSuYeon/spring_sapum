@@ -5,6 +5,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -84,7 +85,38 @@ public class MemberController {
 		return "member/mypage";
 	}
 	
+	// 계정삭제페이지 띄워주는 기능 
+	@RequestMapping(value = "delete", method = RequestMethod.GET)
+	public String deleteView() {
+		log.info(">>>계정삭제페이지 출력");
+		return "member/delete";
+	}
 	
+	// 계정삭제 기능 
+	@RequestMapping(value = "delete", method = RequestMethod.POST)
+	public String delete(HttpSession session) {
+		log.info(">>>회원삭제Action");
+		service.delete(session);
+		return "redirect:/";
+	}
 	
+	// 회원 수정페이지 띄워줌
+	@RequestMapping(value = "modify", method = RequestMethod.GET)
+	public String modifyView(HttpSession session, Model model) {
+		log.info(">>>회원수정페이지 출력");
+		MemberDTO mDto = service.viewMember(session);
+		model.addAttribute("info", mDto);
+		
+		return "member/modify";
+	}
+	
+	// 회원수정 실제기능
+	@RequestMapping(value = "modify", method = RequestMethod.POST)
+	public String modify(MemberDTO mDto, HttpSession session) {
+		log.info(">>>회원수정기능 실행");
+		service.memUpdate(mDto, session);
+		
+		return "redirect:/";
+	}
 	
 }

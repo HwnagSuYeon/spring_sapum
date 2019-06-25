@@ -25,7 +25,7 @@
 					<a class="icon_wrap" href="${path}/member/delete"><i class="fas fa-user-slash"></i></a>
 				</div>
 				<div class="i_hover">
-					<a class="icon_wrap" href="#"><i class="fas fa-pencil-alt"></i></a>
+					<a class="icon_wrap" href="${path}/member/modify"><i class="fas fa-pencil-alt"></i></a>
 				</div>
 				<div class="i_hover">
 					<a class="icon_wrap" href="#"><i class="fas fa-sign-out-alt"></i></a>
@@ -39,7 +39,7 @@
 				<div class="new_container">
 					<div class="ne_con_wrap work_hover">
 						<div class="img_wrap">
-							<a href="#"><img class="object_container" src="../img/main.jpg"></a>
+							<a href="#"><img class="object_container" src="${path}/resources/img/main.jpg"></a>
 						</div>
 						<div class="text_wrap">
 							<a href="#"><span class="work_user">lalla</span></a><br>
@@ -49,7 +49,7 @@
 
 					<div class="ne_con_wrap work_hover">
 						<div class="img_wrap">
-							<a href="#"><img class="object_container" src="../img/sc3.jpg"></a>
+							<a href="#"><img class="object_container" src="${path}/resources/img/sc1.jpg"></a>
 						</div>
 						<div class="text_wrap">
 							<a href="#"><span class="work_user">ggugguri</span></a><br>
@@ -181,7 +181,7 @@
 				<div class="new_container">
 					<div class="ne_con_wrap work_hover">
 						<div class="img_wrap my_position">
-							<a href="#"><img class="object_container" src="../../img/main.jpg"></a>
+							<a href="#"><img class="object_container" src="../img/main.jpg"></a>
 						</div>
 						<div class="text_wrap ">
 							<a href="#"><span class="work_user">title</span></a><br>

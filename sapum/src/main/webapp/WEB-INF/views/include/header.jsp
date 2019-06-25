@@ -61,7 +61,7 @@
 						</c:otherwise>
 					</c:choose>
 					<li><a href="#" class="li3">Gellary</a></li>
-					<li><a href="#" class="li4">Q&A</a></li>
+					<li><a href="${path}/board/list" class="li4">Q&A</a></li>
 				</ul>
 			</div>
 			<div class="ham_footer">

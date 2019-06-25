@@ -21,3 +21,68 @@ INSERT INTO tbl_sa_member(id, pw, name, email, phone)
 VALUES('user02', '1234', '유수지', '2345@naver.com', '01023457890');
 INSERT INTO tbl_sa_member(id, pw, name, email, phone)
 VALUES('user03', '1234', '황수연', '4567@naver.com', '01023457890');
+-- board DB table
+-- 테이블 시퀀스 생성 
+DROP SEQUENCE seq_sa_board;
+CREATE SEQUENCE seq_sa_board
+START WITH 1
+INCREMENT BY 1;
+
+DROP TABLE tbl_sa_board;
+CREATE TABLE tbl_sa_board(
+    bno NUMBER PRIMARY KEY,
+    title VARCHAR2(200) NOT NULL,
+    content VARCHAR2(4000) NOT NULL,
+    writer VARCHAR2(30) NOT NULL,
+    viewcnt NUMBER DEFAULT 0,
+    replycnt NUMBER DEFAULT 0,
+    regdate DATE DEFAULT SYSDATE
+);
+SELECT * FROM tbl_sa_board;
+DESC tbl_sa_board;
+
+
+INSERT INTO tbl_sa_board(bno, title, content, writer)
+VALUES(seq_sa_board.NEXTVAL, '안녕하세요', '테스트 게시글입니다', '쭈꾸리');
+INSERT INTO tbl_sa_board(bno, title, content, writer)
+VALUES(seq_sa_board.NEXTVAL, '오늘의 점심은', '테스트 게시글입니다', '꾸꾸리');
+INSERT INTO tbl_sa_board(bno, title, content, writer)
+VALUES(seq_sa_board.NEXTVAL, '날씨관련', '테스트 게시글입니다', '유수지');
+INSERT INTO tbl_sa_board(bno, title, content, writer)
+VALUES(seq_sa_board.NEXTVAL, '포켓몬고 같이할사람', '테스트 게시글입니다', '최인준');
+
+
+
+-- 댓글 테이블 생성
+DROP SEQUENCE seq_sa_reply;
+CREATE SEQUENCE reply
+START WITH 1
+INCREMENT BY 1;
+
+DROP TABLE tbl_sa_reply;
+CREATE TABLE tbl_sa_reply(
+    rno NUMBER PRIMARY KEY,
+    content VARCHAR2(2000) NOT NULL,
+    writer VARCHAR2(30) NOT NULL,
+    regdate DATE DEFAULT SYSDATE,
+    bno NUMBER NOT NULL
+);
+
+SELECT * FROM tbl_sa_reply;
+
+-- 게시글과 그 게시글에 달린 댓글의 bno를 연결시키기 위함
+ALTER TABLE tbl_sa_reply
+ADD CONSTRAINT tbl_sa_reply_fk_bno
+FOREIGN KEY(bno) REFERENCES tbl_sa_board(bno);
+
+INSERT INTO tbl_sa_reply(rno, content, writer, bno)
+VALUES (seq_sa_reply.NEXTVAL, '테스트 댓글', 'user01', 1);
+INSERT INTO tbl_sa_reply(rno, content, writer, bno)
+VALUES (seq_sa_reply.NEXTVAL, '파치라스 잡아주세요', 'user02', 2);
+INSERT INTO tbl_sa_reply(rno, content, writer, bno)
+VALUES (seq_sa_reply.NEXTVAL, '댓글 테스트입니다', 'user02', 2);
+INSERT INTO tbl_sa_reply(rno, content, writer, bno)
+VALUES (seq_sa_reply.NEXTVAL, '집에가고싶어', 'user04', 3);
+
+
+COMMIT;

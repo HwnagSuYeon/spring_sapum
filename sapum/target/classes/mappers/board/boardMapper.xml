@@ -4,6 +4,34 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="board">
+	<!-- 게시글 목록 출력 -->
+	<select id="listAll" parameterType="HashMap" resultType="com.sapum.domain.board.BoardDTO">
+		<include refid="paging_header"/>
+		SELECT bno, title, content, writer, m.id, viewcnt, replycnt, b.regdate
+		FROM tbl_sa_board b, tbl_sa_member m
+		<include refid="search"/>
+			<if test="sort_option == 'new'">
+				ORDER BY bno DESC
+			</if>
+			<if test="sort_option == 'reply'">
+				ORDER BY replycnt DESC, bno DESC
+			</if>
+			<if test="sort_option == 'view'">
+				ORDER BY viewcnt DESC, bno DESC
+			</if>
+		<include refid="paging_footer"/>
+	</select>
+	<sql id="paging_header">
+		SELECT *
+		FROM (
+			  SELECT rownum AS rnum, A.*
+			  FROM (
+	</sql>
+	<sql id="paging_footer">
+			  ) A
+			) WHERE rnum BETWEEN #{start} AND #{end}
+	</sql>
+	
 	<sql id="search">
 		<choose>
 			<when test="search_option != 'all'">

@@ -40,13 +40,13 @@
 		<div class="board_all">
 			<div class="sort_wrap">
 				<div id="new" class="sort_box">
-					<a href="#"><h3 class="sort_type">NEW</h3></a>
+					<a href="${path}/board/list?sort_option=new&keyword=${map.keyword}&search_option=${map.serch_option}"><h3 class="sort_type">NEW</h3></a>
 				</div>
 				<div id="comment" class="sort_box">
-					<a href="#"><h3 class="sort_type">COMMENT</h3></a>
+					<a href="${path}/board/list?sort_option=reply&keyword=${map.keyword}&search_option=${map.serch_option}"><h3 class="sort_type">COMMENT</h3></a>
 				</div>
 				<div id="view" class="sort_box">
-					<a href="#"><h3 class="sort_type">VIEW</h3></a>
+					<a href="${path}/board/list?sort_option=view&keyword=${map.keyword}&search_option=${map.serch_option}"><h3 class="sort_type">VIEW</h3></a>
 				</div>
 			</div>
 			<div class="table">
@@ -58,118 +58,69 @@
 						<td>View</td>
 						<td>Date</td>
 					</tr>
-
-					<tr class="board_content">
-						<td>1</td>
-						<td><a href="#" id="con_title">Hellow World</a></td>
-						<td>ggugguri</td>
-						<td>123</td>
-						<td>2019-10-23</td>
-					</tr>
-
-					<tr class="board_content">
-						<td>1</td>
-						<td><a href="#" id="con_title">Hellow World</a></td>
-						<td>ggugguri</td>
-						<td>123</td>
-						<td>2019-10-23</td>
-					</tr>
-
-					<tr class="board_content">
-						<td>1</td>
-						<td><a href="#" id="con_title">Hellow World</a></td>
-						<td>ggugguri</td>
-						<td>123</td>
-						<td>2019-10-23</td>
-					</tr>
-
-					<tr class="board_content">
-						<td>1</td>
-						<td><a href="#" id="con_title">Hellow World</a></td>
-						<td>ggugguri</td>
-						<td>123</td>
-						<td>2019-10-23</td>
-					</tr>
-
-					<tr class="board_content">
-						<td>1</td>
-						<td><a href="#" id="con_title">Hellow World</a></td>
-						<td>ggugguri</td>
-						<td>123</td>
-						<td>2019-10-23</td>
-					</tr>
-
-					<tr class="board_content">
-						<td>1</td>
-						<td><a href="#" id="con_title">Hellow World</a></td>
-						<td>ggugguri</td>
-						<td>123</td>
-						<td>2019-10-23</td>
-					</tr>
-
-					<tr class="board_content">
-						<td>1</td>
-						<td><a href="#" id="con_title">Hellow World</a></td>
-						<td>ggugguri</td>
-						<td>123</td>
-						<td>2019-10-23</td>
-					</tr>
-
-					<tr class="board_content">
-						<td>1</td>
-						<td><a href="#" id="con_title">Hellow World</a></td>
-						<td>ggugguri</td>
-						<td>123</td>
-						<td>2019-10-23</td>
-					</tr>
-
-					<tr class="board_content">
-						<td>1</td>
-						<td><a href="#" id="con_title">Hellow World</a></td>
-						<td>ggugguri</td>
-						<td>123</td>
-						<td>2019-10-23</td>
-					</tr>
-
-					<tr class="board_content">
-						<td>1</td>
-						<td><a href="#" id="con_title">Hellow World</a></td>
-						<td>ggugguri</td>
-						<td>123</td>
-						<td>2019-10-23</td>
-					</tr>
-
-
 					
+					<c:forEach items="${map.list}" var="bDto">
+						<!-- 현재시간 구하기(변수명now) -->
+						<jsp:useBean id="now" class="java.util.Date"/>
+						<!-- 날짜포맷형식 변경 -->
+						<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="today"/>
+						<!-- bDto내의 regdate(게시글 등록일)정보 포맷형식 변경 -->
+						<fmt:formatDate value="${bDto.regdate}" pattern="yyyy-MM-dd" var="regdate"/>
+					
+						<tr class="board_content">
+							<td>${bDto.bno}</td>
+							<td><a href="#" id="con_title">${bDto.title}</a></td>
+							<td>${bDto.writer}</td>
+							<td>${bDto.viewcnt}</td>
+							<td>
+								<!-- 게시글 등록일이 오늘일경우 시분초, 오늘이 아니면 년월일로 띄워주게함 -->
+								<c:choose>
+									<c:when test="${today == regdate}">
+										<fmt:formatDate pattern="hh:mm:ss" value="${bDto.regdate}"/>
+									</c:when>
+									<c:otherwise>
+										<fmt:formatDate pattern="yyyy-MM-dd" value="${bDto.regdate}"/>
+									</c:otherwise>
+								</c:choose>
+							</td>
+						</tr>
+					</c:forEach>
 				</table>
+				
+				<c:if test="${!empty map.keyword}">
+					<div>
+						<span>${map.keyword}</span>로 검색한 결과는 총
+						<span>${map.count}</span>건입니다.
+					</div>
+				</c:if>
 			</div>
 		<!--  pagenation -->
 			<div class="pagenation">
 				<div class="page_all">
-					<a href="#" class="num_btn arrow_btn">
-						<i class="fas fa-chevron-left"></i>
-						<span class="arro_text">Prev</span>
-					</a>
-					<a href="#" class="num_btn">
-						<i class="fas fa-ellipsis-h dot"></i>
-					</a>
-					<a href="#" class="num_btn now_click">1</a>
-					<a href="#" class="num_btn">2</a>
-					<a href="#" class="num_btn">3</a>
-					<a href="#" class="num_btn">4</a>
-					<a href="#" class="num_btn">5</a>
-					<a href="#" class="num_btn">6</a>
-					<a href="#" class="num_btn">7</a>
-					<a href="#" class="num_btn">8</a>
-					<a href="#" class="num_btn">9</a>
-					<a href="#" class="num_btn">10</a>
-					<a href="#" class="num_btn">
-						<i class="fas fa-ellipsis-h dot"></i>
-					</a>
-					<a href="#" class="num_btn arrow_btn">
-						<span class="arro_text">Next</span>
-						<i class="fas fa-chevron-right"></i> 
-					</a>
+				
+					<c:if test="${map.pager.curBlock > 1}">
+						<a class="num_btn arrow_btn" href="${path}/board/list?curPage=${map.pager.blockBegin-10}&sort_option=${map.sort_option}&keyword=${map.keyword}&search_option=${map.search_option}">
+							<i class="fas fa-chevron-left"></i>
+							<span class="arro_text">Prev</span>
+						</a>
+						<a href="#" class="num_btn">
+							<i class="fas fa-ellipsis-h dot"></i>
+						</a>
+					</c:if>
+					
+					<c:forEach begin="${map.pager.blockBegin}" end="${map.pager.blockEnd}" var="idx">
+						<a class="num_btn <c:out value="${map.pager.curPage == idx ? 'active': '' }"/>" href="${path}/board/list?curPage=${idx}&sort_option=${map.sort_option}&keyword=${map.keyword}&search_option=${map.search_option}" >${idx}</a>
+					</c:forEach>
+					
+					<c:if test="${map.pager.curBlock < map.pager.totBlock}">
+						<a href="#" class="num_btn">
+							<i class="fas fa-ellipsis-h dot"></i>
+						</a>
+						<a href="${path}/board/list?curPage=${map.pager.blockEnd+1}&sort_option=${map.sort_option}&keyword=${map.keyword}&search_option=${map.search_option}" class="num_btn arrow_btn">
+							<span class="arro_text">Next</span>
+							<i class="fas fa-chevron-right"></i> 
+						</a>
+					</c:if>
 				</div>
 			</div>
 		

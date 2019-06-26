@@ -597,7 +597,7 @@ table tr:nth-child(odd) {
 .page_all {
 	display: flex;
 	align-items: center;
-	justify-content: space-between;
+	justify-content: center;
 	width: 500px;
 }
 .num_btn {
@@ -611,9 +611,10 @@ table tr:nth-child(odd) {
 	align-items: center;
 	justify-content: center;
 	color: #4C4C4C;
+	margin: 10px;
 }
 .arrow_btn {
-	width: 70px;
+	width: 80px;
 	height: 28px;
 	background-color: #70D6C7;
 	color: white;
@@ -627,15 +628,12 @@ table tr:nth-child(odd) {
 	font-size: .8em;
 }
 .arro_text{
-r	padding: 5px;
+	padding: 5px;
 }
-.now_click {
-	width: 28px;
-	height: 28px;
-	background-color: #70D6C7;
-	border-right: 20px;
-	color: white;
-	font-weight: 400;
+.active {
+	font-weight: bold;
+    color: #70d6c7;
+    text-decoration: underline;
 }
 .arrow_btn:hover {
 	background-color: #68bcae;

@@ -41,11 +41,10 @@ public class BoardServiceImpl implements BoardService{
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	// 게시글 목록(페이지 나누기, 검색기능 포함)
 	@Override
 	public List<BoardDTO> listAll(String sort_option, String search_option, String keyword, int start, int end) {
-		// TODO Auto-generated method stub
-		return null;
+		return bDao.listAll(sort_option, search_option, keyword, start, end);
 	}
 
 	@Override

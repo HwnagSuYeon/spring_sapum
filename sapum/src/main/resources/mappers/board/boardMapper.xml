@@ -33,8 +33,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</sql>
 	
 	<sql id="search">
+		WHERE b.writer = m.id
 		<choose>
 			<when test="search_option != 'all'">
+				
 				<if test="search_option == 'title'">
 					AND title LIKE #{keyword}
 				</if>
@@ -46,7 +48,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				</if>
 			</when>
 			<otherwise>
-				WHERE b.writer = m.id
 				AND (writer LIKE #{keyword}
 					 OR title LIKE #{keyword}
 					 OR content LIKE #{keyword})

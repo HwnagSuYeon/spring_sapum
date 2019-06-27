@@ -21,7 +21,7 @@
 			<h1 class="serch_title">Search for your desired Board</h1>
 			<form class="search_frm" action="" method="" name="">
 				<div class="se_in_div">
-					<input class="serch_text" type="text" name="" placeholder="Search works">
+					<input class="serch_text" type="text" name="keyword" placeholder="Search works">
 					<select class="select_box" name="search_option">
 					    <option value="title">Title</option>
 					    <option value="content">Content</option>
@@ -49,6 +49,12 @@
 					<a href="${path}/board/list?sort_option=view&keyword=${map.keyword}&search_option=${map.serch_option}"><h3 class="sort_type">VIEW</h3></a>
 				</div>
 			</div>
+			<c:if test="${!empty map.keyword}">
+				<div class="search_msg">
+					<span class="keyword_col">"${map.keyword}"</span>로 검색한 결과는 총 
+					<span class="keyword_col">&nbsp;${map.count}</span>건입니다.
+				</div>
+			</c:if>
 			<div class="table">
 				<table>
 					<tr id="column">
@@ -69,7 +75,17 @@
 					
 						<tr class="board_content">
 							<td>${bDto.bno}</td>
-							<td><a href="#" id="con_title">${bDto.title}</a></td>
+							<td>
+								<a href="#" id="con_title">${bDto.title}</a>
+								<!-- 오늘날짜와 게시글 작성일이 일치하면 새 게시글 아이콘 띄워줌 -->
+								<c:if test="${today == regdate}">
+									<span class="new_icon"></span>
+								</c:if>
+								<!-- 댓글이 한개라도 있으면 띄워주는 아이콘 -->
+								<c:if test="${bDto.replycnt > 0}">
+									<span class="reply_icon"></span>
+								</c:if>
+							</td>
 							<td>${bDto.writer}</td>
 							<td>${bDto.viewcnt}</td>
 							<td>
@@ -86,13 +102,6 @@
 						</tr>
 					</c:forEach>
 				</table>
-				
-				<c:if test="${!empty map.keyword}">
-					<div>
-						<span>${map.keyword}</span>로 검색한 결과는 총
-						<span>${map.count}</span>건입니다.
-					</div>
-				</c:if>
 			</div>
 		<!--  pagenation -->
 			<div class="pagenation">
@@ -150,23 +159,28 @@
 			});
 			
 			//sort_type선택시 선택한것의 색만 바꾸는 기능
-			$('#new').click(function() {
-				$(this).css('color', '#70D6C7')
-						 .css('border-bottom', '3px solid #70D6C7');
-				$('.sort_box').not('#new').css('color', '#4c4c4c')
-										  .css('border-bottom', '3px solid #4c4c4c');
-			});
-			$('#comment').click(function() {
-				$(this).css('color', '#70D6C7')
-					   .css('border-bottom', '3px solid #70D6C7');
-				$('.sort_box').not('#comment').css('color', '#4c4c4c')
-										  	  .css('border-bottom', '3px solid #4c4c4c');
-			});
-			$('#view').click(function() {
-				$(this).css('color', '#70D6C7')
-					   .css('border-bottom', '3px solid #70D6C7');
-				$('.sort_box').not('#view').css('color', '#4c4c4c')
-										  	  .css('border-bottom', '3px solid #4c4c4c');
+			var sort_option = "${map.sort_option}"
+			if (sort_option == "new") {
+				$('#new').css('color', '#70D6C7')
+				 	   .css('border-bottom', '3px solid #70D6C7');
+			} else if (sort_option == "reply") {
+				$('#comment').css('color', '#70D6C7')
+			 	   .css('border-bottom', '3px solid #70D6C7');
+			} else if (sort_option == "view") {
+				$('#view').css('color', '#70D6C7')
+			 	   .css('border-bottom', '3px solid #70D6C7');
+			}
+			
+			$('.serch_btn').click(function () {
+				// 검색버튼 누르면 검색어 유효성체크 및 데이터 넘겨주는 부분
+				var search_option = $('.select_box').val();
+				var keyword = $.trim($('.serch_text').val());
+				
+				if(keyword == null || keyword == "") {
+					$('.serch_text').focus();
+					return false;
+				}
+				location.href = "${path}/board/list?search_option="+search_option+"&keyword="+keyword;
 			});
 		});
 	</script>

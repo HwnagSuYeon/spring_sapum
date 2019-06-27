@@ -638,11 +638,42 @@ table tr:nth-child(odd) {
 .arrow_btn:hover {
 	background-color: #68bcae;
 }
-
-
-
-
-
+.new_icon {
+	width: 5px;
+    height: 5px;
+    display: inline-block;
+    font-weight: 400;
+    background-color: tomato;
+    margin-left: 5px;
+    animation-name: twinkle;
+    animation-duration: 1.2s;
+    animation-iteration-count: infinite;
+    border-radius: 10px;
+    margin-bottom: 7px;
+}
+@keyframes twinkle {
+	0% {opacity: 0;}
+	100% {opacity: 1;}
+}
+.reply_icon {
+	width: 5px;
+    height: 5px;
+    background-color: #70D6C7;
+    display: inline-block;
+    border-radius: 37px;
+    margin-bottom: 7px;
+}
+.search_msg {
+    display: flex;
+    justify-content: center;
+    margin-top: 90px;
+    font-weight: 400;
+    color: gray;
+}
+.keyword_col {
+	font-weight: bold;
+	color: #70D6C7;
+}
 
 
 

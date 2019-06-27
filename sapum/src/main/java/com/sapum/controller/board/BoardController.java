@@ -32,7 +32,6 @@ public class BoardController {
 			@RequestParam(defaultValue = "")String keyword,
 			@RequestParam(defaultValue = "1")int curPage) {
 		log.info(">>>게시글 리스트 페이지 출력 ");
-		
 		// 게시물 총 개수를 구해 몇개로 나눠 한 페이지에띄울지 정함
 		int count = service.countArticle(search_option, keyword);
 		

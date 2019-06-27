@@ -22,8 +22,7 @@ public class BaordDAOImpl implements BoardDAO{
 
 	@Override
 	public void create(BoardDTO bDto) {
-		// TODO Auto-generated method stub
-		
+		sqlSession.insert("board.create", bDto);
 	}
 
 	@Override
@@ -37,11 +36,10 @@ public class BaordDAOImpl implements BoardDAO{
 		// TODO Auto-generated method stub
 		
 	}
-
+	// 상세게시글 조회
 	@Override
 	public BoardDTO read(int bno) {
-		// TODO Auto-generated method stub
-		return null;
+		return sqlSession.selectOne("board.read", bno);
 	}
 
 	@Override
@@ -58,8 +56,8 @@ public class BaordDAOImpl implements BoardDAO{
 
 	@Override
 	public void increaseViewCnt(int bno) {
-		// TODO Auto-generated method stub
-		
+		sqlSession.update("board.increaseViewCnt", bno);
+		log.info(">>>>>>>DAO"+bno);
 	}
 
 	@Override

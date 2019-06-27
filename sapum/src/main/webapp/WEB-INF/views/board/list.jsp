@@ -12,7 +12,7 @@
 	<!-- 검색창& 작품추가, top버튼 -->
 	<div class="btn_wrap">
 		<div class="btn">
-			<a class="all_btn plus_btn"><i class="fas fa-plus"></i></a>
+			<a href="${path}/board/create" class="all_btn plus_btn"><i class="fas fa-plus"></i></a>
 			<a class="all_btn top_btn"><i class="fas fa-arrow-up"></i></a>
 		</div>
 	</div>
@@ -76,7 +76,7 @@
 						<tr class="board_content">
 							<td>${bDto.bno}</td>
 							<td>
-								<a href="#" id="con_title">${bDto.title}</a>
+								<a href="${path}/board/view?bno=${bDto.bno}" id="con_title">${bDto.title}</a>
 								<!-- 오늘날짜와 게시글 작성일이 일치하면 새 게시글 아이콘 띄워줌 -->
 								<c:if test="${today == regdate}">
 									<span class="new_icon"></span>

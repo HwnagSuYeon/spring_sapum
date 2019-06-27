@@ -4,8 +4,10 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -59,4 +61,48 @@ public class BoardController {
 		
 		return mav;
 	}
+	
+	
+	// 게시글 1건 조회
+	@RequestMapping(value = "view", method = RequestMethod.GET)
+	public String view(int bno, Model model, HttpSession session) {
+		log.info(">>>게시글 조회페이지 출력"+bno);
+		// 비즈니스로직
+		// 화면단에서 보내준 bno로DB에가서 그 bno로 조회, 1건만 출력
+		// 또한 해당 bno viewcnt +1 처리
+		service.increaseViewCnt(bno, session);
+		
+		BoardDTO bDto = service.read(bno);
+		model.addAttribute("view_info", bDto);
+		return "board/view";
+	}
+	
+	
+	
+	// 게시글 등록페이지 출력
+	@RequestMapping(value = "create", method = RequestMethod.GET)
+	public String createView() {
+		log.info(">>>게시글 등록페이지 출력");
+		
+		return "board/create";
+	}
+	
+	// 게시글 등록 기능 수행
+	@RequestMapping(value = "create", method = RequestMethod.POST)
+	public String create(BoardDTO bDto) {
+		log.info(">>>게시글 등록페이지 출력");
+		// log.info(">>>>>>>>>>게시글 등록페이지에서 값 가져옴"+bDto);
+		service.create(bDto);
+		
+		return "redirect:board/view?bno"+bDto.getBno();
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

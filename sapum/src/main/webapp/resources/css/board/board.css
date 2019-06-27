@@ -753,7 +753,7 @@ table tr:nth-child(odd) {
 }
 .view_title {
 	padding: 20px;
-    font-size: 1.4em;
+    font-size: 1em;
 }
 .option_title { 
 	font-weight: bold; 
@@ -767,6 +767,7 @@ table tr:nth-child(odd) {
 	display: flex;
     justify-content: flex-end;
     margin: 30px 0px;
+    align-items: center;
 }
 
 .all_comment {
@@ -777,6 +778,12 @@ table tr:nth-child(odd) {
 }
 .comment_board > div{
 	color: #4c4c4c;
+}
+.comment_board {
+	border-bottom: 3px solid #4c4c4c;
+}
+.com_add_btn {
+	margin-bottom: 30px;
 }
 .box_text {
 	font-size: .8em;
@@ -888,6 +895,7 @@ table tr:nth-child(odd) {
 /*----------------게시글 수정-----------------*/
 .modi_title {
 	font-size: 1.2em;
+	width: 100%;
 }
 .mody_ti {
 	border-bottom: 1px solid #4c4c4c;
@@ -903,4 +911,17 @@ table tr:nth-child(odd) {
 	height: 170px;
 	background-color: #f6f6f6;
 }
-
+.post_title {
+	margin-bottom: 30px;
+    font-size: 2em;
+    color: #4C4C4C;
+}
+.post_time {
+	font-weight: 400;
+    margin-right: 10px;
+    color: #dadada;
+    font-size: .9em;
+}
+.post_val {
+	color: #70D6C7;
+}

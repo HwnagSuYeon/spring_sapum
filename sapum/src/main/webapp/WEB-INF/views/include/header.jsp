@@ -14,7 +14,7 @@
 	<header class="header">
 		<div class="heder_wrap">
 			<div class="logo">
-				<a href="#">
+				<a href="${path}/">
 					<img src="${path}/resources/img/color_logo.svg" style="width: 70px;">
 				</a>
 			</div>

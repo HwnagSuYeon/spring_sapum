@@ -60,4 +60,38 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		FROM tbl_sa_board b, tbl_sa_member m
 		<include refid="search"/>
 	</select>
+	
+	<!-- 상세게시글 출력 -->
+	<select id="read" resultType="com.sapum.domain.board.BoardDTO">
+		SELECT * FROM tbl_sa_board
+		WHERE bno = #{bno}
+	</select>
+	
+	<!-- 조회수 증가 -->
+	<update id="increaseViewCnt" parameterType="int">
+		UPDATE tbl_sa_board SET
+			viewcnt = viewcnt + 1
+		WHERE bno = #{bno}
+	</update>
+	
+	<!-- 게시글 등록 -->
+	<insert id="create" parameterType="com.sapum.domain.board.BoardDTO">
+		INSERT INTO tbl_sa_board(bno, title, content, writer)
+		VALUES (seq_sa_board.NEXTVAL, #{title}, #{content}, #{writer})
+		<selectKey keyProperty="bno" resultType="Integer" order="AFTER">
+			SELECT seq_sa_board.currval FROM dual
+		</selectKey>
+	</insert>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 </mapper>

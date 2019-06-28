@@ -23,19 +23,17 @@
 			<jsp:useBean id="now" class="java.util.Date" />
 			<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="today" />
 			<fmt:formatDate value="${cmt_view.regdate}" pattern="yyyy-MM-dd" var="regdate" />
-			
 			<span class="cmt_wrap">
 				<!-- 댓글 작성시간이 오늘이면 시분초로, 오늘 이후면 모두 년월일로 표시 -->
 				<c:choose>
 					<c:when test="${today == regdate}">
-						<span class="cmt_time"><fmt:formatDate value="${cmt_view.regdate}" pattern="hh:mm:ss"/></span>
+						<fmt:formatDate pattern="hh:mm:ss" value="${cmt_view.regdate}" />
 					</c:when>
 					<c:otherwise>
-						<span class="cmt_time"><fmt:formatDate value="${cmt_view.regdate}" pattern="yyyy-MM-dd"/></span>
+						<span class="cmt_time"><fmt:formatDate pattern="yyyy-MM-dd" value="${cmt_view.regdate}"/></span>
 					</c:otherwise>
 				</c:choose>
 			
-				<!-- 댓글을 작성한 본인만 댓글 삭제버튼이 보이도록 함 -->
 				<c:if test="${sessopnScope.userid == cmt_view.writer}">
 					<a id="rno" data num="${cmt_view.rno}"><i class="fas fa-times com_del"></i></a>
 				</c:if>
@@ -69,7 +67,7 @@
 			</div>
 			<div class="comment_area comment_text">
 				<form class="comment_frm" action="" method="">
-					<textarea id="summernote" name="content" class="content"></textarea>
+					<textarea id="" name="content" class="content"></textarea>
 					<input type="hidden" name="writer" class="userid" value="${sessionScope.userid}">
 					<input type="hidden" name="bno" id="cmt_bno">
 					<span class="cmt_err_msg" style="display: none;">댓글의 내용이 없습니다! 내용을 입력해주세요.</span>

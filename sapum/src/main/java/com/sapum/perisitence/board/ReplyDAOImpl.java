@@ -23,8 +23,7 @@ public class ReplyDAOImpl implements ReplyDAO{
 
 	@Override
 	public void create(ReplyDTO rDto) {
-		// TODO Auto-generated method stub
-		
+		session.insert("reply.create", rDto);
 	}
 
 	@Override

@@ -141,7 +141,7 @@
 		$(document).on('click', '#cmt_add', function (){
 			var content = $('.content').val();
 			
-			if(contetn == "<p><br></p>") {
+			if(content == "" ) {
 				$('.cmt_err_msg').css('display', 'block');
 				$('.content').focus();
 				return false;

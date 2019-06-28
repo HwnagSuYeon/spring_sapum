@@ -40,6 +40,6 @@ public class ReplyController {
 	@ResponseBody
 	public void create(ReplyDTO rDto) {
 		log.info(">>>ajax: 댓글등록"+rDto);
-		
+		service.create(rDto);
 	}
 }

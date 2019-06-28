@@ -1,5 +1,6 @@
 package com.sapum.service.board;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -28,8 +29,13 @@ public class ReplyServiceImpl implements ReplyService {
 
 	@Override
 	public void create(ReplyDTO rDto) {
-		// TODO Auto-generated method stub
-		
+		// 1. 댓글 DB에 등록
+		rDao.create(rDto);
+		// 2. 해당 게시글에  replycnt +1
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("flag", "plus");
+		map.put("bno", rDto.getBno());
+		bDao.updateReplyCnt(map);
 	}
 
 	@Override

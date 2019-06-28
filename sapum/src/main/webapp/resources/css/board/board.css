@@ -742,8 +742,9 @@ table tr:nth-child(odd) {
     padding: 10px 0;
     background-color: #F6F6F6;
 }
-.writer{flex: 5}
-.date{flex: 3}
+.writer{flex: 4}
+.postno{flex:2}
+.date{flex: 2}
 .view{flex: 2}
 .view_option_all > div {
 	font-size: .8em;
@@ -813,6 +814,7 @@ table tr:nth-child(odd) {
     align-items: center;
     justify-content: space-between;
     padding: 10px 20px;
+    margin-top: 20px;
 }
 .com_del {
 	color: #70D6C7;
@@ -970,8 +972,19 @@ table tr:nth-child(odd) {
 	color: #212121;
 }
 
-
-
+.cmt_time {
+	font-size: .9em;
+    font-weight: 300;
+    color: #adadad;
+    margin-right: 5px;
+}
+.cmt_err_msg {
+	font-size: .8em;
+    color: tomato;
+    display: block;
+    margin-top: 20px;
+    font-weight: bold;
+}
 
 
 

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="reply">
+	<select id="list" resultType="com.sapum.domain.board.ReplyDTO">
+		SELECT rno, bno, content, writer, r.regdate
+		FROM tbl_sa_reply r, tbl_sa_member m
+		WHERE r.writer = m.id
+		AND bno = #{bno}
+		ORDER BY rno
+	</select>
+</mapper>

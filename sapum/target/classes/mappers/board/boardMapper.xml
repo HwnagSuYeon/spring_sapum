@@ -96,4 +96,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			content = #{content}
 		WHERE bno = #{bno}
 	</update>
+	
+	<!-- (replycnt)게시글의 댓글수 +1 또는 -1을 해주는 기능: replyService로부터 메서드 호출 -->
+	<update id="updateReplyCnt" parameterType="HashMap">
+		UPDATE tbl_sa_board SET
+			<if test="flag =='plus'">
+				replycnt = replycnt + 1
+			</if>
+			<if test="flag == 'minus'">
+				replycnt = replycnt - 1
+			</if>
+		WHERE bno = #{bno}
+	</update>
 </mapper>

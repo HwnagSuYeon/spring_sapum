@@ -6,8 +6,6 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="${path}/resources/css/board/board.css?v=1">
-<link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-lite.css" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-lite.js"></script>
 <title>Insert title here</title>
 </head>
 <body>
@@ -31,6 +29,11 @@
 						<div class="writer optiin_one">
 							<span class="option_title">Writer</span>
 							<span>${view_info.writer}</span>
+						</div>
+						
+						<div class="postno optiin_one">
+							<span class="option_title">Post No.</span>
+							<span>${view_info.bno}</span>
 						</div>
 						
 						<!-- 현재시간과 view_info안의 날짜정보를 가져와 비교하기 위함 -->
@@ -68,39 +71,7 @@
 				</div>
 				
 				<div class="comment_board">
-					<div class="all_comment">
-						<span>3</span>
-						<span>Comment</span>
-					</div>
-					<div class="com_box no_comment">
-						<i class="com_icon fas fa-exclamation-triangle"></i>
-						<div class="box_text">There are no registered comments</div>
-					</div>
-					<div class="com_box login_pleas">
-						<i class="com_icon far fa-user-circle"></i>
-						<div class="box_text"><a class="cmt_login" href="#" style="color: #70D6C7;">Login</a> to comment</div>
-					</div>
-					
-					<div class="comment_user">
-						<span class="box_text">user01</span>
-						<i class="fas fa-times com_del"></i>
-					</div>
-					<div class="comment_text">
-						Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-					</div>
-
-					<div class="comment_user">
-						<span class="box_text">user01</span>
-					</div>
-					<div class="comment_area comment_text">
-						<form class="comment_frm" action="" method="">
-							<textarea id="summernote" name="comment_data"></textarea>
-							<input type="hidden" name="id" class="userid">
-						</form>
-					</div>
-					<div class="com_add_btn">
-						<button class="board_btn add_btn">COMMENT ADD</button>
-					</div>
+					<div id="commentList"></div>
 				</div>
 			</div>
 		</div>
@@ -123,6 +94,10 @@
 	<script type="text/javascript">
 		// board view 스크립트
 		$(document).ready(function() {
+			// 댓글 목록을 띄우기위한 메서드 호출
+			comment_list();
+			
+			
 			// 리스트페이지로 돌아가는 버튼 누르면 리스트 페이지로
 			$('#list_btn').click (function () {
 				location.href = "${path}/board/list";
@@ -147,35 +122,51 @@
 			$('#board_modi_btn').click(function () {
 				location.href = "${path}/board/update?bno="+"${view_info.bno}";
 			});
-			
-			// SummerNote editeor실행
-			$('#summernote').summernote({
-				  toolbar: [
-				    // [groupName, [list of button]]
-				    ['style', ['bold', 'italic', 'underline', 'clear']],
-				    ['font', ['strikethrough', 'superscript', 'subscript']],
-				    ['fontsize', ['fontsize']],
-				    ['color', ['color']],
-				    ['para', ['ul', 'ol', 'paragraph']],
-				    ['height', ['height']]
-				  ]
-			});
-			// summernote editor에서 iframe막는 코드
-			$('#summernote').summernote({
-				  codeviewFilter: false,
-				  codeviewIframeFilter: true,
-				  codeviewFilterRegex: 'custom-regex',
-				  codeviewIframeWhitelistSrc: ['my-own-domainname']
-			});
 		});
 		
-		// 로그인 하면 댓글 쓸 수 있는 창에 로그인 글씨 누르면 모달창 나오도록 제어
-		$('.cmt_login').on('click', function () {
-			$('.lo_modal').css('display','flex');
-		});
-		$('.lo_modal_close').on('click', function () {
-			$('.lo_modal').css('display','none');
-		});
+		
+		// Comment_list.jsp를 띄워주기위한 기능
+		function comment_list() {
+			$.ajax({
+				type: "GET",
+				url: "${path}/reply/list?bno=${view_info.bno}",
+				success: function (result) {
+					// comment_list.jsp를 매개변수로 보내줌
+					$('#commentList').html(result);
+				}
+			});
+		}
+		
+		// 댓글 등록버튼을 눌렀을 때 유효성 검사 및 컨트롤러 이동
+		$(document).on('click', '#cmt_add', function (){
+			var content = $('.content').val();
+			
+			if(contetn == "<p><br></p>") {
+				$('.cmt_err_msg').css('display', 'block');
+				$('.content').focus();
+				return false;
+			} else {
+				var bno = '${view_info.bno}';
+				// 어느 게시글에 댓글이 달려졌는지 알기위해 코멘트 리스트에 숨겨져있는 선택자
+				$('#cmt_bno').val(bno);
+				$.ajax({
+					url: "${path}/reply/create",
+					type: "POST",
+					data: $('.comment_frm').serialize(),
+					contentType: 'application/x-www-form-urlencoded; charset+UTF-8',
+					success: 
+						function () {
+							comment_list();
+							$('.content').val("");
+						},
+					error: function () {
+						alert("system error");
+					}
+					
+				});
+			}
+		});		
+		
 	</script>
 </body>
 </html>

@@ -66,11 +66,10 @@ public class BaordDAOImpl implements BoardDAO{
 		
 		return sqlSession.selectOne("board.countArticle", map);
 	}
-
+	// replyService의 create메서드로부터 호출, 게시글에 댓글을 달면 board table의 replycnt값을 올려주거나 내려주는 기능
 	@Override
 	public void updateReplyCnt(HashMap<String, Object> map) {
-		// TODO Auto-generated method stub
-		
+		sqlSession.update("board.updateReplyCnt", map);
 	}
 
 }

@@ -6,7 +6,6 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="${path}/resources/css/board/board.css?v=1">
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-lite.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-lite.js"></script>
 <title>Insert title here</title>
@@ -18,8 +17,10 @@
 			<div class="view_all">
 
 				<div class="board_btn_wrap">
-					<button class="board_btn" type="button">MODIFY</button>
-					<button id="board_del" class="board_btn" type="button">DELETE</button>
+					<c:if test="${sessionScope.userid == view_info.writer}">
+						<button id="board_modi_btn" class="board_btn" type="button">MODIFY</button>
+						<button id="board_del" class="board_btn" type="button">DELETE</button>
+					</c:if>
 				</div>
 
 				<div class="view_board">
@@ -77,7 +78,7 @@
 					</div>
 					<div class="com_box login_pleas">
 						<i class="com_icon far fa-user-circle"></i>
-						<div class="box_text">Sign in to comment</div>
+						<div class="box_text"><a class="cmt_login" href="#" style="color: #70D6C7;">Login</a> to comment</div>
 					</div>
 					
 					<div class="comment_user">
@@ -105,15 +106,14 @@
 		</div>
 	</div>
 	<!-- board delete modal -->
-	<div id="bo_del_modal" class="lo_modal" style="display: flex;">
-		<div class="modal_box delete_modal">
-			<div class="modal_wrap">
-				<span id="wo_de_btn" class="lo_modal_close"><i class="fas fa-times"></i></span>
-				<h1 class="de_modal_title delete_title">Are you sure to<br> delete this post?</h1>
+	<div id="bo_del_modal" class="del_modal" style="display: none;">
+		<div class="del_modal_box delete_modal">
+			<div class="del_modal_wrap">
+				<h1 class="del_modal_title delete_title">Are you sure to<br> delete this post?</h1>
 				<span class="warring"><i class="fas fa-exclamation-circle"></i></span>
 				<div class="modal_btn_wrap">
 					<button id="n_btn" type="button" class="n_btn">NO</button>
-					<button type="button" class="n_btn">YES</button>
+					<button id ="board_del_btn" type="button" class="n_btn">YES</button>
 				</div>
 			</div>
 		</div>
@@ -138,6 +138,16 @@
 				$('#bo_del_modal').css('display', 'none');
 			});
 			
+			// 게시글 삭제버튼 누르면 컨트롤러로 가세요
+			$('#board_del_btn').click(function () {
+				location.href = "${path}/board/delete?bno="+"${view_info.bno}";
+			}); 
+			
+			// 게시글 수정버튼 누르면 컨트롤러로 가세요
+			$('#board_modi_btn').click(function () {
+				location.href = "${path}/board/update?bno="+"${view_info.bno}";
+			});
+			
 			// SummerNote editeor실행
 			$('#summernote').summernote({
 				  toolbar: [
@@ -157,6 +167,14 @@
 				  codeviewFilterRegex: 'custom-regex',
 				  codeviewIframeWhitelistSrc: ['my-own-domainname']
 			});
+		});
+		
+		// 로그인 하면 댓글 쓸 수 있는 창에 로그인 글씨 누르면 모달창 나오도록 제어
+		$('.cmt_login').on('click', function () {
+			$('.lo_modal').css('display','flex');
+		});
+		$('.lo_modal_close').on('click', function () {
+			$('.lo_modal').css('display','none');
 		});
 	</script>
 </body>

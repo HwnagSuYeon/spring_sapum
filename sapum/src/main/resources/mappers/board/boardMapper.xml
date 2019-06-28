@@ -83,15 +83,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		</selectKey>
 	</insert>
 	
+	<!-- 게시글 삭제 -->
+	<delete id="delete" parameterType="int">
+		DELETE FROM tbl_sa_board
+		WHERE bno = #{bno}
+	</delete>
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	<!-- 게시글 수정 -->
+	<update id="update" parameterType="com.sapum.domain.board.BoardDTO">
+		UPDATE tbl_sa_board
+		SET title = #{title},
+			content = #{content}
+		WHERE bno = #{bno}
+	</update>
 </mapper>

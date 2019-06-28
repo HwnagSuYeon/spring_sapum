@@ -93,15 +93,39 @@ public class BoardController {
 		log.info(">>>게시글 등록페이지 출력");
 		// log.info(">>>>>>>>>>게시글 등록페이지에서 값 가져옴"+bDto);
 		service.create(bDto);
+		log.info(">>>>>>>>>>>>>>"+bDto.getBno());
 		
-		return "redirect:board/view?bno"+bDto.getBno();
+		return "redirect:/board/view?bno="+bDto.getBno();
 	}
 	
 	
+	// 게시글 삭제 기능 수행
+	@RequestMapping(value = "delete", method = RequestMethod.GET)
+	public String delete(int bno) {
+		log.info(">>>게시글 삭제기능 출력"+bno);
+		service.delete(bno);
+		
+		return "redirect:/board/list";
+	}
 	
+	// 게시글 수정페이지 출력
+	@RequestMapping(value = "update", method = RequestMethod.GET)
+	public String updateView(int bno, Model model) {
+		log.info(">>>게시글 수정페이지 출력");
+		BoardDTO bDto = service.read(bno);
+		model.addAttribute("modi_info", bDto);
+		return "board/update";
+	}
 	
-	
-	
+	// 게시글 수정기능 수행
+	@RequestMapping(value = "update", method = RequestMethod.POST)
+	public String update(BoardDTO bDto) {
+		log.info(">>>게시글 수정 기능수행");
+		log.info("수정페이지에서 값 가져옴"+bDto);
+		service.update(bDto);
+		
+		return "redirect:/board/list";
+	}
 	
 	
 	

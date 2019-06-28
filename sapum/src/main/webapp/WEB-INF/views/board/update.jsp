@@ -15,27 +15,28 @@
 	<div class="list_all">
 		<!-- board -->
 		<div class="board_view_all">
-			<h3 class="post_title">Write a post</h3>
+			<h3 class="post_title">Edit a post</h3>
 			<div class="view_all">
-				<form id="create_frm" class="board_modify_frm" action="${path}/board/create" method="POST">
+				<form id="update_frm" class="board_modify_frm" action="${path}/board/update" method="POST">
 					<div class="view_board">
 						<div class="view_title mody_ti">
-							<input type="text" name="title" class="modi_title" placeholder="Enter title">
+							<input type="text" name="title" class="modi_title" placeholder="Enter title" value="${modi_info.title}">
 						</div>
 						
 						<div class="comment_area board_content_area ">
-							<textarea name="content" id="summernote"></textarea>
+							<textarea class="content" name="content" id="summernote">${modi_info.content}</textarea>
 							<input type="hidden" name="writer" class="writer" value="${sessionScope.userid}">
+							<input type="hidden" name="bno" class="bno" value="${modi_info.bno}">
 						</div>
 						
 						<jsp:useBean id="now" class="java.util.Date"/>
 						<fmt:formatDate value="${now}" pattern="hh:mm:ss" var="today"/>
 						
 						<div class="list_btn">
-							<span class="post_time">Post time: 
+							<span class="post_time">Update time: 
 								<span class="post_val">${today}</span>
 							</span>
-							<button id="update_btn" class="board_btn">ADD</button>
+							<button id="update_btn" class="board_btn">UPDATE</button>
 						</div>
 					</div>
 				</form>
@@ -59,6 +60,23 @@
 				}
 				$('#create_frm').submit();
 			}); 
+			
+			// 업데이트 버튼 누르면 컨트롤러로 가세요
+			$('#update_btn').click(function () {
+				// 유효성 검사
+				var title = $('.modi_title').val();
+				var content = $('.content').val();
+				var writer = $('.writer').val();
+				
+				if(title == "" || title.length == 0) {
+					alert("제목을 입력하세요");
+					return false;
+				} else if (content == "<p><br><p>") {
+					alert("내용을 입력하세요");
+					return false;
+				}
+				$('#update_frm').submit();
+			});
 			
 			// SummerNote editeor실행
 			$('#summernote').summernote({

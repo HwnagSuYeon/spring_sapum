@@ -171,57 +171,7 @@
 				$('.lo_modal').css('display','flex');
 				$('.modal_err_msg').text('로그인이 필요한 기능입니다.');
 			}
-			// 로그인 버튼 눌렀을 때 동작(유효성검사 및 ajax기능실행 )
-			$('#login_btn').click(function () {
-				var id = $.trim($('#login_id').val());
-				var pw = $.trim($('#login_pw').val());
-				
-				var regEmpty = /\s/g; //공백문자 정규식
-				// null+공백체크 유효성 검사
-				if (id==null||id.length == 0) {
-					$('.modal_err_msg').text('필수정보 입니다')
-								 .css('display','block');
-					return false;
-				} else if (id.match(regEmpty)){
-					$('.modal_err_msg').text('공백없이 입력해주세요')
-					 			 .css('display','block');
-					return false;
-				}
-				
-				if (pw==null||pw.length == 0) {
-					$('.modal_err_msg').text('필수정보 입니다')
-								 .css('display','block');
-					return false;
-				} else if (pw.match(regEmpty)){
-					$('.modal_err_msg').text('공백없이 입력해주세요')
-					 			 .css('display','block');
-					return false;
-				}
-				// 로그인동작 실행  
-				$.ajax({
-					url: "${path}/member/login",
-					type: "POST",
-					dataType: "text",
-					// return데이터의 타입. controller에서 로그인 정보를 체크한후 반환해주는 타입이 String, 즉 문자열이므로 데이터타입을 text로 써준다.
-					data: "id="+id+"&pw="+pw,
-					success: function(data) {
-						if(data == "1") {
-							if(uri == '') {
-								location.reload();
-							} else {
-								location.href = uri;
-							}
-						} else if (data == "-1") {
-							$('#login_id').focus();
-							$('.modal_err_msg').text('아이디 또는 비밀번호가 일치하지 않습니다!')
-										 	   .css('display','block');
-						}
-					},
-					error:function(){
-						alert("system error♨♨♨")
-					}
-				});
-			});
+			
 			
 			// 로그아웃 기능
 			$('#logout_btn').click(function () {
@@ -243,6 +193,58 @@
 		   e.preventDefault();
 		   e.stopPropagation(); 
 		   return false;
+		});
+		
+		// 로그인 버튼 눌렀을 때 동작(유효성검사 및 ajax기능실행 )
+		$('#login_btn').on('click', function () {
+			var id = $.trim($('#login_id').val());
+			var pw = $.trim($('#login_pw').val());
+			
+			var regEmpty = /\s/g; //공백문자 정규식
+			// null+공백체크 유효성 검사
+			if (id==null||id.length == 0) {
+				$('.modal_err_msg').text('필수정보 입니다')
+							 .css('display','block');
+				return false;
+			} else if (id.match(regEmpty)){
+				$('.modal_err_msg').text('공백없이 입력해주세요')
+				 			 .css('display','block');
+				return false;
+			}
+			
+			if (pw==null||pw.length == 0) {
+				$('.modal_err_msg').text('필수정보 입니다')
+							 .css('display','block');
+				return false;
+			} else if (pw.match(regEmpty)){
+				$('.modal_err_msg').text('공백없이 입력해주세요')
+				 			 .css('display','block');
+				return false;
+			}
+			// 로그인동작 실행  
+			$.ajax({
+				url: "${path}/member/login",
+				type: "POST",
+				dataType: "text",
+				// return데이터의 타입. controller에서 로그인 정보를 체크한후 반환해주는 타입이 String, 즉 문자열이므로 데이터타입을 text로 써준다.
+				data: "id="+id+"&pw="+pw,
+				success: function(data) {
+					if(data == "1") {
+						if(uri == '') {
+							location.reload();
+						} else {
+							location.href = uri;
+						}
+					} else if (data == "-1") {
+						$('#login_id').focus();
+						$('.modal_err_msg').text('아이디 또는 비밀번호가 일치하지 않습니다!')
+									 	   .css('display','block');
+					}
+				},
+				error:function(){
+					alert("system error♨♨♨")
+				}
+			});
 		});
 
 	</script>

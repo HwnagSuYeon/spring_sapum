@@ -119,4 +119,12 @@ public class MemberController {
 		return "redirect:/";
 	}
 	
+	// 계정찾기 페이지 띄워주는 기능
+	@RequestMapping(value = "find", method = RequestMethod.GET)
+	public String findView() {
+		log.info(">>>계정찾기페이지 출력");
+		
+		return "member/findAccount";
+	}
+	
 }

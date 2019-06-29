@@ -64,6 +64,10 @@
 	width: 250px;
 	height: 35px;
 	color: white;
+	display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
 }
 .join_btn:hover {
 	background-color: #70D6C7;
@@ -251,4 +255,17 @@
 }
 .find_user {
 	color: #70D6C7;
+}
+.find_btn {
+	width: 200px;
+    height: 35px;
+    background-color: #dadada;
+    color: white;
+    border-radius: 3px;
+}
+.find_btn:hover {
+	background-color: #70D6C7;
+}
+.find_pw {
+	margin: 100px 0;
 }

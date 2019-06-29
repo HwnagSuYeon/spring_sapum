@@ -32,7 +32,7 @@
 						</c:otherwise>
 					</c:choose>
 					
-					<li><a href="#" class="li3">Gellary</a></li>
+					<li><a href="${path}/work/list" class="li3">Gellary</a></li>
 					<li><a href="${path}/board/list" class="li4">Q&A</a></li>
 				</ul>
 			</div>
@@ -88,7 +88,7 @@
 				</div>
 				<span class="modal_err_msg"></span>
 				<button id="login_btn" type="button" class="lo_btn">login</button>
-				<a href="#" class="forgot"><span>Forgot Password?</span></a>
+				<a href="${path}/member/find" class="forgot"><span>Forgot Password?</span></a>
 			</form>
 		</div>
 	</div>

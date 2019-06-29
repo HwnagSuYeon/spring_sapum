@@ -6,8 +6,8 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="${path}/resources/css/board/board.css?v=1">
-<link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-lite.css" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-lite.js"></script>
+<!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-lite.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-lite.js"></script> -->
 <title>Insert title here</title>
 </head>
 <body>
@@ -23,26 +23,25 @@
 			<jsp:useBean id="now" class="java.util.Date" />
 			<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="today" />
 			<fmt:formatDate value="${cmt_view.regdate}" pattern="yyyy-MM-dd" var="regdate" />
-			<span class="cmt_wrap">
+			<span class="cmt_wrap cmt_time">
 				<!-- 댓글 작성시간이 오늘이면 시분초로, 오늘 이후면 모두 년월일로 표시 -->
 				<c:choose>
 					<c:when test="${today == regdate}">
 						<fmt:formatDate pattern="hh:mm:ss" value="${cmt_view.regdate}" />
 					</c:when>
 					<c:otherwise>
-						<span class="cmt_time"><fmt:formatDate pattern="yyyy-MM-dd" value="${cmt_view.regdate}"/></span>
+						<fmt:formatDate pattern="yyyy-MM-dd" value="${cmt_view.regdate}"/>
 					</c:otherwise>
 				</c:choose>
-			
-				<c:if test="${sessopnScope.userid == cmt_view.writer}">
-					<a id="rno" data num="${cmt_view.rno}"><i class="fas fa-times com_del"></i></a>
+				<c:if test="${sessionScope.userid == cmt_view.writer}">
+					<a id="cmt_del" data_num="${cmt_view.rno}">
+						<i class="fas fa-times com_del"></i>
+					</a>
 				</c:if>
 			</span>
 		</div>
 		<div class="comment_text">${cmt_view.content}</div>
 	</c:forEach>
-	
-	
 	
 	<!-- 등록된 댓글이 없을경우 -->
 	<c:if test="${cmt_list.size() == 0}">
@@ -86,7 +85,7 @@
 	
 	
 	<script type="text/javascript">
-		$(document).ready(function () {
+		/* $(document).ready(function () {
 			// SummerNote editeor실행
 			$('#summernote').summernote({
 				  toolbar: [
@@ -106,7 +105,7 @@
 				  codeviewFilterRegex: 'custom-regex',
 				  codeviewIframeWhitelistSrc: ['my-own-domainname']
 			});
-		});
+		}); */
 		
 		// 로그인 하면 댓글 쓸 수 있는 창에 로그인 글씨 누르면 모달창 나오도록 제어
 		$('.cmt_login').on('click', function () {
@@ -115,6 +114,7 @@
 		$('.lo_modal_close').on('click', function () {
 			$('.lo_modal').css('display','none');
 		});
+		
 	</script>
 </body>
 </html>

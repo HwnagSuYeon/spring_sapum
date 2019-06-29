@@ -165,7 +165,26 @@
 					
 				});
 			}
-		});		
+		});	
+		
+		// 댓글 삭제기능
+		$(document).on('click', '#cmt_del', function () {
+			var rno = $(this).attr("data_num");
+			var bno = '${view_info.bno}';
+			
+			$.ajax({
+				url: "${path}/reply/delete",
+				type: "GET",
+				data: "rno="+rno+"&bno="+bno,
+				success: function () {
+					comment_list();
+				},
+				error: function () {
+					alert("system erronr");
+				}
+			});
+		});
+		
 		
 	</script>
 </body>

@@ -39,9 +39,14 @@ public class ReplyServiceImpl implements ReplyService {
 	}
 
 	@Override
-	public void delete(int rno) {
-		// TODO Auto-generated method stub
-		
+	public void delete(ReplyDTO rDto) {
+		// 1. DB에서 댓글 삭제
+		rDao.delete(rDto.getRno());
+		// 2. 해당 게시글 replycnt -1
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("flag", "minus");
+		map.put("bno", rDto.getBno());
+		bDao.updateReplyCnt(map);
 	}
 
 }

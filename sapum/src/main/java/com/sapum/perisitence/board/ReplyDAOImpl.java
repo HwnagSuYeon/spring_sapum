@@ -28,8 +28,7 @@ public class ReplyDAOImpl implements ReplyDAO{
 
 	@Override
 	public void delete(int rno) {
-		// TODO Auto-generated method stub
-		
+		session.delete("reply.delete", rno);
 	}
 
 }

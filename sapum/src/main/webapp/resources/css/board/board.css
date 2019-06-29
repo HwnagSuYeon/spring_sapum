@@ -742,9 +742,9 @@ table tr:nth-child(odd) {
     padding: 10px 0;
     background-color: #F6F6F6;
 }
-.writer{flex: 4}
+.writer{flex: 3}
 .postno{flex:2}
-.date{flex: 2}
+.date{flex: 3}
 .view{flex: 2}
 .view_option_all > div {
 	font-size: .8em;
@@ -985,7 +985,10 @@ table tr:nth-child(odd) {
     margin-top: 20px;
     font-weight: bold;
 }
-
+#cmt_del {
+	margin-left: 10px;
+	cursor: pointer;
+}
 
 
 

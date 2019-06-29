@@ -39,7 +39,15 @@ public class ReplyController {
 	@RequestMapping(value = "create", method = RequestMethod.POST)
 	@ResponseBody
 	public void create(ReplyDTO rDto) {
-		log.info(">>>ajax: 댓글등록"+rDto);
+		log.info(">>>ajax: 댓글등록");
 		service.create(rDto);
+	}
+	
+	// 댓글 삭제
+	@RequestMapping(value = "delete", method = RequestMethod.GET)
+	@ResponseBody
+	public void delete(ReplyDTO rDto) {
+		log.info(">>>ajax: 댓글삭제");
+		service.delete(rDto);
 	}
 }

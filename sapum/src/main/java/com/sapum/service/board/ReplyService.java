@@ -7,5 +7,5 @@ import com.sapum.domain.board.ReplyDTO;
 public interface ReplyService {
 	public List<ReplyDTO> list(int bno);
 	public void create(ReplyDTO rDto);
-	public void delete(int rno);
+	public void delete(ReplyDTO rDto);
 }

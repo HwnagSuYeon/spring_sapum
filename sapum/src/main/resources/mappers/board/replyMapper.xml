@@ -15,6 +15,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<insert id="create" parameterType="com.sapum.domain.board.ReplyDTO">
 		INSERT INTO tbl_sa_reply(rno, content, writer, bno)
 		VALUES(seq_sa_reply.NEXTVAL, #{content}, #{writer}, #{bno})
-		
 	</insert>
+	
+	<delete id="delete" parameterType="int">
+		DELETE FROM tbl_sa_reply
+		WHERE rno = #{rno}
+	</delete>
 </mapper>

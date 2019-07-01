@@ -67,6 +67,7 @@
 					
 					<div class="list_btn">
 						<button id="list_btn" class="board_btn">LIST PAGE</button>
+						<button id="answer_btn" class="board_btn">REPLY</button>
 					</div>
 				</div>
 				
@@ -102,6 +103,7 @@
 			$('#list_btn').click (function () {
 				location.href = "${path}/board/list";
 			});
+			
 			// 작품삭제 누를시 모달창 나오고 들어가게 만듦
 			$('#board_del').click(function() {
 				$('#bo_del_modal').css('display', 'flex');
@@ -124,6 +126,10 @@
 			});
 		});
 		
+		// 답글 버튼 누르면 컨트롤러로
+		$(document).on('click', '#answer_btn', function () {
+			location.href = "${path}/board/answer?bno=${view_info.bno}";
+		});
 		
 		// Comment_list.jsp를 띄워주기위한 기능
 		function comment_list() {

@@ -7,17 +7,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 게시글 목록 출력 -->
 	<select id="listAll" parameterType="HashMap" resultType="com.sapum.domain.board.BoardDTO">
 		<include refid="paging_header"/>
-		SELECT bno, title, content, writer, m.id, viewcnt, replycnt, b.regdate
+		SELECT b.*, m.id
 		FROM tbl_sa_board b, tbl_sa_member m
 		<include refid="search"/>
 			<if test="sort_option == 'new'">
-				ORDER BY bno DESC
+				ORDER BY ref DESC, re_step
 			</if>
 			<if test="sort_option == 'reply'">
-				ORDER BY replycnt DESC, bno DESC
+				ORDER BY replycnt DESC, ref DESC, re_step
 			</if>
 			<if test="sort_option == 'view'">
-				ORDER BY viewcnt DESC, bno DESC
+				ORDER BY viewcnt DESC, ref DESC, re_step
 			</if>
 		<include refid="paging_footer"/>
 	</select>
@@ -76,8 +76,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 게시글 등록 -->
 	<insert id="create" parameterType="com.sapum.domain.board.BoardDTO">
-		INSERT INTO tbl_sa_board(bno, title, content, writer)
-		VALUES (seq_sa_board.NEXTVAL, #{title}, #{content}, #{writer})
+		INSERT INTO tbl_sa_board(bno, title, content, writer, ref, re_step, re_level)
+		VALUES (seq_sa_board.NEXTVAL, #{title}, #{content}, #{writer}, seq_sa_board.CURRVAL, 1, 0)
 		<selectKey keyProperty="bno" resultType="Integer" order="AFTER">
 			SELECT seq_sa_board.currval FROM dual
 		</selectKey>
@@ -108,4 +108,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			</if>
 		WHERE bno = #{bno}
 	</update>
+	
+	<!-- 답글정렬 -->
+	<update id="updateStep" parameterType="HashMap">
+		UPDATE tbl_sa_board
+		SET re_step = re_step + 1
+		WHERE ref = #{ref} AND re_step > #{re_step}
+	</update>
+	
+	<!-- 답글 등록 -->
+	<insert id="answer" parameterType="com.sapum.domain.board.BoardDTO">
+		INSERT INTO tbl_sa_board(bno, title, content, writer, ref, re_step, re_level)
+		VALUES (seq_sa_board.NEXTVAL, #{title}, #{content}, #{writer}, #{ref}, #{re_step}, #{re_level})
+	</insert>
 </mapper>

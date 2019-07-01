@@ -11,7 +11,7 @@
 </head>
 <body>
 	<!-- header -->
-	<header class="header">
+	<header id="header" class="header">
 		<div class="heder_wrap">
 			<div class="logo">
 				<a href="${path}/">
@@ -186,6 +186,12 @@
 					}
 				});
 			});
+			// 인덱스에만 헤더를 fixed로 주기위함
+			if(${!empty code}) {
+				$('#header').css('position', 'fixed');
+			} else {
+				$('#header').css('position', 'inherit');
+			}
 		});
 		
 		// 햄버거버튼 누를시 나오는 창에서 스크롤 제어
@@ -245,7 +251,10 @@
 					alert("system error♨♨♨")
 				}
 			});
+			
+			
 		});
+		
 
 	</script>
 </body>

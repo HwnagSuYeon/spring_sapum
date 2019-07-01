@@ -22,4 +22,6 @@ public interface BoardService {
 		public void increaseViewCnt(int bno, HttpSession session);
 		//레코드 갯수 계산("ㅇㅇ"으로 검색결과 총"ㅇ"건이 검색되었습니다)
 		public int countArticle(String search_option, String keyword);
+		//답글 등록기능
+		public void answer(BoardDTO bDto);
 }

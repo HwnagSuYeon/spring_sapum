@@ -44,6 +44,8 @@ public class BoardController {
 		
 		// 페이지에 출력할 게시글 목록
 		List<BoardDTO> list = service.listAll(sort_option, search_option, keyword, start, end);
+		log.info(">>>>>>>>>>>>>>>>>>>"+list.toString());
+		
 		
 		// 화면단에 보낼 것을 mav에 담아서 보냄.
 		ModelAndView mav = new ModelAndView();
@@ -127,6 +129,39 @@ public class BoardController {
 		return "redirect:/board/list";
 	}
 	
+	// 답글 등록페이지 출력
+	@RequestMapping(value = "answer", method = RequestMethod.GET)
+	public String answerView(Model model, int bno) {
+		log.info(">>>답글등록페이지 출력");
+		
+		// 답글을 달고자 하는 게시글의 내용을출력
+		BoardDTO bDto = service.read(bno);
+		bDto.setContent("=======================기존 게시물내용=======================<br><br>"+bDto.getContent()+"<br>==========================================================");
+		model.addAttribute("one", bDto);
+		
+		return "board/answer";
+	}
 	
+	// 답글 등록 실제기능 수행
+	@RequestMapping(value = "answer", method = RequestMethod.POST)
+	public String answer(BoardDTO bDto, HttpSession session, Model model) {
+		log.info(">>>답글등록기능 수행");
+		String writer = (String)session.getAttribute("userid");
+		bDto.setWriter(writer);
+		
+		// 기존게시글의 ref, re_step, re_level 가져오기
+		BoardDTO one = service.read(bDto.getBno());
+		log.info("=======================기존 게시물내용=======================");
+		log.info(one.toString());
+		log.info("=========================================================");
+		bDto.setRef(one.getRef());
+		bDto.setRe_step(one.getRe_step());
+		bDto.setRe_level(one.getRe_level());
+		
+		// DB등록
+		service.answer(bDto);
+		
+		return "board/answer";
+	}
 	
 }

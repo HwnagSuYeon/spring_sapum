@@ -75,7 +75,15 @@ public class BoardServiceImpl implements BoardService{
 	public int countArticle(String search_option, String keyword) {
 		return bDao.countArticle(search_option, keyword);
 	}
-	
-
-
+	// 답글 등록기능
+	@Override
+	public void answer(BoardDTO bDto) {
+		// 비즈니스로직: 답글등록
+		// 1.답글을 달 기존게시글의 re_step보다 큰 답글들을 re_step에 +1씩 해주는 것
+		bDao.updateStep(bDto.getRef(), bDto.getRe_step());
+		// 2.답글 테이블에 등록
+		bDto.setRe_step(bDto.getRe_step()+1);
+		bDto.setRe_level(bDto.getRe_level()+1);
+		bDao.answer(bDto);
+	}
 }

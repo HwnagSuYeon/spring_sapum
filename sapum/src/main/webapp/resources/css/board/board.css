@@ -989,7 +989,15 @@ table tr:nth-child(odd) {
 	margin-left: 10px;
 	cursor: pointer;
 }
-
+#re_icon {
+	transform: rorareY(180deg) rotate(90deg);
+	color: #dadada;
+	margin-rignt: 10px;
+}
+.list_title {
+	padding: 0 30px;
+	text-align: left;
+}
 
 
 

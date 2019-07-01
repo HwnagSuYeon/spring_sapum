@@ -23,4 +23,8 @@ public interface BoardDAO {
 	public int countArticle(String search_option, String keyword);
 	// 해당게시글 replycnt를 +1OR -1해주는 작업
 	public void updateReplyCnt(HashMap<String, Object> map);
+	// 답글의 정렬
+	public void updateStep(int ref, int re_step);
+	// 답글실제로 다는 역할 수행
+	public void answer(BoardDTO bDto);
 }

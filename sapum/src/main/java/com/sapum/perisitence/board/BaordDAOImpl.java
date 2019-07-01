@@ -71,5 +71,18 @@ public class BaordDAOImpl implements BoardDAO{
 	public void updateReplyCnt(HashMap<String, Object> map) {
 		sqlSession.update("board.updateReplyCnt", map);
 	}
+	// 답글 정렬을 위해 만듦
+	@Override
+	public void updateStep(int ref, int re_step) {
+		Map<String, Integer> map = new HashMap<>();
+		map.put("ref", ref);
+		map.put("re_step", re_step);
+		sqlSession.update("board.updateStep", map);
+	}
+	// 답글 실제로 달게하는 역할
+	@Override
+	public void answer(BoardDTO bDto) {
+		sqlSession.insert("board.answer", bDto);
+	}
 
 }

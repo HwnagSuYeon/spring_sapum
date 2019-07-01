@@ -20,4 +20,7 @@ public class BoardDTO {
 	private int viewcnt;
 	private int replycnt;
 	private Date regdate;
+	private int ref;
+	private int re_step;
+	private int re_level;
 }

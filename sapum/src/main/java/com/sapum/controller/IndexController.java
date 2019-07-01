@@ -13,8 +13,8 @@ import lombok.extern.slf4j.Slf4j;
 public class IndexController {
 	@RequestMapping("/") 
 	public String index(Model model) {
-	log.info(">>> Index페이지");
-		
+		log.info(">>> Index페이지");
+		model.addAttribute("code", 1);
 		return "index";
 	}
 }

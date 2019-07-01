@@ -243,7 +243,7 @@
 		</div>
 	</div>	
 	<!-- work delete modal -->
-	<div id="wo_de_modal" class="lo_modal" style="display: none;">
+	<div id="wo_de_modal" class="del_modal" style="display: none;">
 		<div class="modal_box delete_modal">
 			<div class="modal_wrap">
 				<span id="wo_de_btn" class="lo_modal_close"><i class="fas fa-times"></i></span>

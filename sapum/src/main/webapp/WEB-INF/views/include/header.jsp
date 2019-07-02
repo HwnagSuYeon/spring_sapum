@@ -143,6 +143,7 @@
 		var uri = '${uri}';
 		
 		
+		
 		$(document).ready(function() {
 			//인풋태그 focus시 라인색 바뀜
 			$('.ip_style').click(function(){

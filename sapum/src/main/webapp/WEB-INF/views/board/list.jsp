@@ -77,7 +77,7 @@
 							<td>${bDto.bno}</td>
 							<td class="list_title">
 								<c:forEach begin="1" end="${bDto.re_level}">
-									<i id="re_icon" class="fas fa-level-down-alt"></i>
+									<i id="re_icon" class="fas fa-reply"></i>
 								</c:forEach>
 								<a href="${path}/board/view?bno=${bDto.bno}" id="con_title">${bDto.title}</a>
 								<!-- 오늘날짜와 게시글 작성일이 일치하면 새 게시글 아이콘 띄워줌 -->

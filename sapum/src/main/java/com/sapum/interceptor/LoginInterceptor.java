@@ -28,6 +28,15 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 			int index = referer.lastIndexOf("/"); // String 값이 아닌 int. /board/create중 두번째 슬러시를 뜻함 = 6
 			int length = referer.length(); // 글자의 전체 길이를 구함 = 12
 			String url = referer.substring(index, length); // 자르는 역할 index~length까지 자르라는 뜻
+			// 원래 uri는 뒤에 붙은 쿼리스트링 못읽는데,answer 를 탔을 때 뒤에있는 bno를 읽기위한 코드임
+			String query = request.getQueryString();
+			// getQueryString -> 이것도 ?는 붙여주지 않아. 그래서 else에 ?를 더해준것.
+			if(query == null || query.equals("null")) {
+				query = "";
+			} else {
+				query = "?" + query;
+			}
+			
 			log.info("수정된 URL" + url);
 			
 			
@@ -36,7 +45,8 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 			// 로그인 한 후 다시 게시글 등록버튼 누름 -> 전에는 쿼리스트링으로 로그인 안한 정보를 보내줘서 로그인 해도 nologin이라고 떠서 모달창이 계속 뜸.
 			FlashMap flashMap = RequestContextUtils.getOutputFlashMap(request);
 			flashMap.put("message", "nologin");
-			flashMap.put("uri", uri);
+			// board/answer를 탔을 때 bno를 받기위함
+			flashMap.put("uri", (uri+query));
 			log.info(">>>URI" + uri);
 			
 			RequestContextUtils.saveOutputFlashMap(referer, request, response);

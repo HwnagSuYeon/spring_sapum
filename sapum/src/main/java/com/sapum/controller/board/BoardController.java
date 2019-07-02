@@ -161,7 +161,7 @@ public class BoardController {
 		// DB등록
 		service.answer(bDto);
 		
-		return "board/answer";
+		return "redirect:/board/list";
 	}
 	
 }

@@ -21,7 +21,7 @@
 			<h1 class="serch_title">Search for your desired work</h1>
 			<form class="search_frm" action="" method="" name="">
 				<div class="se_in_div">
-					<input class="serch_text" type="text" name="" placeholder="Search works">
+					<input class="serch_text work_search" type="GET" name="keyword" placeholder="Search works">
 					<select class="select_box" name="search_option">
 					    <option value="title">Title</option>
 					    <option value="content">Content</option>
@@ -29,79 +29,108 @@
 				    	<option value="writer">Writer</option>
 					</select>
 				</div>
-				<a href="#" class="serch_btn"><i class="fas fa-search"></i></a>
+				<a href="#" id="work_search" class="serch_btn"><i class="fas fa-search"></i></a>
 			</form>
 		</div>
 	</div>
 
 	<!-- list정렬 anker태그 -->
 	<div class="sort_all">
-		<a href="#" class="sort_a"><h1 class="sort_tilte defualt">All works</h1></a>
+		<a href="${path}/work/list?sort_option=new&keyword=${map.keyword}&search_option=${map.seaarch_option}" class="sort_a"><h1 class="sort_tilte defualt">New works</h1></a>
+		<a href="${path}/work/list?sort_option=best&keyword=${map.keyword}&search_option=${map.seaarch_option}" class="sort_a"><h1 class="sort_tilte popu">Best Works</h1></a>
 		<a href="#" class="sort_a"><h1 class="sort_tilte reco">Recommend artist</h1></a>
-		<a href="#" class="sort_a"><h1 class="sort_tilte popu">popular works</h1></a>
-		<a href="#" class="sort_a"><h1 class="sort_tilte popu">new works</h1></a>
 	</div>
+	<c:if test="${!empty map.keyword}">
+		<div class="search_msg">
+			<span class="keyword_col">"${map.keyword}"</span>로 검색한 결과는 총 
+			<span class="keyword_col">&nbsp;${map.count}</span>건입니다.
+		</div>
+	</c:if>
 	
 
-	<!-- 작품 list -->
 	<div class="new_wrap list_wrap">
 		<div class="new_content">
 			<div class="new_container">
-				<div class="ne_con_wrap work_hover">
-					<div class="img_wrap">
-						<a href="#"><img class="object_container" src="${path}/resources/img/main.jpg"></a>
-					</div>
-					<div class="text_wrap">
-						<a href="#"><span class="work_user">lalla</span></a><br>
-						<span class="work_text">2019-04-24 16:00:00</span>
-					</div>
+				
+				<div class="grid_wrap">
+					<c:forEach items="${map.list}" var="wDto">
+						<div class="ne_con_wrap work_hover">
+							<div class="img_wrap">
+								<a href="${path}/work/view?wno=${wDto.wno}"><img class="object_container" src="${path}/resources/img/${wDto.w_img}"></a>
+							</div>
+							<div class="text_wrap">
+								<a href="${path}/work/view?wno=${wDto.wno}"><span class="work_user">${wDto.title}</span></a><br>
+								
+								<!-- 시간포맷 -->
+								<jsp:useBean id="now" class="java.util.Date"/>
+								<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="today"/>
+								<fmt:formatDate value="${best.regdate}" pattern="yyyy-MM-dd" var="regdate"/>
+								
+								<c:choose>
+									<c:when test="${today == regdate}">
+										<span class="work_text"><fmt:formatDate value="${wDto.regdate}" pattern="hh:mm:ss"/></span>
+									</c:when>
+									<c:otherwise>
+										<span class="work_text"><fmt:formatDate value="${wDto.regdate}" pattern="yyyy-MM-dd"/></span>
+									</c:otherwise>
+								</c:choose>
+								
+							</div>
+						</div>
+					</c:forEach>
 				</div>
+				
 
-				<div class="ne_con_wrap work_hover">
-					<div class="img_wrap">
-						<a href="#"><img class="object_container" src="${path}/resources/img/sc3.jpg"></a>
-					</div>
-					<div class="text_wrap">
-						<a href="#"><span class="work_user">ggugguri</span></a><br>
-						<span class="work_text">2019-04-24 16:00:00</span>
-					</div>
-				</div>
-
-				<div class="ne_con_wrap work_hover">
-					<div class="img_wrap">
-						<a href="#"><img class="object_container" src="${path}/resources/img/sc3.jpg"></a>
-					</div>
-					<div class="text_wrap">
-						<a href="#"><span class="work_user">kim</span></a><br>
-						<span class="work_text">2019-04-24 16:00:00</span>
-					</div>
-				</div>
-
-				<div class="ne_con_wrap work_hover">
-					<div class="img_wrap">
-						<a href="#"><img class="object_container" src="${path}/resources/img/main.jpg"></a>
-					</div>
-					<div class="text_wrap">
-						<a href="#"><span class="work_user">lalla</span></a><br>
-						<span class="work_text">2019-04-24 16:00:00</span>
-					</div>
-				</div>
+				
 			</div>
 		</div>
 	</div>
 
-
+	
 	<!--  pagenation -->
 	<div class="pagenation">
-		<div class="prev">
-			<a href="#"><img src="${path}/resources/img/pre.png"></a>
-		</div>
+		<!-- 이전페이지보기 버튼을 나타내는 경우 -->
+		<c:choose>
+			<c:when test="${map.pager.curPage > 1}">
+				<div class="prev">
+					<a href="${path}/work/list?curPage=${map.pager.curPage-1}&sort_option=${map.sort_option}&keyword=${map.keyword}&search_option=${map.search_option}">
+						<img class="page_icon" src="${path}/resources/img/pre_on.png">
+					</a>
+				</div>
+			</c:when>
+			<c:otherwise>
+				<div class="prev">
+					<a href="${path}/work/list?curPage=${map.pager.curPage-1}&sort_option=${map.sort_option}&keyword=${map.keyword}&search_option=${map.search_option}">
+						<img class="page_icon" src="${path}/resources/img/pre_off.png">
+					</a>
+				</div>
+			</c:otherwise>
+		</c:choose>
+		
 		<div class="center_line">
 			<span class="ce_line"></span>
 		</div>
-		<div class="next">
-			<a href="#"><img src="${path}/resources/img/ne.png"></a>
-		</div>
+		
+		<!-- 다음페이지보기 버튼을 나타내는 경우 -->
+		<c:choose>
+			<c:when test="${map.pager.curPage < map.pager.totPage}">
+				<div class="next">
+					<a href="${path}/work/list?curPage=${map.pager.curPage+1}&sort_option=${map.sort_option}&keyword=${map.keyword}&search_option=${map.search_option}">
+						<img class="page_icon" src="${path}/resources/img/ne_on.png">
+					</a>
+				</div>
+			</c:when>
+			
+			<c:otherwise>
+				<div class="next">
+					<a href="${path}/work/list?curPage=${map.pager.curPage+1}&sort_option=${map.sort_option}&keyword=${map.keyword}&search_option=${map.search_option}">
+						<img class="page_icon" src="${path}/resources/img/ne_off.png">
+					</a>
+				</div>
+			</c:otherwise>
+		</c:choose>
+		
+		
 	</div>
 	<%@ include file="../include/footer.jsp"%>
 	
@@ -113,15 +142,6 @@
 		$('.serch_text').click(function() {
 			$('.se_in_div').css('width','300px')
 				   		   .css('border', '2px solid #70D6C7');
-		});
-		$('.serch_text').blur(function() {
-			if (search_content != null) {
-				$('.se_in_div').css('width','300px')
-		   		   			   .css('border', '2px solid #70D6C7');
-			} else if (search_content == null || search_content == "") {
-				$('.se_in_div').css('width','200px')
-				   			   .css('border', '1px solid #dadada');
-			}
 		});
 		// 정렬타입 선택시 가운데선 그어지고 없어지고
 		$('.defualt').click(function() {
@@ -157,6 +177,19 @@
 			$(this).css('border', '1px solid #EAEAEA')
 				   .css('height', '30px');
 		});
+		
+		// 검색버튼 누르면 서치옵션과 키워드를 컨트롤러로 보냄
+		$('#work_search').click(function () {
+			var search_option = $('.select_box').val();
+			var keyword = $.trim($('.work_search').val());
+			
+			if(keyword == null || keyword.length == 0) {
+				$('.work_search').focus();
+				return false;
+			}
+			location.href = "${path}/work/list?search_option="+search_option+"&keyword="+keyword;
+		});
+		
 	});
 
 	</script>

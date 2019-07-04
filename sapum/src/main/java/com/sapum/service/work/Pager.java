@@ -11,12 +11,14 @@ public class Pager {
 	private int prevPage; // 이전 페이지
 	private int nextPage; // 다음 페이지
 	private int totPage; // 전체 페이지 개수
+	private int pageBegin; // #{start} 변수에 전달될 값
+	private int pageEnd; // #{end} 변수에 전달될 값
+	
+	
 	private int totBlock; // 전체 페이지블록 개수
 	private int curBlock; // 현재 블록
 	private int prevBlock; // 이전 블록
 	private int nextBlock; // 다음 블록
-	private int pageBegin; // #{start} 변수에 전달될 값
-	private int pageEnd; // #{end} 변수에 전달될 값
 	private int blockBegin; // 블록의 시작 페이지 번호
 	private int blockEnd; // 블록의 끝 페이지 번호
 

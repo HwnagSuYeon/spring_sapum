@@ -57,7 +57,7 @@
 						<c:otherwise>
 							<li><a href="#" class="li3" style="font-weight: bold;">${sessionScope.name}</a></li>
 							<li><a href="#" class="li3">My Page</a></li>
-							<li><a id="logout_btn" href="#" class="li3">Logout</a></li>
+							<li><a id="logout_btn" href="${path}/member/logout" class="li3">Logout</a></li>
 						</c:otherwise>
 					</c:choose>
 					<li><a href="#" class="li3">Gellary</a></li>
@@ -96,6 +96,14 @@
 	
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 	<script type="text/javascript">
+		$(document).ready(function () {
+			// 인덱스에만 헤더를 fixed로 주기위함
+			if(${!empty code}) {
+				$('#header').css('position', 'fixed');
+			} else {
+				$('#header').css('position', 'inherit');
+			}
+		});
 		// --------------------header에 반드시 필요한 스크립트----------------------
 		// 햄버거버튼 메뉴 동작
 		var burger = $('.menu-trigger');
@@ -156,6 +164,7 @@
 			// login누르면 모달창 나오게
 			$('.login_btn').click(function() {
 				$('.lo_modal').css('display','flex');
+				$('#login_id').focus();
 			});
 			$('.lo_modal_close').click(function(){
 				$('.lo_modal').css('display','none');
@@ -187,12 +196,7 @@
 					}
 				});
 			});
-			// 인덱스에만 헤더를 fixed로 주기위함
-			if(${!empty code}) {
-				$('#header').css('position', 'fixed');
-			} else {
-				$('#header').css('position', 'inherit');
-			}
+			
 		});
 		
 		// 햄버거버튼 누를시 나오는 창에서 스크롤 제어

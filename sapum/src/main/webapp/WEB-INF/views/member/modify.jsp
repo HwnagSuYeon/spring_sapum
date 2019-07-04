@@ -1,6 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="../include/header.jsp"%>
+<c:if test="${sessionScope.userid == null}">
+	<script>
+		alert("mypage는 로그인 하신 후 사용하실 수 있습니다.");
+		location.href = "${path}/";
+	</script>
+</c:if>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,7 +27,7 @@
 					<span class="err_msg_eq id_err_msg"></span>
 				</div>
 				<div class="mem_ipstyle">
-					<input id="pw_val" class="mem_ipborder" type="password" name="pw" placeholder="Password" value="${info.pw}">
+					<input id="pw_val" class="mem_ipborder" type="password" name="pw" placeholder="Password">
 					<span class="err_msg_eq"></span>
 				</div>
 				<div class="mem_ipstyle">

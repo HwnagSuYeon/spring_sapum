@@ -6,8 +6,8 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="${path}/resources/css/board/board.css?v=1">
-<!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-lite.css" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-lite.js"></script> -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-lite.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-lite.js"></script>
 <title>Insert title here</title>
 </head>
 <body>
@@ -66,7 +66,7 @@
 			</div>
 			<div class="comment_area comment_text">
 				<form class="comment_frm" action="" method="">
-					<textarea id="" name="content" class="content"></textarea>
+					<textarea id="summernote" name="content" class="content"></textarea>
 					<input type="hidden" name="writer" class="userid" value="${sessionScope.userid}">
 					<input type="hidden" name="bno" id="cmt_bno">
 					<span class="cmt_err_msg" style="display: none;">댓글의 내용이 없습니다! 내용을 입력해주세요.</span>
@@ -85,7 +85,7 @@
 	
 	
 	<script type="text/javascript">
-		/* $(document).ready(function () {
+		$(document).ready(function () {
 			// SummerNote editeor실행
 			$('#summernote').summernote({
 				  toolbar: [
@@ -105,7 +105,7 @@
 				  codeviewFilterRegex: 'custom-regex',
 				  codeviewIframeWhitelistSrc: ['my-own-domainname']
 			});
-		}); */
+		});
 		
 		// 로그인 하면 댓글 쓸 수 있는 창에 로그인 글씨 누르면 모달창 나오도록 제어
 		$('.cmt_login').on('click', function () {

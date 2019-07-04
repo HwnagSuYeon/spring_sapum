@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 다른 mapper와 중복되지 않도록 네임스페이스 기재 -->
+<mapper namespace="work">
+	<!-- 게시글 목록 출력 -->
+	<select id="listAll" parameterType="HashMap" resultType="com.sapum.domain.work.WorkDTO">
+		<include refid="pageing_header"/>
+		SELECT w.*, m.id
+		FROM tbl_sa_work w, tbl_sa_member m
+		<include refid="search"/>
+			<if test="sort_option == 'new'">
+				ORDER BY wno DESC
+			</if>
+			<if test="sort_option == 'best'">
+				ORDER BY w_like DESC, wno DESC
+			</if>
+		<include refid="paging_footer"/>
+	</select>
+	
+	<sql id="pageing_header">
+		SELECT *
+		FROM (
+			  SELECT rownum AS rnum, A.*
+			  FROM (
+	</sql>
+	<sql id="paging_footer">
+			  ) A
+			) WHERE rnum BETWEEN #{start} AND #{end}
+	</sql>
+	<!-- 검색옵션 -->
+	<sql id="search">
+		WHERE w.writer = m.id
+		<choose>
+			<when test="search_option != 'all'">
+				<if test="search_option == 'title'">
+					AND title LIKE #{keyword}
+				</if>
+				<if test="search_option == 'writer'">
+					AND writer LIKE #{keyword}
+				</if>
+				<if test="search_option == 'content'">
+					AND content LIKE #{keyword}
+				</if>
+			</when>
+			<otherwise>
+				AND (writer LIKE #{keyword}
+					 OR title LIKE #{keyword}
+					 OR content LIKE #{keyword})
+			</otherwise>
+		</choose>
+	</sql>
+
+	<!-- 레코드수 계산 -->
+	<select id="countArticle" parameterType="HashMap" resultType="int">
+		SELECT COUNT (*)
+		FROM tbl_sa_work w, tbl_sa_member m
+		<include refid="search"/>
+	</select>
+	
+	 <!-- 조회수 증가 -->
+	 <update id="increaseViewCnt" parameterType="int">
+	 	UPDATE tbl_sa_work SET
+	 		viewcnt = viewcnt + 1
+	 	WHERE wno = #{wno}
+	 </update>
+	 
+	 <!-- 상세게시글 출력 -->
+	 <select id="read" resultType="com.sapum.domain.work.WorkDTO">
+	 	SELECT * FROM tbl_sa_work
+	 	WHERE wno = #{wno}
+	 </select>
+</mapper>

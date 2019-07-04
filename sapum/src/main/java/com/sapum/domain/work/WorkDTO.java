@@ -16,7 +16,9 @@ public class WorkDTO {
 	private int wno;
 	private String title;
 	private String content;
+	private String writer;
 	private String w_img;
 	private int w_like;
+	private int viewcnt;
 	private Date regdate;
 }

@@ -50,6 +50,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 			log.info(">>>URI" + uri);
 			
 			RequestContextUtils.saveOutputFlashMap(referer, request, response);
+			// 어디로 가라고 정해줌
 			response.sendRedirect(referer);
 			
 			return false;

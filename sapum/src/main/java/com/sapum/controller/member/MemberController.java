@@ -67,6 +67,7 @@ public class MemberController {
 			flag = "1";
 		}
 		// 로그인 성공시 flag = 1반환 
+		
 		return flag;
 	}
 	

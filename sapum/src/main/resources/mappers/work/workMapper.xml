@@ -72,4 +72,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	 	SELECT * FROM tbl_sa_work
 	 	WHERE wno = #{wno}
 	 </select>
+	 
+	 <!-- 작품삭제 -->
+	 <delete id="delete" parameterType="int">
+	 	DELETE FROM tbl_sa_work
+	 	WHERE wno = #{wno}
+	 </delete>
+	 
+	 <!-- 작품등록 -->
+	 <insert id="create" parameterType="com.sapum.domain.work.WorkDTO">
+	 	INSERT INTO tbl_sa_work(wno, title, content, writer, w_img)
+	 	VALUES (seq_sa_work.NEXTVAL, #{title}, #{content}, #{writer}, #{w_img})
+	 	<selectKey keyProperty="wno" resultType="Integer" order="AFTER">
+	 		SELECT seq_sa_work.currval FROM dual
+	 	</selectKey>
+	 </insert>
+	 
+	 <!-- 작품수정 -->
+	 <update id="update" parameterType="com.sapum.domain.work.WorkDTO">
+	 	UPDATE tbl_sa_work
+	 	SET title
+	 </update>
 </mapper>

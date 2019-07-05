@@ -12,8 +12,8 @@
 	<!-- 검색창& 작품추가, top버튼 -->
 	<div class="btn_wrap">
 		<div class="btn">
-			<a class="all_btn plus_btn" href="${path}/work/create"><i class="fas fa-plus"></i></a>
-			<a class="all_btn top_btn"><i class="fas fa-arrow-up"></i></a>
+			<a class="all_btn plus_btn" href="${path}/work/register"><i class="fas fa-plus"></i></a>
+			<a id="topBtn" class="all_btn top_btn"><i class="fas fa-arrow-up"></i></a>
 		</div>
 	</div>
 	<div class="list1_wrap">
@@ -35,7 +35,7 @@
 	</div>
 
 	<!-- list정렬 anker태그 -->
-	<div class="sort_all">
+	<div class="sort_all" id="pin">
 		<a href="${path}/work/list?sort_option=new&keyword=${map.keyword}&search_option=${map.seaarch_option}" class="sort_a"><h1 class="sort_tilte defualt">New works</h1></a>
 		<a href="${path}/work/list?sort_option=best&keyword=${map.keyword}&search_option=${map.seaarch_option}" class="sort_a"><h1 class="sort_tilte popu">Best Works</h1></a>
 		<a href="#" class="sort_a"><h1 class="sort_tilte reco">Recommend artist</h1></a>
@@ -64,16 +64,22 @@
 								<!-- 시간포맷 -->
 								<jsp:useBean id="now" class="java.util.Date"/>
 								<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="today"/>
-								<fmt:formatDate value="${best.regdate}" pattern="yyyy-MM-dd" var="regdate"/>
+								<fmt:formatDate value="${wDto.regdate}" pattern="yyyy-MM-dd" var="regdate"/>
 								
-								<c:choose>
-									<c:when test="${today == regdate}">
-										<span class="work_text"><fmt:formatDate value="${wDto.regdate}" pattern="hh:mm:ss"/></span>
-									</c:when>
-									<c:otherwise>
-										<span class="work_text"><fmt:formatDate value="${wDto.regdate}" pattern="yyyy-MM-dd"/></span>
-									</c:otherwise>
-								</c:choose>
+								<div class="side_title">
+									<c:choose>
+										<c:when test="${today == regdate}">
+											<span class="work_text"><fmt:formatDate value="${wDto.regdate}" pattern="hh:mm:ss"/></span>
+										</c:when>
+										<c:otherwise>
+											<span class="work_text"><fmt:formatDate value="${wDto.regdate}" pattern="yyyy-MM-dd"/></span>
+										</c:otherwise>
+									</c:choose>
+									<div class="view_icon">
+										<i class="far fa-eye"></i>
+										<span>${wDto.viewcnt}</span>
+									</div>
+								</div>
 								
 							</div>
 						</div>
@@ -138,9 +144,22 @@
 	<script type="text/javascript">
 	// 메인갤러리 스크립트
 	$(document).ready(function() {
+		// top버튼을 클릭하면 위로 올라감
+		$(window).scroll(function () {
+			var scrollValue = $(this).scrollTop();
+			if(scrollValue > 100){
+				$('#topBtn').fadeIn();	
+			} else {
+				$('#topBtn').fadeOut();
+			}
+		});
+		$('#topBtn').click(function () {
+			$('html, body').animate({scrollTop:0}, 100);
+		});
+		
 		// 검색버튼 누르면 색 들어오고 가로로 길어지게 하는 기능 수행
 		$('.serch_text').click(function() {
-			$('.se_in_div').css('width','300px')
+			$('.se_in_div').css('width','670px')
 				   		   .css('border', '2px solid #70D6C7');
 		});
 		// 정렬타입 선택시 가운데선 그어지고 없어지고

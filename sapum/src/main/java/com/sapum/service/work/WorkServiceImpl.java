@@ -46,10 +46,29 @@ public class WorkServiceImpl implements WorkService{
 			session.setAttribute("update_time_"+wno , current_time);
 		}
 	}
-	// 게시글 조회
+	// 게시글 조회페이지 출력
 	@Override
 	public WorkDTO read(int wno) {
 		return wDao.read(wno);
 	}
+	// 작품 삭제기능 수행
+	@Override
+	public void delete(int wno) {
+		wDao.delete(wno);
+	}
+	// 작품 추가기능 수행
+	@Override
+	public void create(WorkDTO wDto) {
+		log.info(">>>>>>>>>>>>>service"+wDto.toString());
+		wDao.create(wDto);
+	}
+	// 작품 수정기능 수행
+	@Override
+	public void update(int wno) {
+		wDao.update(wno);
+	}
+	
+	
+	
 	
 }

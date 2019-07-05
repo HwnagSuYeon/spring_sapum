@@ -49,6 +49,22 @@ public class WorkDAOImpl implements WorkDAO{
 	public WorkDTO read(int wno) {
 		return session.selectOne("work.read", wno);
 	}
+	// 게시글 삭제
+	@Override
+	public void delete(int wno) {
+		session.delete("work.delete", wno);
+	}
+	// 게시글 등록
+	@Override
+	public void create(WorkDTO wDto) {
+		log.info(">>>>>>>>>>>>>DAO"+wDto.toString());
+		session.insert("work.create", wDto);
+	}
+	// 게시글 수정
+	@Override
+	public void update(WorkDTO wDto) {
+		session.update("work.update", wDto);
+	}
 	
 	
 

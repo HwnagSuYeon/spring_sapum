@@ -75,10 +75,46 @@ public class WorkController {
 	}
 	
 	
-	// 작품추가페이지 출력
-	@RequestMapping(value = "create", method = RequestMethod.GET)
-	public String create() {
-		log.info(">>>작품 업로드페이지 출력");
-		return "work/create";
+	// 작품추가, 수정페이지 출력
+	@RequestMapping(value = "register", method = RequestMethod.GET)
+	public String create(@RequestParam(defaultValue = "0")int wno, Model model) {
+		log.info(">>>작품 게시, 수정페이지 출력>>>>wno"+wno);
+		// 화면단에 뿌려줄 빈 DTO를 생성한다.
+		WorkDTO wDto = new WorkDTO();
+		
+		if (wno == 0) {
+			// 화면단에서 받아온 wno가 0일경우 -> 빈깡통 들고 작품 등록페이지 출력
+			model.addAttribute("wDto", wDto);
+		} else {
+			// 화면단에서 받아온 wno가 1이 아닐 경우 -> 기존정보 든 DTO들고 작품 수정페이지 출력
+			wDto = service.read(wno);
+			model.addAttribute("wDto", wDto);
+		}
+		return "work/register";
+	}
+	
+	// 작품 추가 실제기능수행
+	@RequestMapping(value = "create", method = RequestMethod.POST)
+	public String create(WorkDTO wDto) {
+		log.info(">>>>작품 추가기능 수행"+wDto.toString());
+		service.create(wDto);
+		
+		return "redirect:/work/list?wno="+wDto.getWno();
+	}
+	
+	// 작품 삭제기능 수행
+	@RequestMapping(value = "delete", method = RequestMethod.GET)
+	public String delete(int wno) {
+		log.info(">>>작품 삭제기능 수행"+wno);
+		service.delete(wno);
+		return "redirect:/work/list";
+	}
+	
+	// 작품 수정기능 수행
+	@RequestMapping(value = "update", method = RequestMethod.POST)
+	public String update(int wno) {
+		log.info(">>>작품 수정기능 수행"+wno);
+		service.update(wno);
+		return "";
 	}
 }

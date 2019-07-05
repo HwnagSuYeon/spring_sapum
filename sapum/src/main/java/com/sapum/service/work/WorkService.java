@@ -19,4 +19,13 @@ public interface WorkService {
 	
 	// 상세게시글조회
 	public WorkDTO read(int wno);
+	
+	// 작품 삭제
+	public void delete(int wno);
+	
+	// 작품 등록기능
+	public void create(WorkDTO wDto);
+	
+	// 작품 수정기능
+	public void update(int wno);
 }

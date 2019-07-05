@@ -106,7 +106,7 @@
 				location.href = "${path}/board/list";
 			});
 			
-			// 작품삭제 누를시 모달창 나오고 들어가게 만듦
+			// 게시글삭제 누를시 모달창 나오고 들어가게 만듦
 			$('#board_del').click(function() {
 				$('#bo_del_modal').css('display', 'flex');
 			});
@@ -139,7 +139,8 @@
 				type: "GET",
 				url: "${path}/reply/list?bno=${view_info.bno}",
 				success: function (result) {
-					// comment_list.jsp를 매개변수로 보내줌
+					// 결과요청-> 결과요청한 페이지를 html소스로 받음
+					// commentList태그 자체에 받아온 소스를 그대로 띄어줌
 					$('#commentList').html(result);
 				}
 			});

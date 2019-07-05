@@ -13,7 +13,7 @@
 	<div class="btn_wrap">
 		<div class="btn">
 			<a href="${path}/board/create" class="all_btn plus_btn"><i class="fas fa-plus"></i></a>
-			<a class="all_btn top_btn"><i class="fas fa-arrow-up"></i></a>
+			<a id="topBtn" class="all_btn top_btn"><i class="fas fa-arrow-up"></i></a>
 		</div>
 	</div>
 	<div class="list1_wrap">
@@ -37,7 +37,7 @@
 	
 	<div class="list_all">
 		<!-- board -->
-		<div class="board_all">
+		<div class="board_all" id="pin">
 			<div class="sort_wrap">
 				<div id="new" class="sort_box">
 					<a href="${path}/board/list?sort_option=new&keyword=${map.keyword}&search_option=${map.serch_option}"><h3 class="sort_type">NEW</h3></a>
@@ -146,17 +146,32 @@
 		// board List 스크립트
 		var search_content = $.trim($('.serch_text').val());
 		$(document).ready(function() {
+			// sort_option클릭시 top으로 가는 것을 막
+			location.href = "#pin";
+			// top버튼을 클릭하면 위로 올라감
+			$(window).scroll(function () {
+				var scrollValue = $(this).scrollTop();
+				if(scrollValue > 100){
+					$('#topBtn').fadeIn();	
+				} else {
+					$('#topBtn').fadeOut();
+				}
+			});
+			$('#topBtn').click(function () {
+				$('html, body').animate({scrollTop:0}, 100);
+			});
+			
 			// 검색버튼 누르면 색 들어오고 가로로 길어지게 하는 기능 수행
 			$('.serch_text').click(function() {
-				$('.se_in_div').css('width','300px')
+				$('.se_in_div').css('width','670px')
 					   		   .css('border', '2px solid #70D6C7');
 			});
 			$('.serch_text').blur(function() {
 				if (search_content != null) {
-					$('.se_in_div').css('width','300px')
+					$('.se_in_div').css('width','460px')
 			   		   			   .css('border', '2px solid #70D6C7');
 				} else if (search_content == null || search_content == "") {
-					$('.se_in_div').css('width','200px')
+					$('.se_in_div').css('width','460px')
 					   			   .css('border', '1px solid #dadada');
 				}
 			});

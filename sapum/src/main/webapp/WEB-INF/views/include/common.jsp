@@ -11,4 +11,4 @@
 <!-- jstl, el태그로 컨택스트경로 -->
 <c:set var="path" value="${pageContext.request.contextPath}"/>
 <!-- favicon:파비콘은 모든 페이지에 들어가니까 -->
-<link rel="icon" type="image/jpg" href="${path}/resources/img/pavi.jpg">
+<link rel="icon" type="image/jpg" href="${path}/resources/img/pavi.png">

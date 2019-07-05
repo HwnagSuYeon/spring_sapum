@@ -24,20 +24,21 @@
 				<input class="img_uplaod_in" type="file" style="display: none;" name="">
 				<div class="work_text_wrap">
 					<div class="te_user up_all">
-						<form class="upload_work_frm" name="" method="" action="">
+						<form class="upload_work_frm" method="POST" action="${path}/work/<c:out value="${wDto.wno == 0 ? 'create' : 'update' }"/>">
 							<div class="up_instyle">
-								<input type="text" name="" class="upload_title" placeholder="title">
+								<input type="text" name="title" class="upload_title" placeholder="title" value="${wDto.title}">
+								<input type="text" name="w_img" class="upload_title" placeholder="w_img" value="${wDto.w_img}">
 							</div>
 							<span class="up_user_wrap">
 								<span class="up_user_dot"></span>
-								<span class="comm_user">lim</span>
+								<span class="comm_user">${sessionScope.userid}</span>
 							</span>
 							<span class="up_follower_cnt"><span>Follower</span> <span class="fl_cnt">345</span></span>
 							<div class="up_instyle">
-								<textarea class="comm_inp" placeholder="Explain your work"></textarea>
+								<textarea class="comm_inp" placeholder="Explain your work" name="content">${wDto.content}</textarea>
 							</div>
-							<input type="hidden" name="writer" value="">
-							<button type="button" class="follow_btn up_btn">Upload</button>
+							<input type="hidden" name="writer" value="${sessionScope.userid}" name="writer">
+							<button id="upload_Btn" type="button" class="follow_btn up_btn">Upload</button>
 						</form>
 					</div>
 				</div>
@@ -68,6 +69,11 @@
 		$('.comm_inp').blur(function() {
 			$(this).css('border', '1px solid #EAEAEA')
 				   .css('height', '30px');
+		});
+		
+		// 업로드 버튼을 눌렀을 때
+		$('#upload_Btn').click(function () {
+			$('.upload_work_frm').submit();
 		});
 	});
 	</script>

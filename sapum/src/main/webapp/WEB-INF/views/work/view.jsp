@@ -26,8 +26,12 @@
 						<button type="button" class="follow_btn">Follow</button>
 					</div>
 					<div class="te_user">
-						<h3 class="wo_user_name">${one.writer}</h3>
-						<span class="follower_cnt"><span>Follower</span> <span class="fl_cnt">345</span></span>
+						<h3 class="wo_user_name">${one.title}</h3>
+						<div></div>
+						<span class="follower_cnt">
+							<span class="work_username">${one.writer}</span>
+							<span>Follower</span>
+							<span class="fl_cnt">345</span></span>
 						<span class="work_text_con">${one.content}</span>
 					</div>
 					<div class="button_wrap">
@@ -52,8 +56,10 @@
 						</form>
 					</div>
 					<div class="de_up_btn">
-						<button type="button" id="work_delete_btn" class="follow_btn re_btn">Remove</button>
-						<button type="button" class="follow_btn mo_btn">Modify</button>
+						<c:if test="${sessionScope.userid == one.writer}">
+							<button type="button" id="work_delete_btn" class="follow_btn re_btn">Remove</button>
+							<button id="work_upBtn" type="button" class="follow_btn mo_btn">Modify</button>
+						</c:if>
 					</div>
 				</div>
 			</div>
@@ -68,7 +74,7 @@
 				<span class="warring"><i class="fas fa-exclamation-circle"></i></span>
 				<div class="">
 					<button id="n_btn" type="button" class="n_btn">NO</button>
-					<button type="button" class="n_btn">YES</button>
+					<button id="work_delBtn" type="button" class="n_btn">YES</button>
 				</div>
 			</div>
 		</div>
@@ -126,6 +132,16 @@
 		$('#wo_de_btn').click(function() {
 			$('.work_modal').css('display', 'none');
 		});
+		
+		// 작품삭제버튼 누를시 컨트롤러로 보냄
+		$('#work_delBtn').click(function () {
+			location.href = "${path}/work/delete?wno=${one.wno}";
+		});
+		
+		// 작품 수정버튼 누를시 컨트롤러로 보냄
+		$('#work_upBtn').click(function () {
+			location.href = "${path}/work/register?wno=${one.wno}";
+		})
 	});
 	</script>
 </body>

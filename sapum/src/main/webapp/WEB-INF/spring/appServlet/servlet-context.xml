@@ -49,6 +49,7 @@
 			<mapping path="/board/update"/>
 			<mapping path="/board/delete"/>
 			<mapping path="/board/answer"/>
+			<mapping path="/work/register"/>
 			<beans:ref bean="loginInterceptor"/>
 		</interceptor>
 	</interceptors>

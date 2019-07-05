@@ -64,8 +64,8 @@ public class WorkServiceImpl implements WorkService{
 	}
 	// 작품 수정기능 수행
 	@Override
-	public void update(int wno) {
-		wDao.update(wno);
+	public void update(WorkDTO wDto) {
+		wDao.update(wDto);
 	}
 	
 	

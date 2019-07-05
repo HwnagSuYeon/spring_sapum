@@ -27,5 +27,5 @@ public interface WorkService {
 	public void create(WorkDTO wDto);
 	
 	// 작품 수정기능
-	public void update(int wno);
+	public void update(WorkDTO wDto);
 }

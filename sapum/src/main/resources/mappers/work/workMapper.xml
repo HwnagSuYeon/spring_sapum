@@ -91,6 +91,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	 <!-- 작품수정 -->
 	 <update id="update" parameterType="com.sapum.domain.work.WorkDTO">
 	 	UPDATE tbl_sa_work
-	 	SET title
+	 	SET title = #{title},
+	 		content = #{content},
+	 		w_img = #{w_img}
+	 	WHERE wno = #{wno}
 	 </update>
 </mapper>

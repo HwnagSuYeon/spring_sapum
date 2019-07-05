@@ -38,6 +38,7 @@
 								<textarea class="comm_inp" placeholder="Explain your work" name="content">${wDto.content}</textarea>
 							</div>
 							<input type="hidden" name="writer" value="${sessionScope.userid}" name="writer">
+							<input type="hidden" name="wno" value="${wDto.wno}">
 							<button id="upload_Btn" type="button" class="follow_btn up_btn">Upload</button>
 						</form>
 					</div>

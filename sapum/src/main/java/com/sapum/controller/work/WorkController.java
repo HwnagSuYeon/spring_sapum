@@ -99,7 +99,7 @@ public class WorkController {
 		log.info(">>>>작품 추가기능 수행"+wDto.toString());
 		service.create(wDto);
 		
-		return "redirect:/work/list?wno="+wDto.getWno();
+		return "redirect:/work/view?wno="+wDto.getWno();
 	}
 	
 	// 작품 삭제기능 수행
@@ -112,9 +112,9 @@ public class WorkController {
 	
 	// 작품 수정기능 수행
 	@RequestMapping(value = "update", method = RequestMethod.POST)
-	public String update(int wno) {
-		log.info(">>>작품 수정기능 수행"+wno);
-		service.update(wno);
-		return "";
+	public String update(WorkDTO wDto) {
+		log.info(">>>작품 수정기능 수행");
+		service.update(wDto);
+		return "redirect:/work/list";
 	}
 }

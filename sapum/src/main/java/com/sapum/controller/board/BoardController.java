@@ -79,14 +79,23 @@ public class BoardController {
 		return "board/view";
 	}
 	
-	
-	
-	// 게시글 등록페이지 출력
-	@RequestMapping(value = "create", method = RequestMethod.GET)
-	public String createView() {
-		log.info(">>>게시글 등록페이지 출력");
+	// 게시시글 등록, 수정기능페이지 출력 (register.jsp로 통합)
+	@RequestMapping(value = "register", method = RequestMethod.GET)
+	public String register(@RequestParam(defaultValue = "0")int bno, Model model) {
+		log.info(">>>게시글 등록, 수정페이지 출력>>>>bno"+bno);
+		// 화면단에 뿌려줄 빈 DTO생성
+		BoardDTO bDto = new BoardDTO();
 		
-		return "board/create";
+		if(bno == 0) {
+			// 화면단에서 받아온 bno가 0일경우 --> 빈깡통들고 register출력
+			model.addAttribute("modi_info", bDto);
+		} else {
+			// 화면단에서 받아온 bno가 0이 아닐경우 --> 기존정보 든 DTO가지고 register출력
+			bDto = service.read(bno);
+			model.addAttribute("modi_info", bDto);
+		}
+		
+		return "board/register";
 	}
 	
 	// 게시글 등록 기능 수행
@@ -100,6 +109,15 @@ public class BoardController {
 		return "redirect:/board/view?bno="+bDto.getBno();
 	}
 	
+	// 게시글 수정기능 수행
+	@RequestMapping(value = "update", method = RequestMethod.POST)
+	public String update(BoardDTO bDto) {
+		log.info(">>>게시글 수정 기능수행");
+		log.info("수정페이지에서 값 가져옴"+bDto);
+		service.update(bDto);
+		
+		return "redirect:/board/list";
+	}
 	
 	// 게시글 삭제 기능 수행
 	@RequestMapping(value = "delete", method = RequestMethod.GET)
@@ -110,24 +128,6 @@ public class BoardController {
 		return "redirect:/board/list";
 	}
 	
-	// 게시글 수정페이지 출력
-	@RequestMapping(value = "update", method = RequestMethod.GET)
-	public String updateView(int bno, Model model) {
-		log.info(">>>게시글 수정페이지 출력");
-		BoardDTO bDto = service.read(bno);
-		model.addAttribute("modi_info", bDto);
-		return "board/update";
-	}
-	
-	// 게시글 수정기능 수행
-	@RequestMapping(value = "update", method = RequestMethod.POST)
-	public String update(BoardDTO bDto) {
-		log.info(">>>게시글 수정 기능수행");
-		log.info("수정페이지에서 값 가져옴"+bDto);
-		service.update(bDto);
-		
-		return "redirect:/board/list";
-	}
 	
 	// 답글 등록페이지 출력
 	@RequestMapping(value = "answer", method = RequestMethod.GET)

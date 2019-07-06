@@ -12,7 +12,7 @@
 	<!-- 검색창& 작품추가, top버튼 -->
 	<div class="btn_wrap">
 		<div class="btn">
-			<a href="${path}/board/create" class="all_btn plus_btn"><i class="fas fa-plus"></i></a>
+			<a href="${path}/board/register" class="all_btn plus_btn"><i class="fas fa-plus"></i></a>
 			<a id="topBtn" class="all_btn top_btn"><i class="fas fa-arrow-up"></i></a>
 		</div>
 	</div>

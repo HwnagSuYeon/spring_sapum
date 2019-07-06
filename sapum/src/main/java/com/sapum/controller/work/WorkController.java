@@ -74,7 +74,6 @@ public class WorkController {
 		return "work/view";
 	}
 	
-	
 	// 작품추가, 수정페이지 출력
 	@RequestMapping(value = "register", method = RequestMethod.GET)
 	public String create(@RequestParam(defaultValue = "0")int wno, Model model) {

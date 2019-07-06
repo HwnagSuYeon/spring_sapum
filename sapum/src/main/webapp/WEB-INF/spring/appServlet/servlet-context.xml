@@ -45,8 +45,7 @@
 			<mapping path="/member/delete"/>
 			<mapping path="/member/modify"/>
 			<mapping path="/member/mypage"/>
-			<mapping path="/board/create"/>
-			<mapping path="/board/update"/>
+			<mapping path="/board/register"/>
 			<mapping path="/board/delete"/>
 			<mapping path="/board/answer"/>
 			<mapping path="/work/register"/>

@@ -124,7 +124,7 @@
 			
 			// 게시글 수정버튼 누르면 컨트롤러로 가세요
 			$('#board_modi_btn').click(function () {
-				location.href = "${path}/board/update?bno="+"${view_info.bno}";
+				location.href = "${path}/board/register?bno="+"${view_info.bno}";
 			});
 		});
 		

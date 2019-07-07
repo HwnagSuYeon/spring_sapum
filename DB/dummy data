@@ -86,3 +86,222 @@ VALUES (seq_sa_reply.NEXTVAL, '집에가고싶어', 'user04', 3);
 
 
 COMMIT;
+
+
+-- 게시글 삭제시 해당 게시글에 묶여있는 댓글을 연쇄삭제하기위한 CASCADE문
+ALTER TABLE tbl_sa_reply DROP CONSTRAINT tbl_sa_reply_fk_bno;
+ALTER TABLE tbl_sa_reply ADD CONSTRAINT tbl_sa_reply_fk_bno FOREIGN KEY (bno)
+REFERENCES tbl_sa_board (bno) ON DELETE CASCADE;
+
+COMMIT;
+
+
+DELETE FROM tbl_sa_board
+WHERE bno = 129;
+
+ROLLBACK;
+
+SELECT seq_sa_board.currval FROM dual;
+
+SELECT * FROM tbl_sa_board
+WHERE bno = 129;
+
+
+
+
+
+-- 작품 테이블 생성
+DROP SEQUENCE seq_sa_work;
+CREATE SEQUENCE seq_sa_work
+START WITH 1
+INCREMENT BY 1;
+
+DROP TABLE tbl_sa_work;
+CREATE TABLE tbl_sa_work(
+    wno NUMBER PRIMARY KEY,
+    title VARCHAR2(200) NOT NULL,
+    content VARCHAR2(1000) NOT NULL,
+    writer VARCHAR2(100),
+    w_img VARCHAR2(100) ,
+    w_like NUMBER DEFAULT 0,
+    viewcnt NUMBER DEFAULT 0,
+    regdate DATE DEFAULT SYSDATE
+);
+
+ROLLBACK;
+
+INSERT INTO tbl_sa_work(wno, title, content, writer, w_img, w_like, viewcnt)
+VALUES(seq_sa_work.NEXTVAL, '111111', '작품 테스트업로드', 'user01', '1.jpg', 0, 0);
+INSERT INTO tbl_sa_work(wno, title, content, writer, w_img, w_like, viewcnt)
+VALUES(seq_sa_work.NEXTVAL, '222222', '작품 테스트업로드', 'user01', '2.jpg', 0, 0);
+INSERT INTO tbl_sa_work(wno, title, content, writer, w_img, w_like, viewcnt)
+VALUES(seq_sa_work.NEXTVAL, '333333', '작품 테스트업로드', 'user01', '3.jpg', 0, 0);
+INSERT INTO tbl_sa_work(wno, title, content, writer, w_img, w_like, viewcnt)
+VALUES(seq_sa_work.NEXTVAL, '444444', '작품 테스트업로드', 'user01', '4.jpg', 0, 0);
+INSERT INTO tbl_sa_work(wno, title, content, writer, w_img, w_like, viewcnt)
+VALUES(seq_sa_work.NEXTVAL, '555555', '작품 테스트업로드', 'user01', '5.jpg', 0, 0);
+INSERT INTO tbl_sa_work(wno, title, content, writer, w_img, w_like, viewcnt)
+VALUES(seq_sa_work.NEXTVAL, '666666', '작품 테스트업로드', 'user01', '6.jpg', 0, 0);
+INSERT INTO tbl_sa_work(wno, title, content, writer, w_img, w_like, viewcnt)
+VALUES(seq_sa_work.NEXTVAL, '777777', '작품 테스트업로드', 'user01', '7.jpg', 0, 0);
+INSERT INTO tbl_sa_work(wno, title, content, writer, w_img, w_like, viewcnt)
+VALUES(seq_sa_work.NEXTVAL, '888888', '작품 테스트업로드', 'user01', '8.jpg', 0, 0);
+INSERT INTO tbl_sa_work(wno, title, content, writer, w_img, w_like, viewcnt)
+VALUES(seq_sa_work.NEXTVAL, '999999', '작품 테스트업로드', 'user01', '9.jpg', 0, 0);
+INSERT INTO tbl_sa_work(wno, title, content, writer, w_img, w_like, viewcnt)
+VALUES(seq_sa_work.NEXTVAL, '101010', '작품 테스트업로드', 'user01', '10.jpg', 0, 0);
+INSERT INTO tbl_sa_work(wno, title, content, writer, w_img, w_like, viewcnt)
+VALUES(seq_sa_work.NEXTVAL, '11 11 11', '작품 테스트업로드', 'user01', '11.jpg', 0, 0);
+INSERT INTO tbl_sa_work(wno, title, content, writer, w_img, w_like, viewcnt)
+VALUES(seq_sa_work.NEXTVAL, '121212', '작품 테스트업로드', 'user01', '12.jpg', 0, 0);
+INSERT INTO tbl_sa_work(wno, title, content, writer, w_img, w_like, viewcnt)
+VALUES(seq_sa_work.NEXTVAL, '131313', '작품 테스트업로드', 'user01', '13.jpg', 0, 0);
+INSERT INTO tbl_sa_work(wno, title, content, writer, w_img, w_like, viewcnt)
+VALUES(seq_sa_work.NEXTVAL, '141414', '작품 테스트업로드', 'user01', '14.jpg', 0, 0);
+INSERT INTO tbl_sa_work(wno, title, content, writer, w_img, w_like, viewcnt)
+VALUES(seq_sa_work.NEXTVAL, '151515', '작품 테스트업로드', 'user01', '15.jpg', 0, 0);
+INSERT INTO tbl_sa_work(wno, title, content, writer, w_img, w_like, viewcnt)
+VALUES(seq_sa_work.NEXTVAL, '161616', '작품 테스트업로드', 'user01', '16.jpg', 0, 0);
+INSERT INTO tbl_sa_work(wno, title, content, writer, w_img, w_like, viewcnt)
+VALUES(seq_sa_work.NEXTVAL, '171717', '작품 테스트업로드', 'user01', '17.jpg', 0, 0);
+INSERT INTO tbl_sa_work(wno, title, content, writer, w_img, w_like, viewcnt)
+VALUES(seq_sa_work.NEXTVAL, '181818', '작품 테스트업로드', 'user01', '18.jpg', 0, 0);
+INSERT INTO tbl_sa_work(wno, title, content, writer, w_img, w_like, viewcnt)
+VALUES(seq_sa_work.NEXTVAL, '191919', '작품 테스트업로드', 'user01', '19.jpg', 0, 0);
+INSERT INTO tbl_sa_work(wno, title, content, writer, w_img, w_like, viewcnt)
+VALUES(seq_sa_work.NEXTVAL, '202020', '작품 테스트업로드', 'user01', '20.jpg', 0, 0);
+INSERT INTO tbl_sa_work(wno, title, content, writer, w_img, w_like, viewcnt)
+VALUES(seq_sa_work.NEXTVAL, '212121', '작품 테스트업로드', 'user01', '21.jpg', 0, 0);
+INSERT INTO tbl_sa_work(wno, title, content, writer, w_img, w_like, viewcnt)
+VALUES(seq_sa_work.NEXTVAL, '22 22 22', '작품 테스트업로드', 'user01', '22.jpg', 0, 0);
+INSERT INTO tbl_sa_work(wno, title, content, writer, w_img, w_like, viewcnt)
+VALUES(seq_sa_work.NEXTVAL, '232323', '작품 테스트업로드', 'user01', '23.jpg', 0, 0);
+INSERT INTO tbl_sa_work(wno, title, content, writer, w_img, w_like, viewcnt)
+VALUES(seq_sa_work.NEXTVAL, '242424', '작품 테스트업로드', 'user01', '24.jpg', 0, 0);
+INSERT INTO tbl_sa_work(wno, title, content, writer, w_img, w_like, viewcnt)
+VALUES(seq_sa_work.NEXTVAL, '252525', '작품 테스트업로드', 'user01', '25.jpg', 0, 0);
+INSERT INTO tbl_sa_work(wno, title, content, writer, w_img, w_like, viewcnt)
+VALUES(seq_sa_work.NEXTVAL, '262626', '작품 테스트업로드', 'user01', '26.jpg', 0, 0);
+INSERT INTO tbl_sa_work(wno, title, content, writer, w_img, w_like, viewcnt)
+VALUES(seq_sa_work.NEXTVAL, '272727', '작품 테스트업로드', 'user01', '27.jpg', 0, 0);
+INSERT INTO tbl_sa_work(wno, title, content, writer, w_img, w_like, viewcnt)
+VALUES(seq_sa_work.NEXTVAL, '282828', '작품 테스트업로드', 'user01', '28.jpg', 0, 0);
+INSERT INTO tbl_sa_work(wno, title, content, writer, w_img, w_like, viewcnt)
+VALUES(seq_sa_work.NEXTVAL, '292929', '작품 테스트업로드', 'user01', '29.jpg', 0, 0);
+INSERT INTO tbl_sa_work(wno, title, content, writer, w_img, w_like, viewcnt)
+VALUES(seq_sa_work.NEXTVAL, '303030', '작품 테스트업로드', 'user01', '30.jpg', 0, 0);
+INSERT INTO tbl_sa_work(wno, title, content, writer, w_img, w_like, viewcnt)
+VALUES(seq_sa_work.NEXTVAL, '313131', '작품 테스트업로드', 'user01', '31.jpg', 0, 0);
+INSERT INTO tbl_sa_work(wno, title, content, writer, w_img, w_like, viewcnt)
+VALUES(seq_sa_work.NEXTVAL, '323232', '작품 테스트업로드', 'user01', '32.jpg', 0, 0);
+INSERT INTO tbl_sa_work(wno, title, content, writer, w_img, w_like, viewcnt)
+VALUES(seq_sa_work.NEXTVAL, '33 33 33', '작품 테스트업로드', 'user01', '33.jpg', 0, 0);
+INSERT INTO tbl_sa_work(wno, title, content, writer, w_img, w_like, viewcnt)
+VALUES(seq_sa_work.NEXTVAL, '343434', '작품 테스트업로드', 'user01', '34.jpg', 0, 0);
+INSERT INTO tbl_sa_work(wno, title, content, writer, w_img, w_like, viewcnt)
+VALUES(seq_sa_work.NEXTVAL, '353535', '작품 테스트업로드', 'user01', '35.jpg', 0, 0);
+INSERT INTO tbl_sa_work(wno, title, content, writer, w_img, w_like, viewcnt)
+VALUES(seq_sa_work.NEXTVAL, '363636', '작품 테스트업로드', 'user01', '36.jpg', 0, 0);
+INSERT INTO tbl_sa_work(wno, title, content, writer, w_img, w_like, viewcnt)
+VALUES(seq_sa_work.NEXTVAL, '373737', '작품 테스트업로드', 'user01', '37.jpg', 0, 0);
+INSERT INTO tbl_sa_work(wno, title, content, writer, w_img, w_like, viewcnt)
+VALUES(seq_sa_work.NEXTVAL, '383838', '작품 테스트업로드', 'user01', '38.jpg', 0, 0);
+INSERT INTO tbl_sa_work(wno, title, content, writer, w_img, w_like, viewcnt)
+VALUES(seq_sa_work.NEXTVAL, '393939', '작품 테스트업로드', 'user01', '39.jpg', 0, 0);
+INSERT INTO tbl_sa_work(wno, title, content, writer, w_img, w_like, viewcnt)
+VALUES(seq_sa_work.NEXTVAL, '404040', '작품 테스트업로드', 'user01', '40.jpg', 0, 0);
+
+INSERT INTO tbl_sa_work(wno, title, content, writer, w_img)
+VALUES (seq_sa_work.NEXTVAL, '바보', '테스트업로드', 'user01', '');
+
+
+	 	VALUES (seq_sa_work.NEXTVAL, #{title}, #{content}, #{writer}, #{w_img})
+
+SELECT * FROM tbl_sa_work;
+
+
+COMMIT;
+
+DESC tbl_sa_work;
+SELECT * FROM tbl_sa_work;
+
+-- 작품에 달리는 댓글 테이블 생성
+DROP SEQUENCE seq_sa_wReply;
+CREATE SEQUENCE seq_sa_wReply
+START WITH 1
+INCREMENT BY 1;
+
+DROP TABLE tbl_sa_wReply;
+CREATE TABLE tbl_sa_wReply(
+    wrno NUMBER PRIMARY KEY,
+    content VARCHAR2(1000) NOT NULL,
+    writer VARCHAR2(100) NOT NULL,
+    regdate DATE DEFAULT SYSDATE,
+    wno NUMBER NOT NULL
+);
+
+DESC tal_sa_wReply;
+SELECT * FROM tbl_sa_wReply;
+
+INSERT INTO tbl_sa_wReply(wrno, content, writer, wno)
+VALUES (seq_sa_wReply.NEXTVAL, '작품 댓글 검사 테스트', 'user01', 38);
+INSERT INTO tbl_sa_wReply(wrno, content, writer, wno)
+VALUES (seq_sa_wReply.NEXTVAL, '작품 댓글 검사 테스트', 'user02', 38);
+INSERT INTO tbl_sa_wReply(wrno, content, writer, wno)
+VALUES (seq_sa_wReply.NEXTVAL, '작품 댓글 검사 테스트', 'user03', 38);
+
+
+-- 작품(wno)과 그 작품에 달린 댓글 번호(wrno)를 연결시키기 위함
+ALTER TABLE tbl_sa_wReply
+ADD CONSTRAINT tbl_sa_wReply_fk_bno
+FOREIGN KEY(wno) REFERENCES tbl_sa_work(wno);
+
+
+SELECT * FROM ( SELECT rownum AS rnum, A.* FROM ( SELECT b.*, m.id FROM tbl_sa_board b, tbl_sa_member 
+m WHERE b.writer = m.id AND (writer LIKE '%%' OR title LIKE '%%' OR content LIKE '%%') ORDER 
+BY bno DESC, re_step ) A ) WHERE rnum BETWEEN 1 AND 10; 
+
+UPDATE tbl_sa_board SET re_step = re_step + 1 WHERE ref = 10 AND re_step > 1;
+
+
+
+SELECT * FROM (SELECT * FROM tbl_sa_work
+                ORDER BY w_like DESC)
+			WHERE ROWNUM tbl_sa_work;
+            
+            
+SELECT *
+		FROM (
+			  SELECT rownum AS rnum, A.*
+			  FROM ( SELECT w.*, m.id
+                     FROM tbl_sa_work w, tbl_sa_member m
+                     WHERE w.writer = m.id
+                     AND title LIKE '%여름%'
+                     ORDER BY wno DESC) A
+			  ) WHERE rnum BETWEEN 1 AND 30;
+              
+SELECT COUNT (*)
+FROM tbl_sa_work w, tbl_sa_member m
+WHERE w.writer = m.id;
+
+SELECT COUNT (*) FROM tbl_sa_work w, tbl_sa_member m 
+WHERE w.writer = m.id 
+AND (writer LIKE 
+'' OR title LIKE '' OR content LIKE '%%'); 
+
+
+
+SELECT * FROM tbl_sa_work WHERE wno = 39;
+
+
+-- 팔로잉, 팔로워 테이블 생성
+DROP TABLE tbl_sa_follow;
+CREATE TABLE tbl_sa_follow(
+    follow VARCHAR2(100),
+    folloing VARCHAR2(100)
+);
+
+-- tbl_sa_member테이블과 외래키로 묶음
+ALTER TABLE tbl_sa_follow
+ADD CONSTRAINT tbl_sa_follow_fk_follow
+FOREIGN KEY(follow) REFERENCES tbl_sa_member(id);

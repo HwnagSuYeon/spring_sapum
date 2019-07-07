@@ -340,10 +340,49 @@ body {
     color: #5D5D5D;
     font-weight: bold;
     display: block;
+    border: 1px solid #dadada;
+    border-radius: 5px;
+    padding: 10px;
+    text-align: center;
+    margin-bottom: 10px;
+}
+.cmt_user {
+	display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #dadada;
+    padding: 0 5px 3px 5px;
+    align-items: center;
+}
+.user_name {
+	font-weight: bold;
+    color: #70D6C7;
+    font-size: 1.2em;
+}
+.dot {
+	width: 7px;
+    height: 7px;
+    background-color: #70D6C7;
+    border-radius: 5px;
+    display: inline-block;
+    margin: 0 5px 3px 0;
+}
+.cmt_content {
+	text-align: left;
+    margin-top: 10px;
+    display: flex;
+    padding: 0 5px;
+    color: #4c4c4c
+}
+.cmt_del_btn {
+	color: #dadada;
+	transition: .3s;
+}
+.cmt_del_btn:hover {
+	color: #70D6C7;
 }
 .user_dot {
-	width: 10px;
-	height: 10px;
+	width: 7px;
+	height: 7px;
 	background-color: #70D6C7;
 	border-radius: 10px;
 	display: inline-block;
@@ -354,8 +393,8 @@ body {
 	font-weight: bold;
 }
 .comm_inp {
-	border: 1px solid #EAEAEA;
-	width: 230px;
+	border: 1px solid #dadada;
+	width: 250px;
 	height: 30px;
 	border-radius: 20px;
 	font-size: .8em;
@@ -368,6 +407,7 @@ body {
 	display: flex;
 	align-items: center;
 	margin: 20px 0 5px 0;
+	padding: 0 16px;
 }
 .cmt_add_btn {
 	display: none;

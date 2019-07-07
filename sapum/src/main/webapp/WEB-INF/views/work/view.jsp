@@ -41,20 +41,15 @@
 						<h3>Comment</h3>
 						<span class="see_comm"><i class="fas fa-chevron-down"></i></span>
 					</div>
-					<div class="hidden_comment" style="display: none;">
-						<form class="comment_frm" action="" name="" method="">
-							<span class="com_text">Share your feedback,<br> ask questions or leave a praise</span>
-							<span class="user_wrap">
-								<span class="user_dot"></span>
-								<span class="comm_user">lim</span>
-							</span>
-							<div class="conn_inp">
-								<textarea class="comm_inp" placeholder="write your comment"></textarea>
-							</div>
-							<input type="hidden" name="id" class="comment_userid" value="">
-							<button type="button" class="cmt_add_btn"><i class="fas fa-plus"></i></button>
-						</form>
+					
+					
+					
+					<div class="hidden_comment" style="display: block;">
+						<div id="commentList"></div>
 					</div>
+					
+					
+					
 					<div class="de_up_btn">
 						<c:if test="${sessionScope.userid == one.writer}">
 							<button type="button" id="work_delete_btn" class="follow_btn re_btn">Remove</button>
@@ -84,6 +79,9 @@
 	<script type="text/javascript">
 	// 디테일페이지
 	$(document).ready(function() {
+		// 댓글 목록을 띄우기 위한 메서드 호출
+		comment_list();
+		
 		//코멘트 박스에 포커스 가면 라인 색 바뀌게
 		$('.comm_inp').focus(function() {
 			$(this).css('border', '1px solid #70D6C7')
@@ -143,6 +141,17 @@
 			location.href = "${path}/work/register?wno=${one.wno}";
 		})
 	});
+	
+	// comment_list.jsp를 띄워주기위한 function
+	function comment_list() {
+		$.ajax({
+			type: "GET",
+			url: "${path}/work/list?bno=${one.wno}",
+			success: function (result) {
+				$('#commentList').html(result);
+			}
+		});
+	}
 	</script>
 </body>
 </html>

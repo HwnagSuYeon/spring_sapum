@@ -305,3 +305,21 @@ CREATE TABLE tbl_sa_follow(
 ALTER TABLE tbl_sa_follow
 ADD CONSTRAINT tbl_sa_follow_fk_follow
 FOREIGN KEY(follow) REFERENCES tbl_sa_member(id);
+
+
+-- 게시판 첨부파일 테이블
+-- Drag&Drop을 활용한 첨부파일
+-- 첨부파일 이름은 uuid를 사용하기때문에 중복 안됨
+DROP TABLE tbl_attach CASCADE CONSTRAINTS;
+CREATE TABLE tbl_attach(
+    fullname VARCHAR2(150) NOT NULL,
+    wno NUMBER NOT NULL,
+    regdate DATE DEFAULT SYSDATE
+);
+ALTER TABLE tbl_attach ADD CONSTRAINT pk_attach
+PRIMARY KEY (fullname);
+
+ALTER TABLE tbl_attach
+ADD CONSTRAINT fk_attach_bno
+FOREIGN KEY(wno) REFERENCES tbl_sa_work(wno)
+ON DELETE CASCADE;

@@ -20,6 +20,12 @@ public class UploadFileUtils {
 		FileCopyUtils.copy(fileData, target);
 		// 파일의 확장자 검사
 		// a.jpg / aaa.bbb.ccc.jpg
-		String formatName = originalName.substring()
+		String formatName = originalName.substring(originalName.lastIndexOf(".")+1);
+		String uploadedFileName = null;
+		// 이미지 파일은 썸네일 사용
+		if(MediaUtils.getMediaType(formatName) != null) {
+			// 썸네일 생성
+			uploadedFileName = makeThumbnail(uploadPath, savedPath, sa)
+		}
 	}
 }

@@ -14,14 +14,27 @@
 		<a href="${path}/work/list" class="detail_delete"><i class="fas fa-times all_close_btn"></i></a>
 		<div class="board_all">
 			<div class="board">
-				<div class="work_wrap up_img">
+				<!-- 게시글 첨부파일 등록 -->
+				<div class="write_input_wrap form_group">
+					<div class="baord_div fileDrop">
+						<p>
+							<i class="up_icon fas fa-arrow-circle-up"></i>
+						</p>
+					</div>
+				</div>
+				<div class="wrote_input_wrap">
+					<ul id="uploadedList" class="mailbox-attachments clearfix uploadedList"></ul>
+				</div>
+				
+			
+				<!-- <div class="work_wrap up_img">
 					<div class="up_img_line">
 						<div class="up_icon"><i class="fas fa-arrow-circle-up"></i></div>
 						<span class="up_text">Drag or click to upload</span>
 						<span class="up_wor">Recommendation: High-quality imagery</span>
 					</div>
-				</div>
-				<input class="img_uplaod_in" type="file" style="display: none;" name="">
+				</div> 
+				<input class="img_uplaod_in" type="file" style="display: none;" name=""> -->
 				<div class="work_text_wrap">
 					<div class="te_user up_all">
 						<form class="upload_work_frm" method="POST" action="${path}/work/<c:out value="${wDto.wno == 0 ? 'create' : 'update' }"/>">
@@ -76,6 +89,41 @@
 		$('#upload_Btn').click(function () {
 			$('.upload_work_frm').submit();
 		});
+		
+		// 드래그앤드롭 기본 효과 막음
+		// : 작업 안하면 실제파일이 열림
+		$('.fileDrop').on('dragenter dragover', function (e) {
+			e.preventDefault();
+		});
+		// drop했을 때 일어나는 동작임
+		$('.fileDrop').on('drop', function (e) {
+			e.preventDefault();
+			
+			//Ajax 파일 -> d://upload
+			//첫번째 첨부파일(다중첨부파일을 막음. 세개의 파일을 드래그 해서 드롭하면 그중에서 가장 첫번째의 파일만 가져오도록 하는 기능이다)
+			var files = e.originalEvent.dataTransfer.files; //드래그에 전달된 첨부파일 전부
+			var file = files[0]; // 그중 하나만 꺼냄
+			alert(file);
+			//폼 데이터에 첨부파일 추가
+			var formData = new FormData(); // 폼 객체
+			formData.append("file", file) // 폼에 파일변수 추가
+			// 서버에 파일 업로드(백그라운드에서 실행됨)
+			// contentType: false => multipart/form-data로 처리
+			$.ajax({
+				url: "${path}/upload/uploadAjax",
+				data: formData,
+				dataType: "text",
+				processData: false,
+				contentType: false,
+				type: "POST",
+				success: function (data) {
+					consol.log(data);
+					//data: 업로드한 파일 정보와 http 상태 코드
+					printFiles(data); // 첨부파일 출력 메서드 호출
+				}
+			});
+		});
+		
 	});
 	</script>
 </body>

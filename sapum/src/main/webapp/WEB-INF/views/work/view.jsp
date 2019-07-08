@@ -143,7 +143,7 @@
 	});
 	
 	// comment_list.jsp를 띄워주기위한 function
-	function comment_list() {
+	/* function comment_list() {
 		$.ajax({
 			type: "GET",
 			url: "${path}/work/list?bno=${one.wno}",
@@ -151,7 +151,7 @@
 				$('#commentList').html(result);
 			}
 		});
-	}
+	} */
 	</script>
 </body>
 </html>

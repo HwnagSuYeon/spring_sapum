@@ -80,7 +80,7 @@
 	// 디테일페이지
 	$(document).ready(function() {
 		// 댓글 목록을 띄우기 위한 메서드 호출
-		comment_list();
+		// comment_list();
 		
 		//코멘트 박스에 포커스 가면 라인 색 바뀌게
 		$('.comm_inp').focus(function() {

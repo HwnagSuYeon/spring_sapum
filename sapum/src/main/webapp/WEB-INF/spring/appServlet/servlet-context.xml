@@ -30,7 +30,6 @@
 	</beans:bean>
 	<!-- 스프링 빈을 태그로 등록하지 않고 자동으로 검색(auto scan) --> 
 	<context:component-scan base-package="com.sapum.*" />
-	
 	<!-- AOP의 설정으로 Proxy객체를 자동으로 생성 -->
 	<aop:aspectj-autoproxy/>
 	
@@ -61,6 +60,7 @@
 	<!-- 파일 업로드를 위한 디렉토리 설정 -->
 	<!-- String uploadPath = new String("D:/upload"); -->
 	<beans:bean id="uploadPath" class="java.lang.String">
-		<beans:constructor-arg value="/Users/sapum_attachFile"/>
+		<!-- 파일저장되는 경로를 맥에서는 /User/로 바꿔줘야함 -->
+		<beans:constructor-arg value="D:\upload"/>
 	</beans:bean>
 </beans:beans>

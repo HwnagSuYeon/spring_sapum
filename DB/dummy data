@@ -21,6 +21,8 @@ INSERT INTO tbl_sa_member(id, pw, name, email, phone)
 VALUES('user02', '1234', '유수지', '2345@naver.com', '01023457890');
 INSERT INTO tbl_sa_member(id, pw, name, email, phone)
 VALUES('user03', '1234', '황수연', '4567@naver.com', '01023457890');
+
+
 -- board DB table
 -- 테이블 시퀀스 생성 
 DROP SEQUENCE seq_sa_board;
@@ -28,7 +30,9 @@ CREATE SEQUENCE seq_sa_board
 START WITH 1
 INCREMENT BY 1;
 
-DROP TABLE tbl_sa_board;
+SELECT * FROM seq_sa_board;
+
+DROP TABLE tbl_sa_board CASCADE CONSTRAINTS;
 CREATE TABLE tbl_sa_board(
     bno NUMBER PRIMARY KEY,
     title VARCHAR2(200) NOT NULL,
@@ -36,20 +40,36 @@ CREATE TABLE tbl_sa_board(
     writer VARCHAR2(30) NOT NULL,
     viewcnt NUMBER DEFAULT 0,
     replycnt NUMBER DEFAULT 0,
-    regdate DATE DEFAULT SYSDATE
+    regdate DATE DEFAULT SYSDATE,
+    ref NUMBER NOT NULL,
+    re_step NUMBER NOT NULL,
+    re_level NUMBER NOT NULL
 );
-SELECT * FROM tbl_sa_board;
+SELECT * FROM tbl_sa_board
+ORDER BY bno;
 DESC tbl_sa_board;
 
 
-INSERT INTO tbl_sa_board(bno, title, content, writer)
-VALUES(seq_sa_board.NEXTVAL, '안녕하세요', '테스트 게시글입니다', '쭈꾸리');
-INSERT INTO tbl_sa_board(bno, title, content, writer)
-VALUES(seq_sa_board.NEXTVAL, '오늘의 점심은', '테스트 게시글입니다', '꾸꾸리');
-INSERT INTO tbl_sa_board(bno, title, content, writer)
-VALUES(seq_sa_board.NEXTVAL, '날씨관련', '테스트 게시글입니다', '유수지');
-INSERT INTO tbl_sa_board(bno, title, content, writer)
-VALUES(seq_sa_board.NEXTVAL, '포켓몬고 같이할사람', '테스트 게시글입니다', '최인준');
+INSERT INTO tbl_sa_board(bno, title, content, writer, ref, re_step, re_level)
+VALUES(seq_sa_board.NEXTVAL, '안녕하세요', '테스트 게시글입니다', 'user01', seq_sa_board.CURRVAL, 1, 0);
+INSERT INTO tbl_sa_board(bno, title, content, writer, ref, re_step, re_level)
+VALUES(seq_sa_board.NEXTVAL, '오늘의 점심은', '테스트 게시글입니다', 'user02, seq_sa_baord.CURRVAL, 1, 0');
+INSERT INTO tbl_sa_board(bno, title, content, writer, ref, re_step, re_level)
+VALUES(seq_sa_board.NEXTVAL, '날씨관련', '테스트 게시글입니다', 'user03', seq_sa_board.CURRVAL, 1, 0);
+INSERT INTO tbl_sa_board(bno, title, content, writer, ref, re_step, re_level)
+VALUES(seq_sa_board.NEXTVAL, '포켓몬고 같이할사람', '테스트 게시글입니다', 'user04', seq_sa_board.CURRVAL, 1, 0);
+INSERT INTO tbl_sa_board(bno, title, content, writer, ref, re_step, re_level)
+VALUES(seq_sa_board.NEXTVAL, '물병주웠어요', '테스트 게시글입니다', 'user01', seq_sa_board.CURRVAL, 1, 0);
+INSERT INTO tbl_sa_board(bno, title, content, writer, ref, re_step, re_level)
+VALUES(seq_sa_board.NEXTVAL, '제발되라', '테스트 게시글입니다', 'user02', seq_sa_board.CURRVAL, 1, 0);
+INSERT INTO tbl_sa_board(bno, title, content, writer, ref, re_step, re_level)
+VALUES(seq_sa_board.NEXTVAL, '으어앙아아ㅏ아ㅏ아', '테스트 게시글입니다', 'user04', seq_sa_board.CURRVAL, 1, 0);
+INSERT INTO tbl_sa_board(bno, title, content, writer, ref, re_step, re_level)
+VALUES(seq_sa_board.NEXTVAL, '집에가고싶다', '테스트 게시글입니다', 'user02', seq_sa_board.CURRVAL, 1, 0);
+INSERT INTO tbl_sa_board(bno, title, content, writer, ref, re_step, re_level)
+VALUES(seq_sa_board.NEXTVAL, '테스트 게시글', '테스트 게시글입니다', 'user03', seq_sa_board.CURRVAL, 1, 0);
+INSERT INTO tbl_sa_board(bno, title, content, writer, ref, re_step, re_level)
+VALUES(seq_sa_board.NEXTVAL, '게시글 나와랏', '테스트 게시글입니다', 'user04', seq_sa_board.CURRVAL, 1, 0);
 
 
 

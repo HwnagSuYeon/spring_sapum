@@ -75,9 +75,15 @@
 											<span class="work_text"><fmt:formatDate value="${wDto.regdate}" pattern="yyyy-MM-dd"/></span>
 										</c:otherwise>
 									</c:choose>
-									<div class="view_icon">
-										<i class="far fa-eye"></i>
-										<span>${wDto.viewcnt}</span>
+									<div class="like_view_wrap">
+										<div class="view_icon like_icon">
+											<i class="fas fa-heart"></i>
+											<span>${wDto.w_like}</span>
+										</div>
+										<div class="view_icon">
+											<i class="far fa-eye"></i>
+											<span>${wDto.viewcnt}</span>
+										</div>
 									</div>
 								</div>
 								

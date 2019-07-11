@@ -174,7 +174,7 @@ body {
 	font-weight: bold;
 }
 .work_text {
-	font-size: .8em;
+	font-size: 1em;
 	cursor: default;
 	color: #cdcdcd;
 }
@@ -675,6 +675,8 @@ body {
 .side_title {
 	display: flex;
 	justify-content: space-between;
+	align-items: center;
+	margin-top: 2px;
 }
 .view_icon {
 	color: #cdcdcd;
@@ -708,6 +710,17 @@ body {
 	display: flex;
 	justify-content: space-between;
 	flex-wrap: wrap;
+}
+.like_view_wrap {
+	display: flex;
+}
+.like_icon {
+	margin-right: 10px;
+}
+.user_time {
+	font-size: .8em;
+	font-weight: 400;
+	color: #dadada;
 }
 
 

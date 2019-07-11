@@ -19,11 +19,13 @@
 				</div>
 				<div class="work_text_wrap">
 					<div class="menu_btn">
-						<a class="down_icon"><i class="fas fa-file-download do_icon"></i></a>
-						<a class="down_icon" id="unlike"><i class="far fa-heart do_icon"></i></a>
-						<a class="down_icon" id="like"><i class="fas fa-heart do_icon"></i></a>
-						<span class="sp_margin"></span>
-						<button type="button" class="follow_btn">Follow</button>
+						<c:if test="${!empty sessionScope.userid}">
+							<a class="down_icon"><i class="fas fa-file-download do_icon"></i></a>
+							<a class="down_icon" id="unlike"><i class="far fa-heart do_icon"></i></a>
+							<a class="down_icon" id="like"><i class="fas fa-heart do_icon"></i></a>
+							<span class="sp_margin"></span>
+							<button id="follow_btn" type="button" class="follow_btn">Follow</button>
+						</c:if>
 					</div>
 					<div class="te_user">
 						<h3 class="wo_user_name">${one.title}</h3>
@@ -79,6 +81,8 @@
 	<script type="text/javascript">
 	// 디테일페이지
 	$(document).ready(function() {
+		// 좋아요가 기존에 있는지 없는지 알기위한 메서드 호출
+		check_like();
 		// 댓글 목록을 띄우기 위한 메서드 호출
 		comment_list();
 		
@@ -112,12 +116,12 @@
 
 		// 좋아요버튼 기능
 		$('#unlike').click(function() {
-			$(this).css('display','none');
-			$('#like').css('display','block');
+			check_like();
+			like_switch();
 		});		
 		$('#like').click(function() {
-			$('#unlike').css('display', 'block');
-			$(this).css('display','none');
+			check_like();
+			like_switch();
 		});
 
 		//작품 삭제버튼 누르면 정말 삭제할거냐 물어보는 모달창
@@ -149,6 +153,35 @@
 			url: "${path}/workReply/list?wno=${one.wno}",
 			success: function (result) {
 				$('#commentList').html(result);
+			}
+		});
+	} 
+	
+	// 좋아요를 실질적으로 주는 기능
+	function like_switch() {
+		var wno = "${one.wno}";
+		$.ajax({
+			type: "post",
+			url: "${path}/like/switch_like?wno="+wno,
+			success: function(result) {
+				check_like();
+			}
+		});
+	} 
+	// 기존에 좋아요를 준적 있는지 없는지 확인하는 기능
+	function check_like() {
+		var wno = "${one.wno}";
+		$.ajax({
+			type: "post",
+			url: "${path}/like/check_like?wno="+wno,
+			success: function(result) {
+				if(result == 1) {
+					$('#unlike').css('display','none');
+					$('#like').css('display','block');
+				} else {
+					$('#unlike').css('display', 'block');	
+					$('#like').css('display','none');
+				}
 			}
 		});
 	} 

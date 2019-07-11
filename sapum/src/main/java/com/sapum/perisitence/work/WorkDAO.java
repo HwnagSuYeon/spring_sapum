@@ -12,4 +12,5 @@ public interface WorkDAO {
 	public void delete(int wno);
 	public void create(WorkDTO wDto);
 	public void update(WorkDTO wDto);
+	public void updateLikecnt(int wno, int result);
 }

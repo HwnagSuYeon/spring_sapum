@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 다른 mapper와 중복되지 않도록 네임스페이스 기재 -->
+<mapper namespace="like">
+	<select id="check_like" parameterType="HashMap" resultType="int">
+		SELECT COUNT(*)
+		FROM tbl_sa_like
+		WHERE wno = #{wno}
+		AND id = #{id}
+	</select>
+	<insert id="insertLike" parameterType="HashMap">
+		INSERT INTO tbl_sa_like(wno, id)
+		VALUES(#{wno}, #{id})
+	</insert>
+	<delete id="deleteLike" parameterType="HashMap">
+		DELETE FROM tbl_sa_like
+		WHERE wno = #{wno}
+		AND	  id = #{id}
+	</delete>
+</mapper>

@@ -96,4 +96,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	 		w_img = #{w_img}
 	 	WHERE wno = #{wno}
 	 </update>
+	 
+	 <!-- goodCnt update -->
+	 <update id="updateLike" parameterType="HashMap">
+	 	UPDATE tbl_sa_work
+	 	<if test="result == 0">
+	 		SET w_like = w_like + 1
+	 	</if>
+	 	<if test="result == 1">
+	 		SET w_like = w_like - 1
+	 	</if>
+	 	WHERE wno = #{wno}
+	 </update>
 </mapper>

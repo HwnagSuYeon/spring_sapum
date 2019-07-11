@@ -27,6 +27,7 @@ public class WorkReplyController {
 		log.info(">>>댓글 리스트 출력");
 		
 		List<WorkReplyDTO> list = service.list(wno);
+		log.info(">>>>>>>>>>>>>>댓글 리스트에서 가져"+list);
 		model.addAttribute("cmt_list", list);
 		return "work/comment_list";
 	}

@@ -65,7 +65,12 @@ public class WorkDAOImpl implements WorkDAO{
 	public void update(WorkDTO wDto) {
 		session.update("work.update", wDto);
 	}
-	
-	
-
+	// 좋아요가 증가, 감소에 따른 goodcnt +1, -1
+	@Override
+	public void updateLikecnt(int wno, int result) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("wno", wno);
+		map.put("result", result);
+		session.update("work.updateLike", map);
+	}
 }

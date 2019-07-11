@@ -44,7 +44,7 @@
 					
 					
 					
-					<div class="hidden_comment" style="display: block;">
+					<div class="hidden_comment" style="display: none;">
 						<div id="commentList"></div>
 					</div>
 					
@@ -80,7 +80,7 @@
 	// 디테일페이지
 	$(document).ready(function() {
 		// 댓글 목록을 띄우기 위한 메서드 호출
-		// comment_list();
+		comment_list();
 		
 		//코멘트 박스에 포커스 가면 라인 색 바뀌게
 		$('.comm_inp').focus(function() {
@@ -143,15 +143,15 @@
 	});
 	
 	// comment_list.jsp를 띄워주기위한 function
-	/* function comment_list() {
+	function comment_list() {
 		$.ajax({
 			type: "GET",
-			url: "${path}/work/list?bno=${one.wno}",
+			url: "${path}/workReply/list?wno=${one.wno}",
 			success: function (result) {
 				$('#commentList').html(result);
 			}
 		});
-	} */
+	} 
 	</script>
 </body>
 </html>

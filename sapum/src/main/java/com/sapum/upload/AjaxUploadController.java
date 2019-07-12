@@ -47,7 +47,15 @@ public class AjaxUploadController {
 	@ResponseBody // json 형식으로 리턴
 	@RequestMapping(value = "upload/uploadAjax", method = RequestMethod.POST, produces = "text/plain;charset=utf-8")
 	public ResponseEntity<String> uploadAjax(MultipartFile file) throws Exception {
+		// 화면단에서 보낸 file의 타입이 멀티파트파일. 매개변수로 받은 file내에는 드래그앤드롭으로 첨부한 파일이 들어있다.
 		// 업로드한 파일 정보와 Http 상태 코드를 함께 리턴
+		
+		// ResponseEntity => 기존에 응답할때는 화면단 주소 등을 보냈는데, ResponseEntity는 HTTP에 상태코드(잘 되었으면 200번대코드, 서버를 못찾을때는 400, 화면단을 못찾을때는 500번대)를 함께 보낼 때 쓴다.
+				// UploadFileUtils앞글자가 대문자. 그러므로 클래스명이고, static이다. 객체 생성없이 참조 가능.
+				// UploadFileUtils 클래스를 참조해서 uploadFile 메서드 실행(uploadFile뒤에 괄호가 붙어있으므로 메서드이다)
+				// uploadFile메서드 안에 매개변수로 uploadPath를 갖고간다. uploadPath => 서블릿컨텍스트루트에서 설정해줌. D:\\uploadfile
+				// file.getOriginalFilename = file의 이름(000.jpg)
+				// file.getBytes() = 바이트단위의 파일 사이즈
 		return new ResponseEntity<String>(UploadFileUtils.uploadFile(uploadPath, file.getOriginalFilename(), file.getBytes()), HttpStatus.OK);
 	}
 

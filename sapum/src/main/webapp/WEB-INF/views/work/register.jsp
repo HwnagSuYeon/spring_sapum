@@ -132,8 +132,9 @@
 			var str="";
 			// uploadedList 내부의 .file 태그 각각 반복
 			$("#uploadedList .file").each(function(i){
+				// each = 인풋타입 히든으로 만든 class의 이름이 file의 갯수만큼 반복
 				console.log(i);
-				//hidden 태그 구성
+				//hidden 태그 구성(files라는 배열에 인풋타입 히든에 val을 해당 태그의 값으로 넣어라. 그러니까 올린 파일의 갯수만큼 배열에 값을 순서대로 넣어주는 역할.)
 				str += "<input type='hidden' name='files["+i+"]' value='" + $(this).val()+"'>";
 			});
 			
@@ -153,8 +154,11 @@
 		$('.fileDrop').on('dragenter dragover', function (e) {
 			e.preventDefault();
 		});
+		
+		// 1. 파일을 드래그 앤 드롭했을 때
 		// drop했을 때 일어나는 동작임
 		$('.fileDrop').on('drop', function (e) {
+			// 드래그앤 드롭시 기본 파일실행을 막음
 			e.preventDefault();
 			
 			//Ajax 파일 -> d://upload
@@ -162,9 +166,9 @@
 			var files = e.originalEvent.dataTransfer.files; //드래그에 전달된 첨부파일 전부
 			var file = files[0]; // 그중 하나만 꺼냄
 			alert(file);
-			//폼 데이터에 첨부파일 추가
+			//폼 데이터에 첨부파일 추가: ajax로 객체를 보낼때 쓰는 것
 			var formData = new FormData(); // 폼 객체
-			formData.append("file", file) // 폼에 파일변수 추가
+			formData.append("file", file) // 폼에 파일변수 추가 => append=추가기능, 기존에 있는 것의 맨 마지막에 추가된다. 기존것의 수정은 불가능하고 계속 꼬리부분에 추가만 가능.
 			// 서버에 파일 업로드(백그라운드에서 실행됨)
 			// contentType: false => multipart/form-data로 처리
 			$.ajax({
@@ -175,6 +179,7 @@
 				contentType: false,
 				type: "POST",
 				success: function (data) {
+					// data -> 썸네일 이름
 					console.log(data);
 					//data: 업로드한 파일 정보와 http 상태 코드
 					printFiles(data); // 첨부파일 출력 메서드 호출
@@ -230,14 +235,15 @@
 	    // 이미지 파일이면
 	    if (checkImageType(fullName)) {
 	        imgSrc = "${path}/upload/displayFile?fileName=" + fullName; // 썸네일 이미지 링크
-	        uuidFileName = fullName.substr(14);
-	        var originalImg = fullName.substr(0, 12) + fullName.substr(14);
-	        // 원본 이미지 요청 링크
+	        uuidFileName = fullName.substr(14); // 전체이름에서 14만큼(날짜파일디렉토리와s_를 잘라줌) 문자열을 자름 => 실제 uuid가붙은 원본 파일의 이름
+	        var originalImg = fullName.substr(0, 12) + fullName.substr(14); // 오리지널 이미지의 경로를 만들어줌. /2019/07/12asdfas-asdfasd...000.jpg
+	        // 원본 이미지 요청 링크(쿼리스트링으로 오리지널 이미지의 경로를 붙이고 경로를 변수에 담아줌. 아직 실행 안함)
 	        originalFileUrl = "${path}/upload/displayFile?fileName=" + originalImg;
 	    } else {
 	        imgSrc = "${path}/resources/img/file-icon.png"; // 파일 아이콘 이미지 링크
 	        uuidFileName = fullName.substr(12);
 	        // 파일 다운로드 요청 링크
+	        // uuidFileName.indexOf("_") => 실제 파일 이름을 구함. uuid와 _를 제외(+을 한 이유임)한 실제 파일 이름 000.jpg
 	        originalFileUrl = "${path}/upload/displayFile?fileName=" + fullName;
 	    }
 	    originalFileName = uuidFileName.substr(uuidFileName.indexOf("_") + 1);
@@ -255,26 +261,30 @@
 		// 맨 처음 문자열 10글자 + ... + 확장자
 		originalFileName = shortName + "..." + formatVal[arrNum];
 	    }
+	 	// 리턴으로 보내주는 데이터는 JSON타입
 	    return {originalFileName: originalFileName, imgSrc: imgSrc, originalFileUrl: originalFileUrl, fullName: fullName, basicFileName: basicFileName};
 	}
 	//첨부파일 출력
 	function printFiles(data) {
+		// data = 날짜파일디렉토리와 썸네일 이름
 	    // 파일 정보 처리
 	    var fileInfo = getFileInfo(data);
 	    /* console.log(fileInfo); */
 	    // Handlebars 파일 템플릿에 파일 정보들을 바인딩하고 HTML 생성
+	    // fileTemplate -> 
 	    var html = fileTemplate(fileInfo);
 	    html += "<input type='hidden' class='file' value='"
 			+fileInfo.fullName+"'>";
 	    // Handlebars 파일 템플릿 컴파일을 통해 생성된 HTML을 DOM에 주입
 	    $(".uploadedList").append(html);
 	    // 이미지 파일인 경우 aaaaaaaaaaa파일 템플릿에 lightbox 속성 추가
+	    // 썸네일 이미지인지 아닌지 판별하는 if문
 	    if (fileInfo.fullName.substr(12, 2) === "s_") {
 	        // 마지막에 추가된 첨부파일 템플릿 선택자
 	        var that = $(".uploadedList li").last();
 	        // lightbox 속성 추가
-	        that.find(".mailbox-attachment-name").attr("data-lightbox", "uploadImages");
-	        // 파일 아이콘에서 이미지 아이콘으로 변경
+	        that.find(".mailbox-attachment-name").attr("data-lightbox", "uploadImages"); // mailbox-attachment-name(썸네일)을 누르면 미리보기 기능(라이트박스)을 함. 라이트박스 속성을 주지 않으면 이미지를 클릭하면 다운이 되버림.
+	        // 파일 아이콘에서 이미지 아이콘으로 변경(이미지가 아닌 다른 파일이 들어오면 클립으로 이미지가 들어옴)
 	        that.find(".fa-paperclip").attr("class", "fa fa-camera");
 	    }
 	}

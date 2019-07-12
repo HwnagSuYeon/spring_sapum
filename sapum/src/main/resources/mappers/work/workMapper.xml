@@ -108,4 +108,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	 	</if>
 	 	WHERE wno = #{wno}
 	 </update>
+	 
+	 <!-- 첨부파일 등록 -->
+	 <insert id="addAttach" parameterType="String">
+	 	INSERT INTO tbl_sa_attach (fullname, bno)
+	 	VALUES(#{name}, seq_sa_work.CURRVAL)
+	 </insert>
 </mapper>

@@ -73,4 +73,9 @@ public class WorkDAOImpl implements WorkDAO{
 		map.put("result", result);
 		session.update("work.updateLike", map);
 	}
+	// 첨부파일 등록해주는 기능
+	@Override
+	public void addAttach(String name) {
+		session.insert("work.addAttach", name);
+	}
 }

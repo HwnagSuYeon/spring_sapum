@@ -20,6 +20,13 @@
 		</repository>
 	</repositories>
 	<dependencies>
+		<!-- AOP관련 라이브러리 -->
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjweaver</artifactId>
+			<version>${org.aspectj-version}</version>
+		</dependency>
+			
 		<!-- 파일업로드 관련 -->
 		<!-- https://mvnrepository.com/artifact/commons-fileupload/commons-fileupload -->
 		<dependency>

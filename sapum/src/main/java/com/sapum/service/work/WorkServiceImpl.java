@@ -1,12 +1,12 @@
 package com.sapum.service.work;
 
-import java.util.HashMap;
 import java.util.List;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.sapum.domain.work.WorkDTO;
 import com.sapum.perisitence.work.WorkDAO;
@@ -56,19 +56,28 @@ public class WorkServiceImpl implements WorkService{
 	public void delete(int wno) {
 		wDao.delete(wno);
 	}
-	// 작품 추가기능 수행
-	@Override
-	public void create(WorkDTO wDto) {
-		log.info(">>>>>>>>>>>>>service"+wDto.toString());
-		wDao.create(wDto);
-	}
-	// 작품 수정기능 수행
 	@Override
 	public void update(WorkDTO wDto) {
 		wDao.update(wDto);
 	}
 	
-	
-	
+	@Transactional
+	@Override
+	public void create(WorkDTO wDto) {
+		log.info(">>>>>>>>>>>>>service"+wDto.toString());
+		// 등록기능 수행
+		wDao.create(wDto);
+		
+		// 등록이 성공하면 attach테이블에 첨부파일 이름 추가
+		String[] files = wDto.getFiles();
+		// 첨부파일이 없으면 skip
+		if (files == null) return;
+		// 작품등록시 첨부파일이 여러개면 하나씩 반복문을 돌며 넣어주는 기능
+		for(String name:files) {
+			wDao.addAttach(name);
+		}
+		
+	}
+
 	
 }

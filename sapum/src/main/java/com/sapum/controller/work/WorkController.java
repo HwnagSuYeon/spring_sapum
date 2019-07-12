@@ -23,8 +23,9 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 @RequestMapping(value = "/work/*")
 public class WorkController {
-	@Inject
-	private WorkService service;
+	
+	@Inject private WorkService wService;
+	
 	
 	// 리스트 페이지 출력
 	@RequestMapping(value = "list", method = RequestMethod.GET)
@@ -36,7 +37,7 @@ public class WorkController {
 		log.info(">>>작품 리스트페이지 출력");
 		
 		// 게시물 총 개수를 구해 몇개로 나눠 한페이지에띄울지 정함
-		int count = service.countArticle(search_option, keyword);
+		int count = wService.countArticle(search_option, keyword);
 		
 		// 페이지관련 설정
 		Pager pager = new Pager(count, curPage);
@@ -44,7 +45,7 @@ public class WorkController {
 		int end = pager.getPageEnd();
 		
 		// 페이지에 출력할 게시글 목록
-		List<WorkDTO> list = service.listAll(sort_option, search_option, keyword, start, end);
+		List<WorkDTO> list = wService.listAll(sort_option, search_option, keyword, start, end);
 		// 화면단에 보낼것을 mav에 담아 보냄
 		ModelAndView mav = new ModelAndView();
 		// 보낼 데이터
@@ -66,9 +67,9 @@ public class WorkController {
 	@RequestMapping(value = "view", method = RequestMethod.GET)
 	public String view(int wno, Model model, HttpSession session) {
 		log.info(">>>작품 상세조회페이지 출력"+wno);
-		service.increaseViewCnt(wno, session);
+		wService.increaseViewCnt(wno, session);
 		
-		WorkDTO wDto = service.read(wno);
+		WorkDTO wDto = wService.read(wno);
 		model.addAttribute("one", wDto);
 		
 		return "work/view";
@@ -86,7 +87,7 @@ public class WorkController {
 			model.addAttribute("wDto", wDto);
 		} else {
 			// 화면단에서 받아온 wno가 1이 아닐 경우 -> 기존정보 든 DTO들고 작품 수정페이지 출력
-			wDto = service.read(wno);
+			wDto = wService.read(wno);
 			model.addAttribute("wDto", wDto);
 		}
 		return "work/register";
@@ -96,7 +97,7 @@ public class WorkController {
 	@RequestMapping(value = "create", method = RequestMethod.POST)
 	public String create(WorkDTO wDto) {
 		log.info(">>>>작품 추가기능 수행"+wDto.toString());
-		service.create(wDto);
+		wService.create(wDto);
 		
 		return "redirect:/work/view?wno="+wDto.getWno();
 	}
@@ -105,7 +106,7 @@ public class WorkController {
 	@RequestMapping(value = "delete", method = RequestMethod.GET)
 	public String delete(int wno) {
 		log.info(">>>작품 삭제기능 수행"+wno);
-		service.delete(wno);
+		wService.delete(wno);
 		return "redirect:/work/list";
 	}
 	
@@ -113,7 +114,8 @@ public class WorkController {
 	@RequestMapping(value = "update", method = RequestMethod.POST)
 	public String update(WorkDTO wDto) {
 		log.info(">>>작품 수정기능 수행");
-		service.update(wDto);
+		wService.update(wDto);
 		return "redirect:/work/list";
 	}
 }
+

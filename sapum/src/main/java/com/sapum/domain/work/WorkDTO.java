@@ -21,5 +21,6 @@ public class WorkDTO {
 	private String w_img;
 	private int w_like;
 	private int viewcnt;
+	private String[] files; // 첨부파일 이름 배열
 	private Date regdate;
 }

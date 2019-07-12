@@ -1,5 +1,7 @@
 package com.sapum.perisitence.member;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import com.sapum.domain.member.MemberDTO;
@@ -19,5 +21,11 @@ public interface MemberDAO {
 		public int memUpdate(MemberDTO mDto);
 		// 회원정보 삭제
 		public int delete(String id);
+		public int followCk(String followingId, String followerId);
+		public void follow_insert(String followingId, String followerId);
+		public void follow_delete(String followingId, String followerId);
+		public int follower_count(String followingId);
+		public List<String> following_list(String followerId);
+		
 
 }

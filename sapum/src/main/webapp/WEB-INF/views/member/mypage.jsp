@@ -86,91 +86,8 @@
 			<h1 class="inter_title">Interested writer</h1>
 			<div class="inter_all">
 				
-				<div class="inter_container">
-					<div class="inter_box">
-						<a href="#"><span class="inter_name">ggugguri</span></a>
-						<a href="#"><i class="fas fa-times inter_del"></i></a>
-					</div>
-				</div>
 
-				<div class="inter_container">
-					<div class="inter_box">
-						<a href="#"><span class="inter_name">popotaze</span></a>
-						<a href="#"><i class="fas fa-times inter_del"></i></a>
-					</div>
-				</div>
-
-				<div class="inter_container">
-					<div class="inter_box">
-						<a href="#"><span class="inter_name">pokemon</span></a>
-						<a href="#"><i class="fas fa-times inter_del"></i></a>
-					</div>
-				</div>
-
-
-				<div class="inter_container">
-					<div class="inter_box">
-						<a href="#"><span class="inter_name">rita</span></a>
-						<a href="#"><i class="fas fa-times inter_del"></i></a>
-					</div>
-				</div>
-
-				<div class="inter_container">
-					<div class="inter_box">
-						<a href="#"><span class="inter_name">ggugguri</span></a>
-						<a href="#"><i class="fas fa-times inter_del"></i></a>
-					</div>
-				</div>
-
-				<div class="inter_container">
-					<div class="inter_box">
-						<a href="#"><span class="inter_name">popotaze</span></a>
-						<a href="#"><i class="fas fa-times inter_del"></i></a>
-					</div>
-				</div>
-
-				<div class="inter_container">
-					<div class="inter_box">
-						<a href="#"><span class="inter_name">pokemon</span></a>
-						<a href="#"><i class="fas fa-times inter_del"></i></a>
-					</div>
-				</div>
-
-
-				<div class="inter_container">
-					<div class="inter_box">
-						<a href="#"><span class="inter_name">rita</span></a>
-						<a href="#"><i class="fas fa-times inter_del"></i></a>
-					</div>
-				</div>
-				<div class="inter_container">
-					<div class="inter_box">
-						<a href="#"><span class="inter_name">ggugguri</span></a>
-						<a href="#"><i class="fas fa-times inter_del"></i></a>
-					</div>
-				</div>
-
-				<div class="inter_container">
-					<div class="inter_box">
-						<a href="#"><span class="inter_name">popotaze</span></a>
-						<a href="#"><i class="fas fa-times inter_del"></i></a>
-					</div>
-				</div>
-
-				<div class="inter_container">
-					<div class="inter_box">
-						<a href="#"><span class="inter_name">pokemon</span></a>
-						<a href="#"><i class="fas fa-times inter_del"></i></a>
-					</div>
-				</div>
-
-
-				<div class="inter_container">
-					<div class="inter_box">
-						<a href="#"><span class="inter_name">rita</span></a>
-						<a href="#"><i class="fas fa-times inter_del"></i></a>
-					</div>
-				</div>
+				
 			</div>
 		</div>
 
@@ -260,6 +177,7 @@
 	<script type="text/javascript">
 	// 내작품 관리에서 작품 호버했을 때 작품삭제버튼 나오도록 제어
 	$(document).ready(function() {
+		following_list();
 		$('.work_hover').hover(function(){
 			$(this).children().eq(2).css('display','block')
 							        .css('transition','.3s');
@@ -280,8 +198,38 @@
 		$('#wo_de_btn').click(function() {
 			$('#wo_de_modal').css('display', 'none');
 		});
+		
+		$('.inter_del').click(function () {
+			console.log($(this));
+			/* $.ajax({
+				type: "GET",
+				url: "${path}/member/follow_switch",
+				data: "followingId=${one.writer}",
+				success: function () {
+					followCk();
+				}
+			}); */
+		});
+		
+		
 
 	});
+	// 내가 팔로우하는 사람들을 띄워주기 위함
+	function following_list() {
+		var in_html = "";
+		$.ajax({
+			type: "GET",
+			url: "${path}/member/following_list",
+			dataType: "JSON",
+			success: function (result) {
+				console.log(result);
+				result.forEach(function(e){
+					in_html = in_html+'<div class="inter_container"><div class="inter_box"><a href="#"><span class="inter_name">'+e+'</span></a><a href="#"><i value="'+e+'" class="fas fa-times inter_del"></i></a></div></div>';
+				});
+				$(".inter_all").html(in_html);
+			}
+		});
+	}
 
 	</script>
 </body>

@@ -1,5 +1,8 @@
 package com.sapum.controller.member;
 
+import java.util.HashMap;
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
@@ -126,6 +129,38 @@ public class MemberController {
 		log.info(">>>계정찾기페이지 출력");
 		
 		return "member/findAccount";
+	}
+	
+	// 팔로우 버튼을 눌렀는지 안눌렀는지 상태를 알기위함
+	// 비즈니스 로직
+	// 일단 눌렀는지 안눌렀는지 확인
+	// 누른 행위에 따른 상태 변화
+	@ResponseBody
+	@RequestMapping(value = "followCk", method = RequestMethod.GET)
+	public HashMap<String, Integer> followCk(String followingId, HttpSession session) {
+		System.out.println("팔로우 접근>>>>>>>>>>>>>>>>>>>>>>>>>>>"+followingId);
+		int follewr_count = service.follower_count(followingId);
+		int followCk = service.followCk(followingId, session);
+		HashMap<String, Integer> map = new HashMap<String, Integer>();
+		
+		map.put("follewr_count", follewr_count);
+		map.put("followCk", followCk);
+		
+		return map;
+	}
+	
+	// 팔로우/팔로워 스위칭. 실제로 DB에 팔로우 한사람이 등록됨
+	@ResponseBody
+	@RequestMapping(value = "follow_switch", method = RequestMethod.GET)
+	public void follow_switch(String followingId, HttpSession session) {
+		service.follow_switch(followingId, session);
+	}
+	
+	//
+	@ResponseBody
+	@RequestMapping(value = "following_list", method = RequestMethod.GET)
+	public List<String> following_list(HttpSession session) {
+		return service.following_list(session);
 	}
 	
 }

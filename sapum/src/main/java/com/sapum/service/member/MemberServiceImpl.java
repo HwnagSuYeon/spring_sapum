@@ -1,5 +1,7 @@
 package com.sapum.service.member;
 
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
@@ -85,8 +87,41 @@ public class MemberServiceImpl implements MemberService{
 			log.info("계정삭제 성공");
 		}
 	}
-	
-	
-	
+	@Override
+	public int followCk(String followingId, HttpSession session) {
+		String userid;
+		if((userid = (String)session.getAttribute("userid"))!= null) {
+			return mDao.followCk(followingId, userid);
+		}else {
+			return 0;
+		}
 	}
+	
+	@Override
+	public void follow_switch(String followingId, HttpSession session) {
+		String followerId = (String) session.getAttribute("userid");
+		if( mDao.followCk(followingId, followerId) == 0) {
+			// if문 안의 조건문 -> 팔로우 버튼을 누른 기록이 없을때 = insert문
+			mDao.follow_insert(followingId, followerId);
+		} else {
+			mDao.follow_delete(followingId, followerId);
+		}
+	}
+	
+	
+	@Override
+	public int follower_count(String followingId) {
+		return mDao.follower_count(followingId);
+	}
+	
+	
+	@Override
+	public List<String> following_list(HttpSession session) {
+		String followerId = (String) session.getAttribute("userid");
+		return mDao.following_list(followerId);
+	}
+	
+	
+	
+}
 

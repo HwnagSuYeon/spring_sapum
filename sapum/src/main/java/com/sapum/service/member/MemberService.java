@@ -1,5 +1,7 @@
 package com.sapum.service.member;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import com.sapum.domain.member.MemberDTO;
@@ -31,4 +33,12 @@ public interface MemberService {
 	
 	// 회원정보 삭제
 	public void delete(HttpSession session);
+
+	public int followCk(String followingId, HttpSession session);
+
+	public void follow_switch(String followingId, HttpSession session);
+
+	public int follower_count(String followingId);
+
+	public List<String> following_list(HttpSession session);
 }

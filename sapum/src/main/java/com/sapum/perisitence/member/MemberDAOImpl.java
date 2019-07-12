@@ -1,5 +1,8 @@
 package com.sapum.perisitence.member;
 
+import java.util.HashMap;
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
@@ -49,5 +52,40 @@ public class MemberDAOImpl implements MemberDAO{
 	@Override
 	public int delete(String id) {
 		return sqlSession.delete("member.delete", id);
+	}
+
+	@Override
+	public int followCk(String followingId, String followerId) {
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("followingId", followingId);
+		map.put("followerId", followerId);
+		
+		return sqlSession.selectOne("member.followCk", map);
+	}
+
+	@Override
+	public void follow_insert(String followingId, String followerId) {
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("followingId", followingId);
+		map.put("followerId", followerId);
+		sqlSession.insert("member.follow_insert", map);
+	}
+
+	@Override
+	public void follow_delete(String followingId, String followerId) {
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("followingId", followingId);
+		map.put("followerId", followerId);
+		sqlSession.delete("member.follow_delete", map);
+	}
+
+	@Override
+	public int follower_count(String followingId) {
+		return sqlSession.selectOne("member.follower_count", followingId);
+	}
+
+	@Override
+	public List<String> following_list(String followerId) {
+		return sqlSession.selectList("member.following_list", followerId);
 	}
 }

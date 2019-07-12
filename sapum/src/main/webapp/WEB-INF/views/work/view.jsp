@@ -24,7 +24,9 @@
 							<a class="down_icon" id="unlike"><i class="far fa-heart do_icon"></i></a>
 							<a class="down_icon" id="like"><i class="fas fa-heart do_icon"></i></a>
 							<span class="sp_margin"></span>
-							<button id="follow_btn" type="button" class="follow_btn">Follow</button>
+							<c:if test="${sessionScope.userid != one.writer}">
+								<button id="follow_btn" type="button" class="follow_btn">Follow</button>
+							</c:if>
 						</c:if>
 					</div>
 					<div class="te_user">
@@ -33,7 +35,7 @@
 						<span class="follower_cnt">
 							<span class="work_username">${one.writer}</span>
 							<span>Follower</span>
-							<span class="fl_cnt">345</span></span>
+							<span id="follower_cnt" class="fl_cnt"></span></span>
 						<span class="work_text_con">${one.content}</span>
 					</div>
 					<div class="button_wrap">
@@ -85,6 +87,8 @@
 		check_like();
 		// 댓글 목록을 띄우기 위한 메서드 호출
 		comment_list();
+		// 팔로우버튼을 눌렀는지 안눌렀는지 알기위한 메서드 호출
+		followCk();
 		
 		//코멘트 박스에 포커스 가면 라인 색 바뀌게
 		$('.comm_inp').focus(function() {
@@ -144,6 +148,21 @@
 		$('#work_upBtn').click(function () {
 			location.href = "${path}/work/register?wno=${one.wno}";
 		})
+		
+		// 팔로우/언팔로우 스위치 기능
+		$('#follow_btn').click(function () {
+			$.ajax({
+				type: "GET",
+				url: "${path}/member/follow_switch",
+				data: "followingId=${one.writer}",
+				success: function () {
+					followCk();
+				}
+			});
+		});
+		
+		
+		
 	});
 	
 	// comment_list.jsp를 띄워주기위한 function
@@ -185,6 +204,26 @@
 			}
 		});
 	} 
+	
+	// 팔로우 버튼을 눌렀는지 안눌렀는지 상태를 알기위한 ajax
+	function followCk() {
+		$.ajax({
+			type: "GET",
+			url: "${path}/member/followCk",
+			data: "followingId=${one.writer}",
+			success: function(result) {
+				if(result.followCk == 0){
+					$('#follow_btn').css('background-color','#70D6C7')
+									.text('Follow');
+				} else {
+					$('#follow_btn').css('background-color','#dadada')
+								    .text('UnFollow');
+				}
+				$('#follower_cnt').text(result.follewr_count);
+			}
+		});
+	}
+	
 	</script>
 </body>
 </html>

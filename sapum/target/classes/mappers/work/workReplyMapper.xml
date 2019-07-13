@@ -12,4 +12,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		AND wno = #{wno}
 		ORDER BY wrno
 	</select>
+	
+	<insert id="create" parameterType="com.sapum.domain.work.WorkReplyDTO">
+		INSERT INTO tbl_sa_wReply(wrno, content, writer, wno)
+		VALUES(seq_sa_wReply.NEXTVAL, #{content}, #{writer}, #{wno})
+	</insert>
 </mapper>

@@ -56,22 +56,31 @@
 			<span class="com_text"><a class="cmt_login" href="#" style="color: #70D6C7;">Login</a> to comment</span>
 		</c:when>
 		<c:otherwise>
-			<form class="comment_frm" action="" name="" method="">
+			<form class="comment_frm">
 				<span class="user_wrap">
 					<span class="user_dot"></span>
-					<span class="comm_user">lim</span>
+					<span class="comm_user">${sessionScope.userid}</span>
 				</span>
 				<div class="conn_inp">
-					<textarea class="comm_inp" placeholder="write your comment"></textarea>
+					<textarea class="comm_inp" placeholder="write your comment" name="content"></textarea>
 				</div>
-				<input type="hidden" name="id" class="comment_userid" value="">
-				<button type="button" class="cmt_add_btn"><i class="fas fa-plus"></i></button>
+				<span class="cmt_err_msg" style="display: none;">댓글의 내용이 없습니다!</span>
+				<input type="hidden" name="writer" class="comment_userid">
+				<input type="hidden" name="wno" id="cmt_wno">
+				<button id="cmt_add_btn" type="button" class="cmt_add_btn"><i class="fas fa-plus"></i></button>
 			</form>
 		</c:otherwise>
 	</c:choose>
 	
 	
 	<script type="text/javascript">
+		$(document).ready(function () {
+			//코멘트 박스에 포커스 가면 라인 색 바뀌게
+			$('.comm_inp').click(function() {
+				$(this).css('border', '1px solid #70D6C7')
+					   .css('height', '90px');
+			});
+		});
 		// 로그인 하면 댓글 쓸 수 있는 창에 로그인 글씨 누르면 모달창 나오도록 제어
 		$('.cmt_login').on('click', function () {
 			$('.lo_modal').css('display','flex');

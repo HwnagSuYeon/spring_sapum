@@ -410,7 +410,6 @@ body {
 	padding: 0 16px;
 }
 .cmt_add_btn {
-	display: none;
 	width: 30px;
     height: 30px;
     border-radius: 30px;
@@ -418,8 +417,8 @@ body {
     color: #5D5D5D;
     font-size: 1.2em;
     transition: .3s;
-    margin: 10px auto;
     transition: .3s;
+    margin: 20px auto auto;
 }
 .cmt_add_btn:hover {
 	background-color: #70D6C7;
@@ -722,7 +721,19 @@ body {
 	font-weight: 400;
 	color: #dadada;
 }
-
+.i_wrap {
+	display: flex;
+    justify-content: space-between;
+    width: 30%;
+}
+.cmt_err_msg {
+	display: inline-block;
+    text-align: center;
+    margin-top: 10px;
+    color: tomato;
+    font-size: .8em;
+    font-weight: bold;
+}
 
 
 

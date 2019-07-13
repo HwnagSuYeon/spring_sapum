@@ -24,8 +24,7 @@ public class WorkReplyDAOImpl implements WorkReplyDAO{
 	// 댓글 추가
 	@Override
 	public void create(WorkReplyDTO rDto) {
-		// TODO Auto-generated method stub
-		
+		session.insert("workReply.create", rDto);
 	}
 	// 댓글 삭제
 	@Override

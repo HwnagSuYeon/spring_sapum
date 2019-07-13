@@ -23,8 +23,7 @@ public class WorkReplyServiceImpl implements WorkReplyService{
 
 	@Override
 	public void create(WorkReplyDTO rDto) {
-		// TODO Auto-generated method stub
-		
+		rDao.create(rDto);
 	}
 
 	@Override

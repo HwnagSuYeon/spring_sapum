@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sapum.domain.work.WorkReplyDTO;
 import com.sapum.service.work.WorkReplyService;
@@ -30,5 +31,13 @@ public class WorkReplyController {
 		log.info(">>>>>>>>>>>>>>댓글 리스트에서 가져"+list);
 		model.addAttribute("cmt_list", list);
 		return "work/comment_list";
+	}
+	
+	// 댓글 등록기능
+	@ResponseBody
+	@RequestMapping(value = "create", method = RequestMethod.POST)
+	public void create(WorkReplyDTO rDto) {
+		log.info(">>>갤러리 댓글 등록기능>>>>>>>> "+rDto.toString());
+		service.create(rDto);
 	}
 }

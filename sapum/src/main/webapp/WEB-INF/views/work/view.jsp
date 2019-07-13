@@ -20,9 +20,11 @@
 				<div class="work_text_wrap">
 					<div class="menu_btn">
 						<c:if test="${!empty sessionScope.userid}">
-							<a class="down_icon"><i class="fas fa-file-download do_icon"></i></a>
-							<a class="down_icon" id="unlike"><i class="far fa-heart do_icon"></i></a>
-							<a class="down_icon" id="like"><i class="fas fa-heart do_icon"></i></a>
+							<div class="i_wrap">
+								<a class="down_icon"><i class="fas fa-file-download do_icon"></i></a>
+								<a class="down_icon" id="unlike"><i class="far fa-heart do_icon"></i></a>
+								<a class="down_icon" id="like"><i class="fas fa-heart do_icon"></i></a>
+							</div>
 							<span class="sp_margin"></span>
 							<c:if test="${sessionScope.userid != one.writer}">
 								<button id="follow_btn" type="button" class="follow_btn">Follow</button>
@@ -90,17 +92,6 @@
 		// 팔로우버튼을 눌렀는지 안눌렀는지 알기위한 메서드 호출
 		followCk();
 		
-		//코멘트 박스에 포커스 가면 라인 색 바뀌게
-		$('.comm_inp').focus(function() {
-			$(this).css('border', '1px solid #70D6C7')
-				   .css('height', '90px');
-			$('.cmt_add_btn').css('display','block');
-		});
-		$('.comm_inp').blur(function() {
-			$(this).css('border', '1px solid #EAEAEA')
-				   .css('height', '30px');
-			$('.cmt_add_btn').css('display','none');
-		});
 
 		// 코멘트 박스 보기 아래화살표 누르면 댓글 다는 공간 나옴
 		var flag = 0;
@@ -223,6 +214,36 @@
 			}
 		});
 	}
+	
+	// 댓글 등록버튼을 눌렀을 때 유효성 검사 및 컨트롤러 이동
+	$(document).on('click', '#cmt_add_btn', function () {
+		var content = $('.comm_inp').val();
+		
+		if(content == "") {
+			$('.cmt_err_msg').css('display', 'block');
+			$('.comm_inp').focus();
+			return false;
+		} else {
+			var wno = '${one.wno}';
+			$('#cmt_wno').val(wno);
+			$.ajax({
+				url: "${path}/workReply/create",
+				type: "POST",
+				data: $('.comment_frm').serialize(),
+				contentType: 'application/x-www-form-urlencoded; charset+UTF-8',
+				success: 
+					function () {
+						comment_list();
+						$('.comm_inp').val("");
+					},
+				error: function () {
+					alert("system error");
+				}
+				
+			});
+		}
+	});
+	
 	
 	</script>
 </body>

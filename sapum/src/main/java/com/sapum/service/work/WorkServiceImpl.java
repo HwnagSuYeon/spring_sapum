@@ -70,6 +70,7 @@ public class WorkServiceImpl implements WorkService{
 		
 		// 등록이 성공하면 attach테이블에 첨부파일 이름 추가
 		String[] files = wDto.getFiles();
+		log.info(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+files.length);
 		// 첨부파일이 없으면 skip
 		if (files == null) return;
 		// 작품등록시 첨부파일이 여러개면 하나씩 반복문을 돌며 넣어주는 기능
@@ -77,6 +78,11 @@ public class WorkServiceImpl implements WorkService{
 			wDao.addAttach(name);
 		}
 		
+	}
+
+	@Override
+	public List<String> getAttach(int wno) {
+		return wDao.getAttach(wno);
 	}
 
 	

@@ -709,6 +709,7 @@ body {
 	display: flex;
 	justify-content: space-between;
 	flex-wrap: wrap;
+	overflow: hidden;
 }
 .like_view_wrap {
 	display: flex;

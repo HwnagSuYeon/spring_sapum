@@ -101,24 +101,25 @@ public class AjaxUploadController {
 		return entity;
 	}
 	
-	@ResponseBody //뷰가 아닌 데이터를 리턴
+	@ResponseBody //뷰가 아닌 데이터를 리턴. 이것이 붙어있음으로써 화면단에서 보낸 데이터를 json타입으로 받을 수 있다.
 	@RequestMapping(value="upload/deleteFile", method=RequestMethod.POST)
 	public ResponseEntity<String> deleteFile(String fileName){
 		logger.info("fileName:"+fileName); 
 		//확장자 검사
-		String formatName=fileName.substring(fileName.lastIndexOf(".")+1);
-		MediaType mType=MediaUtils.getMediaType(formatName);
+		String formatName=fileName.substring(fileName.lastIndexOf(".")+1);  // formatName에는 확장자가 들어있음
+		MediaType mType=MediaUtils.getMediaType(formatName); // getMediaType은 static이기 때문에 클래스명으로 접근한다.
 		if(mType != null) { //이미지 파일이면 원본이미지 삭제
-			String front=fileName.substring(0, 12);
-			String end=fileName.substring(14);
+			String front=fileName.substring(0, 12); // 0~11자리까지 읽으므로 날짜만 읽는다. 즉 front에는 날짜디렉터리 정보가 담김.
+			String end=fileName.substring(14); // s가빠져있는 이름을 찾음. 즉 end에는 sid가포함된 원본파일 정보가 담김
 			//File.separatorChar : 유닉스 / 윈도우즈\	
-			new File(uploadPath+(front+end).replace('/',File.separatorChar)).delete();
+			new File(uploadPath+(front+end).replace('/',File.separatorChar)).delete(); // 유닉스, 윈도우에따라 경로를 찾아갈 수 있도록 설정해줌
 		}
 		//원본 파일 삭제(이미지이면 썸네일 삭제)
 		new File(uploadPath+fileName.replace('/',File.separatorChar)).delete();
 		//레코드 삭제
 		// boardService.deleteFile(fileName); 
 		
+		//ResponseEntity -> 결과와 상태코드를 함께 보내는 것.
 		return new ResponseEntity<String>("deleted", HttpStatus.OK);
 	}
 	

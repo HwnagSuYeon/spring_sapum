@@ -75,7 +75,13 @@ public class WorkDAOImpl implements WorkDAO{
 	}
 	// 첨부파일 등록해주는 기능
 	@Override
-	public void addAttach(String name) {
-		session.insert("work.addAttach", name);
+	public void addAttach(String fullName) {
+		session.insert("work.addAttach", fullName);
+	}
+
+	@Override
+	public List<String> getAttach(int wno) {
+		return session.selectList("work.getAttach", wno);
+		
 	}
 }

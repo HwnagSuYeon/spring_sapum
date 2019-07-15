@@ -64,4 +64,6 @@
 		<!-- 파일저장되는 경로를 맥에서는 /User/로 바꿔줘야함 -->
 		<beans:constructor-arg value="D:\upload"/>
 	</beans:bean>
+	
+	<resources mapping="resources/**" location="resources"/>
 </beans:beans>

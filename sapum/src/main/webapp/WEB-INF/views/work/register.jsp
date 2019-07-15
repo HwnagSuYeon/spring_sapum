@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="${path}/resources/lightbox/css/lightbox.css">
 <script src="${path}/resources/lightbox/js/lightbox.js"></script>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="${path}/resources/css/work/work.css?v=1">
+<link rel="stylesheet" href="${path}/resources/css/work/workAll.css?v=1">
 <title>Insert title here</title>
 </head>
 <body>
@@ -23,12 +23,15 @@
 						<p>
 							<i class="up_icon fas fa-arrow-circle-up"></i>
 						</p>
+						<span class="up_text">Drag or click to upload</span>
+						<span class="up_wor">Recommendation: High-quality imagery</span>
 					</div>
 				</div>
 				<div class="write_input_wrap">
 					<ul id="uploadedList" class="mailbox-attachments clearfix uploadedList"></ul>
 				</div>
-				
+				<input class="img_uplaod_in" type="file" style="display: none;" name="">
+				                         
 			
 				<!-- <div class="work_wrap up_img">
 					<div class="up_img_line">
@@ -36,8 +39,7 @@
 						<span class="up_text">Drag or click to upload</span>
 						<span class="up_wor">Recommendation: High-quality imagery</span>
 					</div>
-				</div> 
-				<input class="img_uplaod_in" type="file" style="display: none;" name=""> -->
+				</div>  -->
 				<div class="work_text_wrap">
 					<div class="te_user up_all">
 						<form class="upload_work_frm" method="POST" action="${path}/work/<c:out value="${wDto.wno == 0 ? 'create' : 'update' }"/>">
@@ -88,12 +90,12 @@
 	
 	$(document).ready(function() {
 		// 등록 & 수정 페이지 디자인
-		var bno = '${one.bno}';
-		if(bno == '') {  // 게시글 등록
+		var wno = '${wDto.wno}';
+		if(wno == '') {  // 게시글 등록
 			
 		} else {  // 게시글 수정
 			var str='';
-			str += "<input type='hidden' name='bno' value='" + bno + "'>";
+			str += "<input type='hidden' name='wno' value='" + wno + "'>";
 			$("#frm_add").append(str);
 		}
 		
@@ -107,7 +109,7 @@
 		}
 		
 		//이미지 올리는데 클릭하면 숨겨져있는 인풋파일이 클릭되게 하는 기능
-		$('.up_img').click(function() {
+		$('.write_input_wrap').click(function() {
 			$('.img_uplaod_in').click();
 		});
 		//타이틀 쓰는부분 클릭하면 라인 색 바뀌게
@@ -132,6 +134,7 @@
 			var str="";
 			// uploadedList 내부의 .file 태그 각각 반복
 			$("#uploadedList .file").each(function(i){
+				alert($(this).val());
 				// each = 인풋타입 히든으로 만든 class의 이름이 file의 갯수만큼 반복
 				console.log(i);
 				//hidden 태그 구성(files라는 배열에 인풋타입 히든에 val을 해당 태그의 값으로 넣어라. 그러니까 올린 파일의 갯수만큼 배열에 값을 순서대로 넣어주는 역할.)
@@ -145,7 +148,7 @@
 			}
 			
 			//폼에 hidden 태그들을 붙임
-			$("#frm_add").append(str);
+			$(".upload_work_frm").append(str);
 			$('.upload_work_frm').submit();
 		});
 		
@@ -165,10 +168,9 @@
 			//첫번째 첨부파일(다중첨부파일을 막음. 세개의 파일을 드래그 해서 드롭하면 그중에서 가장 첫번째의 파일만 가져오도록 하는 기능이다)
 			var files = e.originalEvent.dataTransfer.files; //드래그에 전달된 첨부파일 전부
 			var file = files[0]; // 그중 하나만 꺼냄
-			alert(file);
 			//폼 데이터에 첨부파일 추가: ajax로 객체를 보낼때 쓰는 것
 			var formData = new FormData(); // 폼 객체
-			formData.append("file", file) // 폼에 파일변수 추가 => append=추가기능, 기존에 있는 것의 맨 마지막에 추가된다. 기존것의 수정은 불가능하고 계속 꼬리부분에 추가만 가능.
+			formData.append("file", file); // 폼에 파일변수 추가 => append=추가기능, 기존에 있는 것의 맨 마지막에 추가된다. 기존것의 수정은 불가능하고 계속 꼬리부분에 추가만 가능.
 			// 서버에 파일 업로드(백그라운드에서 실행됨)
 			// contentType: false => multipart/form-data로 처리
 			$.ajax({
@@ -188,16 +190,18 @@
 		});
 		
 		// 첨부파일 삭제 함수
+		// 첨부파일을 올리기 전에 화면단에서 삭제버튼을 누르면 로컬저장소인 D드라이브에서도 삭제가 되도록 만드는 기능
 		$(".uploadedList").on("click", ".delBtn", function(event) {
-			var bno = '${one.bno}';
+			var wno = '${wDto.wno}';
 			var that = $(this);
-			if(bno == 0) { // 게시글 등록
+			if(wno == 0) { // 게시글 등록
 				$.ajax({
 					url: "${path}/upload/deleteFile",
 					type: "post",
-					data: { fileName: $(this).attr("data-src") },
-					dataType: "text",
-					success: function(result) {
+				 // content: json,
+					data: { fileName: $(this).attr("data-src") }, // 여기서 보내는 데이터(컨텐츠와 데이터는 한쌍)
+					dataType: "text", // 컨트롤러에서 처리하고 받아온 데이터의 타입
+					success: function(result) { // result는 text로 받는다고 위의 datatype에서 설정해준것(datatype과 result는 한쌍)
 						if(result == "deleted") {
 							that.parents("li").remove();
 						}
@@ -313,7 +317,7 @@
 		var listCnt = 0;
 		$.ajax({
 			type: "post",
-			url: "${path}/board/getAttach/${one.bno}",
+			url: "${path}/board/getAttach/${wDto.wno}",
 			async: false,
 			success: function(list){
 				// list : json

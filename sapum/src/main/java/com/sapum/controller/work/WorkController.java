@@ -7,10 +7,13 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.sapum.domain.work.WorkDTO;
@@ -26,6 +29,13 @@ public class WorkController {
 	
 	@Inject private WorkService wService;
 	
+	// 첨부파일 목록을 리턴
+	// ArrayList를 json배열로 변환하여 리턴
+	@RequestMapping("getAttach/{wno}") // 화면단에서 ajax로 보낸 url이 wno까지 붙어있으므로 mapping을 {who}와 같이 한다. 이렇게하면 wno를 값 자체로 인식한다는 뜻
+	@ResponseBody // view가 아닌 데이터 자체를 리턴
+	public List<String> getAttach(@PathVariable int wno){
+		return wService.getAttach(wno);
+	}
 	
 	// 리스트 페이지 출력
 	@RequestMapping(value = "list", method = RequestMethod.GET)

@@ -28,4 +28,6 @@ public interface WorkService {
 	
 	// 작품 수정기능
 	public void update(WorkDTO wDto);
+
+	public List<String> getAttach(int wno);
 }

@@ -111,7 +111,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	 
 	 <!-- 첨부파일 등록 -->
 	 <insert id="addAttach" parameterType="String">
-	 	INSERT INTO tbl_sa_attach (fullname, bno)
+	 	INSERT INTO tbl_sa_attach (fullname, wno)
 	 	VALUES(#{name}, seq_sa_work.CURRVAL)
 	 </insert>
+	 
+	 <!-- 첨부파일 동작 -->
+	 <select id="getAttach" resultType="String">
+	 	SELECT fullname FROM tbl_sa_attach
+	 	WHERE wno = #{wno}
+	 	ORDER BY regdate DESC
+	 </select>
+	 
 </mapper>

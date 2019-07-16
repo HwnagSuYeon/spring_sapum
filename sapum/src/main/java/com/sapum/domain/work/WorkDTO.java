@@ -18,9 +18,8 @@ public class WorkDTO {
 	private String title;
 	private String content;
 	private String writer;
-	private String w_img;
 	private int w_like;
 	private int viewcnt;
-	private String[] files; // 첨부파일 이름 배열
+	private String[] filename; // 첨부파일 이름 배열
 	private Date regdate;
 }

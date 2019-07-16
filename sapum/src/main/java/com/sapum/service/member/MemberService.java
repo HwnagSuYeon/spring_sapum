@@ -1,5 +1,6 @@
 package com.sapum.service.member;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -41,4 +42,6 @@ public interface MemberService {
 	public int follower_count(String followingId);
 
 	public List<String> following_list(HttpSession session);
+
+	public HashMap<String, Object> mypage_list(HttpSession session);
 }

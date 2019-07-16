@@ -197,15 +197,18 @@
 
 }
 .de_btn {
-	margin: 10px 10px;
-	font-size: 13px;
-	font-weight: lighter;
-	background-color: #dadada;
-	border-radius: 2px;
-	width: 100px;
-	height: 35px;
-	cursor: pointer;
-	color: white;
+	    margin: 10px 10px;
+    font-size: 1em;
+    font-weight: bold;
+    background-color: #dadada;
+    border-radius: 2px;
+    width: 100px;
+    height: 35px;
+    cursor: pointer;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .de_yes{
 	background-color: #70D6C7;

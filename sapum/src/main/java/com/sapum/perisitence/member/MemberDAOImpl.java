@@ -9,6 +9,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.sapum.domain.member.MemberDTO;
+import com.sapum.domain.work.WorkDTO;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -88,4 +89,15 @@ public class MemberDAOImpl implements MemberDAO{
 	public List<String> following_list(String followerId) {
 		return sqlSession.selectList("member.following_list", followerId);
 	}
+
+	@Override
+	public int following_coutn(String myId) {
+		return sqlSession.selectOne("member.following_count", myId);
+	}
+
+	@Override
+	public List<WorkDTO> mywork_list(String followingid) {
+		return sqlSession.selectList("member.mywork_list", followingid);
+	}
+
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import com.sapum.domain.member.MemberDTO;
+import com.sapum.domain.work.WorkDTO;
 
 public interface MemberDAO {
 		// Ajax로 id중복체크
@@ -26,6 +27,8 @@ public interface MemberDAO {
 		public void follow_delete(String followingId, String followerId);
 		public int follower_count(String followingId);
 		public List<String> following_list(String followerId);
+		public int following_coutn(String myId);
+		public List<WorkDTO> mywork_list(String followingid);
 		
 
 }

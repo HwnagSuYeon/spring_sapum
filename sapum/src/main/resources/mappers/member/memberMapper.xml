@@ -57,15 +57,26 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE followingId = #{followingId}
 		AND followerId = #{followerId}
 	</delete>
-	<!-- 특정 유저를 따르는 팔로워 수를 집계 -->
+	<!-- 나를 따르는 팔로워 수를 집계 -->
 	<select id="follower_count" parameterType="String" resultType="int">
 		SELECT COUNT(*)
 		FROM tbl_sa_follow
 		WHERE followingId = #{followingId}
 	</select>
+	<!-- 내가 따르는 팔로잉 수를 집계 -->
+	<select id="following_count" parameterType="String" resultType="int">
+		SELECT COUNT(*)
+		FROM tbl_sa_follow
+		WHERE followerid = #{followingid}
+	</select>
 	<!-- 마이페이지에서 내가 팔로우하는 사람들을 띄워주기 위함 -->
 	<select id="following_list" parameterType ="String" resultType="String">
 		SELECT followingId FROM tbl_sa_follow
 		WHERE followerId = #{followerId}
+	</select>
+	<!-- 마이페이지에서 내가 올린 작품을 띄워주기 위함 -->
+	<select id="mywork_list" parameterType="String" resultType="com.sapum.domain.member.MemberDTO">
+		SELECT * FROM tbl_sa_work
+		WHERE writer = #{followingid}
 	</select>
 </mapper>

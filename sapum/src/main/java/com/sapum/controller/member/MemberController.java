@@ -83,12 +83,6 @@ public class MemberController {
 	}
 	
 	
-	// 마이페이지 띄워주는 기능
-	@RequestMapping(value = "mypage", method = RequestMethod.GET)
-	public String mypage() {
-		return "member/mypage";
-	}
-	
 	// 계정삭제페이지 띄워주는 기능 
 	@RequestMapping(value = "delete", method = RequestMethod.GET)
 	public String deleteView() {
@@ -127,8 +121,17 @@ public class MemberController {
 	@RequestMapping(value = "find", method = RequestMethod.GET)
 	public String findView() {
 		log.info(">>>계정찾기페이지 출력");
-		
 		return "member/findAccount";
+	}
+	
+	
+	// 마이페이지 띄워주는 기능
+	@RequestMapping(value = "mypage", method = RequestMethod.GET)
+	public String mypage(HttpSession session, Model model) {
+		// 유저 정보 아래 팔로워/팔로잉 수를 띄워주고, 내가 올린 작품을 띄워주는 역할을 함
+		HashMap<String, Object> map = service.mypage_list(session);
+		model.addAttribute("map", map);
+		return "member/mypage";
 	}
 	
 	// 팔로우 버튼을 눌렀는지 안눌렀는지 상태를 알기위함
@@ -156,7 +159,7 @@ public class MemberController {
 		service.follow_switch(followingId, session);
 	}
 	
-	//
+	// 내가 팔로잉 하는 사람들을 띄워주기 위한 리스트 출력
 	@ResponseBody
 	@RequestMapping(value = "following_list", method = RequestMethod.GET)
 	public List<String> following_list(HttpSession session) {

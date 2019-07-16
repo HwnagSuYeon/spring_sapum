@@ -45,7 +45,6 @@
 						<form class="upload_work_frm" method="POST" action="${path}/work/<c:out value="${wDto.wno == 0 ? 'create' : 'update' }"/>">
 							<div class="up_instyle">
 								<input type="text" name="title" class="upload_title" placeholder="title" value="${wDto.title}">
-								<input type="text" name="w_img" class="upload_title" placeholder="w_img" value="${wDto.w_img}">
 							</div>
 							<span class="up_user_wrap">
 								<span class="up_user_dot"></span>

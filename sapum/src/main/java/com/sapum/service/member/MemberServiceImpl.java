@@ -1,5 +1,6 @@
 package com.sapum.service.member;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -8,6 +9,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Service;
 
 import com.sapum.domain.member.MemberDTO;
+import com.sapum.domain.work.WorkDTO;
 import com.sapum.perisitence.member.MemberDAO;
 
 import lombok.extern.slf4j.Slf4j;
@@ -119,6 +121,29 @@ public class MemberServiceImpl implements MemberService{
 	public List<String> following_list(HttpSession session) {
 		String followerId = (String) session.getAttribute("userid");
 		return mDao.following_list(followerId);
+	}
+	
+	// 마이페이지 불러올 시 유저 정보 아래 팔로잉/팔로워 수, 내가 등록한 작품을 띄워주기 위함
+	@Override
+	public HashMap<String, Object> mypage_list(HttpSession session) {
+		String followingid = (String) session.getAttribute("userid");
+		// 나를 따르는 애의 수를 집계
+		int follower_count = mDao.follower_count(followingid);
+		// 내가 따르는 애의 수를 집계
+		int following_count = mDao.following_coutn(followingid);
+		
+		// 내가 올린 작품의 리스트를 띄워줌
+		List<WorkDTO> list = mDao.mywork_list(followingid);
+		System.out.println("★★★★★★★★★★★★★★★★");
+		for (WorkDTO a : list) {
+			System.out.println("★★★★★★★★★★★★★★★★"+a.toString());
+		}
+		
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("follower_count", follower_count);
+		map.put("following_count", following_count);
+		map.put("list", list);
+		return map;
 	}
 	
 	

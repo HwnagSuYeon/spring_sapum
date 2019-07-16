@@ -134,10 +134,6 @@ public class MemberServiceImpl implements MemberService{
 		
 		// 내가 올린 작품의 리스트를 띄워줌
 		List<WorkDTO> list = mDao.mywork_list(followingid);
-		System.out.println("★★★★★★★★★★★★★★★★");
-		for (WorkDTO a : list) {
-			System.out.println("★★★★★★★★★★★★★★★★"+a.toString());
-		}
 		
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("follower_count", follower_count);

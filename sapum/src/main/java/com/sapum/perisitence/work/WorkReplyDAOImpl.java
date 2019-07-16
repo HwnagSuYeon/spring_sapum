@@ -1,5 +1,6 @@
 package com.sapum.perisitence.work;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -19,6 +20,7 @@ public class WorkReplyDAOImpl implements WorkReplyDAO{
 	// 댓글목록 출력
 	@Override
 	public List<WorkReplyDTO> list(int wno) {
+		
 		return session.selectList("workReply.list", wno);
 	}
 	// 댓글 추가
@@ -28,9 +30,8 @@ public class WorkReplyDAOImpl implements WorkReplyDAO{
 	}
 	// 댓글 삭제
 	@Override
-	public void delete(int bno) {
-		// TODO Auto-generated method stub
-		
+	public void delete(int wrno) {
+		session.delete("workReply.delete", wrno);
 	}
-
+	
 }

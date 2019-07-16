@@ -17,4 +17,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		INSERT INTO tbl_sa_wReply(wrno, content, writer, wno)
 		VALUES(seq_sa_wReply.NEXTVAL, #{content}, #{writer}, #{wno})
 	</insert>
+	
+	<delete id="delete" parameterType="int">
+		DELETE FROM tbl_sa_wReply
+		WHERE wrno = #{wrno}
+	</delete>
 </mapper>

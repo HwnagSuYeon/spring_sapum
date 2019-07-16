@@ -3,6 +3,7 @@ package com.sapum.service.work;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Service;
 
@@ -26,11 +27,14 @@ public class WorkReplyServiceImpl implements WorkReplyService{
 		rDao.create(rDto);
 	}
 
-	@Override
-	public void delete(int bno) {
-		// TODO Auto-generated method stub
-		
-	}
 
-	
+
+	@Override
+	public void delete(HttpSession session, int wrno, String cmt_writer) {
+		// url로 접근해서 댓글 삭제할수도 있으니까 session 검사
+		String userId = (String) session.getAttribute("userId");
+		if(userId == cmt_writer) {
+			rDao.delete(wrno);
+		}
+	}
 }

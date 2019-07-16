@@ -3,6 +3,7 @@ package com.sapum.controller.work;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,8 +29,11 @@ public class WorkReplyController {
 		log.info(">>>댓글 리스트 출력");
 		
 		List<WorkReplyDTO> list = service.list(wno);
-		log.info(">>>>>>>>>>>>>>댓글 리스트에서 가져"+list);
+		for (WorkReplyDTO workReplyDTO : list) {
+			log.info(">>>>>>>>>>>>>>댓글 리스트에서 가져옴"+workReplyDTO.toString());
+		}
 		model.addAttribute("cmt_list", list);
+		
 		return "work/comment_list";
 	}
 	
@@ -39,5 +43,13 @@ public class WorkReplyController {
 	public void create(WorkReplyDTO rDto) {
 		log.info(">>>갤러리 댓글 등록기능>>>>>>>> "+rDto.toString());
 		service.create(rDto);
+	}
+	
+	// 댓글 삭제 기능
+	@ResponseBody
+	@RequestMapping(value = "delete", method = RequestMethod.GET)
+	public void delete(HttpSession session, int wrno, String cmt_writer) {
+		log.info(">>>갤러리 댓글 삭제기능");
+		service.delete(session, wrno, cmt_writer);
 	}
 }

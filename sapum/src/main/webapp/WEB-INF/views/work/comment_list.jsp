@@ -21,7 +21,7 @@
 					<span class="cmt_user">
 						<span class="user_name">
 							<span class="dot"></span>
-							<span>${cmt_view.writer}</span>
+							<span id="cmt_writer" data_num2="${cmt_view.writer}">${cmt_view.writer}</span>
 							
 							<jsp:useBean id="now" class="java.util.Date" />
 							<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="today" />
@@ -39,7 +39,7 @@
 							
 						</span>
 						<c:if test="${sessionScope.userid == cmt_view.writer}">
-							<a href="#" class="cmt_del_btn"><i class="fas fa-backspace"></i></a>
+							<i id="cmt_del" class="cmt_del_btn fas fa-backspace" data_num="${cmt_view.wrno}"></i>
 						</c:if>
 					</span>
 					<span class="cmt_content">
@@ -66,7 +66,6 @@
 				</div>
 				<span class="cmt_err_msg" style="display: none;">댓글의 내용이 없습니다!</span>
 				<input type="hidden" name="writer" class="comment_userid">
-				<input type="hidden" name="wno" id="cmt_wno">
 				<button id="cmt_add_btn" type="button" class="cmt_add_btn"><i class="fas fa-plus"></i></button>
 			</form>
 		</c:otherwise>

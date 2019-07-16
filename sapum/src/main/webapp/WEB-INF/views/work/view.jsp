@@ -347,6 +347,8 @@
 	// 댓글 등록버튼을 눌렀을 때 유효성 검사 및 컨트롤러 이동
 	$(document).on('click', '#cmt_add_btn', function () {
 		var content = $('.comm_inp').val();
+		var cmt_writer = '${sessionScope.userid}';
+		var writer = $('.comment_userid').val(cmt_writer);
 		
 		if(content == "") {
 			$('.cmt_err_msg').css('display', 'block');
@@ -371,6 +373,25 @@
 				
 			});
 		}
+	});
+	
+	// 댓글 삭제기능
+	$(document).on('click', '#cmt_del', function () {
+		var wrno = $(this).attr("data_num");
+		var cmt_writer = $("#cmt_writer").attr("data_num2");
+		$.ajax({
+			url: "${path}/workReply/delete",
+			type: "GET",
+			data: "wrno="+wrno+"&cmt_writer="+cmt_writer,
+			success: 
+				function () {
+					comment_list();
+				},
+			error: function () {
+				alert("system error");
+			}
+			
+		});
 	});
 	
 	

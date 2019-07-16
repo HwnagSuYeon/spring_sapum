@@ -376,6 +376,7 @@ body {
 .cmt_del_btn {
 	color: #dadada;
 	transition: .3s;
+	cursor: pointer;
 }
 .cmt_del_btn:hover {
 	color: #70D6C7;

@@ -82,12 +82,10 @@
 
 
 		<!-- 관심 작가 -->
-		<div class="new_wrap">
-			<h1 class="inter_title">Follower</h1>
-			<div class="inter_all">
-				
-
-				
+		<div class="follow_wrap">
+			<div class="new_content">
+				<h1 class="new_title">Follower</h1>
+				<div class="inter_all"></div>
 			</div>
 		</div>
 
@@ -96,37 +94,128 @@
 			<div class="new_content">
 				<h1 class="new_title">My works</h1>
 				
+				<%-- <div class="new_container">
+					<div class="grid_wrap">
+						<c:forEach items="${map.list}" var="list">
+							<div class="ne_con_wrap work_hover">
+								<div class="img_wrap">
+									<a href="${path}/work/view?wno=${list.wno}"><img class="object_container" src="${path}/resources/img/${list.filename}"></a>
+								</div>
+								<div class="text_wrap">
+									<a href="${path}/work/view?wno=${list.wno}"><span class="work_user">${list.title}</span></a><br>
+									
+									<!-- 시간포맷 -->
+									<jsp:useBean id="now" class="java.util.Date"/>
+									<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="today"/>
+									<fmt:formatDate value="${list.regdate}" pattern="yyyy-MM-dd" var="regdate"/>
+									
+									<div class="side_title">
+										<c:choose>
+											<c:when test="${today == regdate}">
+												<span class="work_text"><fmt:formatDate value="${list.regdate}" pattern="hh:mm:ss"/></span>
+											</c:when>
+											<c:otherwise>
+												<span class="work_text"><fmt:formatDate value="${list.regdate}" pattern="yyyy-MM-dd"/></span>
+											</c:otherwise>
+										</c:choose>
+										<div class="like_view_wrap">
+											<div class="view_icon like_icon">
+												<i class="fas fa-heart"></i>
+												<span>${list.w_like}</span>
+											</div>
+											<div class="view_icon">
+												<i class="far fa-eye"></i>
+												<span>${list.viewcnt}</span>
+											</div>
+										</div>
+									</div>
+									
+									
+								</div>
+							</div>
+						</c:forEach>
+					</div> --%>
+				
 				<div class="new_container">
-					<c:forEach items="${map.list}" var="list">
-						<div class="ne_con_wrap work_hover">
-							<div class="img_wrap my_position">
-								<a href="#"><img class="object_container" src="${path}/resources/img/${list.filename}"></a>
+					<div class="grid_wrap">
+						<c:forEach items="${map.list}" var="list">
+							<div class="ne_con_wrap work_hover">
+								<div class="img_wrap my_position">
+									<a href="#"><img class="object_container" src="${path}/resources/img/${list.filename}"></a>
+								</div>
+								<div class="text_wrap ">
+									<a href="#"><span class="work_user">${list.title}</span></a><br>
+									
+									<!-- 시간포맷 -->
+									<jsp:useBean id="now" class="java.util.Date"/>
+									<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="today"/>
+									<fmt:formatDate value="${list.regdate}" pattern="yyyy-MM-dd" var="regdate"/>
+									<span class="work_text">
+										<c:choose>
+											<c:when test="${today == regdate}">
+												<fmt:formatDate value="${list.regdate}" pattern="hh:mm:ss"/>
+											</c:when>
+											<c:otherwise>
+												<fmt:formatDate value="${list.regdate}" pattern="yyyy-MM-dd"/>
+											</c:otherwise>
+										</c:choose>
+									</span>
+								</div>
+								<div class="hover_del_btn">
+									<a href="#">
+										<i class="fas fa-times del_icon"></i>
+									</a>
+								</div>
 							</div>
-							<div class="text_wrap ">
-								<a href="#"><span class="work_user">${list.title}</span></a><br>
-								
-								<!-- 시간포맷 -->
-								<jsp:useBean id="now" class="java.util.Date"/>
-								<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="today"/>
-								<fmt:formatDate value="${list.regdate}" pattern="yyyy-MM-dd" var="regdate"/>
-								<span class="work_text">
-									<c:choose>
-										<c:when test="${today == regdate}">
-											<fmt:formatDate value="${wDto.regdate}" pattern="hh:mm:ss"/>
-										</c:when>
-										<c:otherwise>
-											<fmt:formatDate value="${wDto.regdate}" pattern="yyyy-MM-dd"/>
-										</c:otherwise>
-									</c:choose>
-								</span>
-							</div>
-							<div class="hover_del_btn">
-								<a href="#">
-									<i class="fas fa-times del_icon"></i>
+						</c:forEach>
+					</div>
+				</div>
+				
+				
+				<!--  pagenation -->
+				<%-- <div class="pagenation">
+					<!-- 이전페이지보기 버튼을 나타내는 경우 -->
+					<c:choose>
+						<c:when test="${map.pager.curPage > 1}">
+							<div class="prev">
+								<a href="${path}/work/list?curPage=${map.pager.curPage-1}&sort_option=${map.sort_option}&keyword=${map.keyword}&search_option=${map.search_option}">
+									<img class="page_icon" src="${path}/resources/img/pre_on.png">
 								</a>
 							</div>
-						</div>
-					</c:forEach>
+						</c:when>
+						<c:otherwise>
+							<div class="prev">
+								<a href="${path}/work/list?curPage=${map.pager.curPage-1}&sort_option=${map.sort_option}&keyword=${map.keyword}&search_option=${map.search_option}">
+									<img class="page_icon" src="${path}/resources/img/pre_off.png">
+								</a>
+							</div>
+						</c:otherwise>
+					</c:choose>
+					
+					<div class="center_line">
+						<span class="ce_line"></span>
+					</div>
+					
+					<!-- 다음페이지보기 버튼을 나타내는 경우 -->
+					<c:choose>
+						<c:when test="${map.pager.curPage < map.pager.totPage}">
+							<div class="next">
+								<a href="${path}/work/list?curPage=${map.pager.curPage+1}&sort_option=${map.sort_option}&keyword=${map.keyword}&search_option=${map.search_option}">
+									<img class="page_icon" src="${path}/resources/img/ne_on.png">
+								</a>
+							</div>
+						</c:when>
+						
+						<c:otherwise>
+							<div class="next">
+								<a href="${path}/work/list?curPage=${map.pager.curPage+1}&sort_option=${map.sort_option}&keyword=${map.keyword}&search_option=${map.search_option}">
+									<img class="page_icon" src="${path}/resources/img/ne_off.png">
+								</a>
+							</div>
+						</c:otherwise>
+					</c:choose>
+				</div> --%>
+				
 				</div>
 			</div>
 		</div>

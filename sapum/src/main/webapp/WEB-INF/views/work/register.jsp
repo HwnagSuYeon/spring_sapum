@@ -56,6 +56,7 @@
 							</div>
 							<input type="hidden" name="writer" value="${sessionScope.userid}" name="writer">
 							<input type="hidden" name="wno" value="${wDto.wno}">
+							<input type="hidden" name="filename" id="filename">
 							<button id="upload_Btn" type="button" class="follow_btn up_btn">Upload</button>
 						</form>
 					</div>
@@ -131,6 +132,7 @@
 		// 업로드 버튼을 눌렀을 때
 		$('#upload_Btn').click(function () {
 			var str="";
+			var filename = $()
 			// uploadedList 내부의 .file 태그 각각 반복
 			$("#uploadedList .file").each(function(i){
 				alert($(this).val());
@@ -162,6 +164,26 @@
 		$('.fileDrop').on('drop', function (e) {
 			// 드래그앤 드롭시 기본 파일실행을 막음
 			e.preventDefault();
+			
+			// 첨부파일 하나만 올리도록함(하나 올리고 이어서 하나더 올리면 기존의 올려놨던 파일을 삭제하는 것)
+			var dfile = $('.delBtn');
+			if(dfile.length > 0) {
+				$.ajax({
+					url: "${path}/upload/deleteFile",
+					type: "post",
+				 // content: json,
+					data: { fileName: dfile.attr("data-src") }, // 여기서 보내는 데이터(컨텐츠와 데이터는 한쌍)
+					dataType: "text", // 컨트롤러에서 처리하고 받아온 데이터의 타입
+					success: function(result) { // result는 text로 받는다고 위의 datatype에서 설정해준것(datatype과 result는 한쌍)
+						if(result == "deleted") {
+							dfile.parents("li").remove();
+						}
+					}, error: function() {
+						alert("System Error!!!");
+					}
+				});	
+			}
+			
 			
 			//Ajax 파일 -> d://upload
 			//첫번째 첨부파일(다중첨부파일을 막음. 세개의 파일을 드래그 해서 드롭하면 그중에서 가장 첫번째의 파일만 가져오도록 하는 기능이다)
@@ -316,7 +338,7 @@
 		var listCnt = 0;
 		$.ajax({
 			type: "post",
-			url: "${path}/board/getAttach/${wDto.wno}",
+			url: "${path}/work/getAttach/${wDto.wno}",
 			async: false,
 			success: function(list){
 				// list : json

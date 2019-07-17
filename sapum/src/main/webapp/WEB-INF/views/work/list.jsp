@@ -56,7 +56,7 @@
 					<c:forEach items="${map.list}" var="wDto">
 						<div class="ne_con_wrap work_hover">
 							<div class="img_wrap">
-								<a href="${path}/work/view?wno=${wDto.wno}"><img class="object_container" src="${path}/resources/img/${wDto.w_img}"></a>
+								<a href="${path}/work/view?wno=${wDto.wno}"><img class="object_container" src="${path}/resources/img/${wDto.filename}"></a>
 							</div>
 							<div class="text_wrap">
 								<a href="${path}/work/view?wno=${wDto.wno}"><span class="work_user">${wDto.title}</span></a><br>

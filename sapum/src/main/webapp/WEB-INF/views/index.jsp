@@ -25,9 +25,8 @@
 		<div class="sc2_wrap section">
 			<div class="sc_title">See all Works.</div>
 			<div class="sc_btn">
-				<a href="#"><span>VIEW WORK</span></a>
+				<a href="${path}/work/list"><span>VIEW WORK</span></a>
 			</div>
-			<a href="#" class="sc_content"><span>photo by.lim</span></a>
 		</div>
 
 		<!-- Scroll3: recommend artist -->
@@ -36,16 +35,14 @@
 			<div class="sc_btn">
 				<a href="#"><span>VIEW ARTIST</span></a>
 			</div>
-			<a href="#" class="sc_content"><span>photo by. kaito</span></a>
 		</div>
 
 		<!-- Scroll4: Popular works -->
 		<div class="sc4_wrap section">
 			<div class="sc_title">Popular works.</div>
 			<div class="sc_btn">
-				<a href="#"><span>VIEW WORK</span></a>
+				<a href="${path}/work/list?sort_option=best"><span>VIEW WORK</span></a>
 			</div>
-			<a href="#" class="sc_content"><span>photo by. ggugguri</span></a>
 		</div>
 		<%@ include file="include/footer.jsp"%>
 	</div>

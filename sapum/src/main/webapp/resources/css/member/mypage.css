@@ -2,12 +2,12 @@
 
 /*유저정보칸*/
 .user_wrap {
-	padding: 30px 120px;
-	margin-bottom: 30px;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	margin-top: 20px;
+	padding: 30px 15%;
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
 }
 .icon {
 	display: flex;
@@ -45,8 +45,6 @@
 	padding: 40px 0 40px 10px;
 	font-size: 1.8em;
 }
-.new_content {
-	padding: 0 110px;
 }.new_container {
 	display: flex;
 	justify-content: space-between;
@@ -55,11 +53,12 @@
 .ne_con_wrap {
 	display: flex;
     flex-flow: column;
-	width: 100%;
-	padding: 10px;
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
 }
 .img_wrap {
-	height: 100%;
+	height: 170px;
     overflow: hidden;
     display: flex;
     align-items: center;
@@ -84,9 +83,6 @@
 	color: #cdcdcd;
 }
 /*관심작가*/
-.inter_all {
-	padding: 0 110px;
-}
 .inter_container {
 	padding: 10px 20px;
 }
@@ -118,7 +114,6 @@
 	line-height: 25px;
 }
 .inter_title {
-	padding: 0 110px;
 	margin-bottom: 30px;
 	font-size: 1.8em;
 }
@@ -138,6 +133,10 @@
 }
 .new_wrap {
 	margin-bottom: 100px;
+    padding: 30px 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .ne_con_wrap {
 	position: relative;
@@ -211,4 +210,43 @@
 	padding: 30px 0 10px 0;
 	font-size: 1.5em;
 	color: #212121;
+}
+.new_container{
+	display: flex;
+	justify-content: space-between;
+	padding-bottom: 10px;
+}
+.grid_wrap{
+	display: grid;
+    grid-template-columns: 350px 350px 350px;
+    box-sizing: border-box;
+}
+.follow_wrap{
+	padding: 30px 14%;
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
+/*pagenation*/
+.pagenation {
+	padding: 0 110px;
+	display: flex;
+	justify-content: center;
+	align-self: center;
+	margin: 50px 0;
+}
+.center_line {
+	width: 2px;
+	height: 50px;
+	background-color: #EAEAEA;
+	margin: 0 15px;
+	transform: rotate(40deg);
+}
+.next {
+	margin-top: 30px;
+}
+.page_icon {
+	
 }

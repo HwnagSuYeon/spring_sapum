@@ -75,7 +75,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE followerId = #{followerId}
 	</select>
 	<!-- 마이페이지에서 내가 올린 작품을 띄워주기 위함 -->
-	<select id="mywork_list" parameterType="String" resultType="com.sapum.domain.member.MemberDTO">
+	<select id="mywork_list" parameterType="String" resultType="com.sapum.domain.work.WorkDTO">
 		SELECT * FROM tbl_sa_work
 		WHERE writer = #{followingid}
 	</select>

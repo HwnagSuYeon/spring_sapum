@@ -101,10 +101,10 @@
 		var listCnt = listAttach();
 		
 		// 첨부파일 0건일 때 '첨부파일이 없습니다' 출력
-		if(listCnt == 0){
+		/* if(listCnt == 0){
 			var text = '<span class="no_attach">첨부파일이 없습니다.</span>';
 			$('#uploadedList').html(text);
-		}
+		} */
 		
 		// 팔로우버튼을 눌렀는지 안눌렀는지 알기위한 메서드 호출
 		followCk();

@@ -61,8 +61,8 @@
 	<!-- 파일 업로드를 위한 디렉토리 설정 -->
 	<!-- String uploadPath = new String("D:/upload"); -->
 	<beans:bean id="uploadPath" class="java.lang.String">
-		<!-- 파일저장되는 경로를 맥에서는 /User/로 바꿔줘야함 -->
-		<beans:constructor-arg value="D:\upload"/>
+		<!-- 파일저장되는 경로를 맥에서는 /Users로 바꿔줘야함, 윈도우에서는 D:\upload -->
+		<beans:constructor-arg value="/Users"/>
 	</beans:bean>
 	
 	<resources mapping="resources/**" location="resources"/>

@@ -55,11 +55,12 @@ public class WorkController {
 		int end = pager.getPageEnd();
 		
 		// 페이지에 출력할 게시글 목록
-		List<WorkDTO> list = wService.listAll(sort_option, search_option, keyword, start, end);
+		List<HashMap<String, Object>> list = wService.listAll(sort_option, search_option, keyword, start, end);
 		// 화면단에 보낼것을 mav에 담아 보냄
 		ModelAndView mav = new ModelAndView();
 		// 보낼 데이터
 		HashMap<String, Object> map = new HashMap<String, Object>();
+		
 		map.put("list", list);
 		map.put("count", count);
 		map.put("pager", pager);

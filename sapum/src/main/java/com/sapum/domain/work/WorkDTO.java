@@ -20,6 +20,6 @@ public class WorkDTO {
 	private String writer;
 	private int w_like;
 	private int viewcnt;
-	private String filename; // 첨부파일 이름 배열
+	private String[] filename; // 첨부파일 이름 배열
 	private Date regdate;
 }

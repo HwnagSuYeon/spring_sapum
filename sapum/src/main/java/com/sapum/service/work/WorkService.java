@@ -12,7 +12,7 @@ public interface WorkService {
 	public int countArticle(String search_option, String keyword);
 	
 	// 게시글 목록(페이지나누기,검색기능포함)
-	public List<WorkDTO> listAll(String sort_option, String search_option, String keyword, int start, int end);
+	public List<HashMap<String, Object>> listAll(String sort_option, String search_option, String keyword, int start, int end);
 
 	// 조회수 증가처리
 	public void increaseViewCnt(int wno, HttpSession session);

@@ -1,5 +1,6 @@
 package com.sapum.service.work;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -25,7 +26,7 @@ public class WorkServiceImpl implements WorkService{
 	}
 
 	@Override
-	public List<WorkDTO> listAll(String sort_option, String search_option, String keyword, int start, int end) {
+	public List<HashMap<String, Object>> listAll(String sort_option, String search_option, String keyword, int start, int end) {
 		return wDao.listAll(sort_option, search_option, keyword, start, end);
 	}
 	// 조회수 증가처리
@@ -69,11 +70,15 @@ public class WorkServiceImpl implements WorkService{
 		wDao.create(wDto);
 		
 		// 등록이 성공하면 attach테이블에 첨부파일 이름 추가
-		String files = wDto.getFilename();
+		String files[] = wDto.getFilename();
+		log.info("@@@@@@@@@@@@@@@@@@@@@@@2파일이름>>"+wDto.getFilename());
 		// 첨부파일이 없으면 skip
 		if (files == null) return;
 		// 작품등록시 첨부파일이 여러개면 하나씩 반복문을 돌며 넣어주는 기능
-			wDao.addAttach(files);
+		// files.length-1 => 파일이 하나만 올라갈 수 있도록 한다. 배열 -1 은 마지막 파일을 의미.
+		// 화면단이나 DTO에서 배열로 받지 못하도록 설정해도, 쌤이 준 소스중 배열로 받아서 저장하는 부분이 있어서 여기서 files.length-1로받도록 설정했다.
+		// 또한 스프링에서는 문자열 배열로 된 구조를 String타입으로 받으라고 하면 ,를 붙여서 한줄로 만들어버림.
+			wDao.addAttach(files[files.length-1]);
 
 	}
 

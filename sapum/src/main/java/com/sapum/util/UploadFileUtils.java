@@ -18,6 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class UploadFileUtils {
 	public static String uploadFile(String uploadPath, String originalName, byte[] fileData) throws Exception {
+			log.info("uploadFile"+uploadPath+originalName+"><><<>>><<<<<<>");
 		// 에이젝스 업로드 컨트롤러에서 매개변수로 uploadPath=저장할경로, originalName=파일이름, fileData=바이트단위의 파일 사이즈를 받아옴
 		// uuid발급 => 랜덤으로 만들어지는 36자리의 id. 중복된 이름이 들어오는 것을 막음. uuid + 파일이름 이런식으로 들어와 파일명이 같아도 uuid가 다르기때문에 처리가 가능하다.
 		UUID uid = UUID.randomUUID(); // 랜덤으로 된 36자리의 uuid가 uid에 담김

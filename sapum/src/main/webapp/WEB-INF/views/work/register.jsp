@@ -132,14 +132,13 @@
 		// 업로드 버튼을 눌렀을 때
 		$('#upload_Btn').click(function () {
 			var str="";
-			var filename = $()
 			// uploadedList 내부의 .file 태그 각각 반복
 			$("#uploadedList .file").each(function(i){
 				alert($(this).val());
 				// each = 인풋타입 히든으로 만든 class의 이름이 file의 갯수만큼 반복
 				console.log(i);
 				//hidden 태그 구성(files라는 배열에 인풋타입 히든에 val을 해당 태그의 값으로 넣어라. 그러니까 올린 파일의 갯수만큼 배열에 값을 순서대로 넣어주는 역할.)
-				str += "<input type='hidden' name='files["+i+"]' value='" + $(this).val()+"'>";
+				str += "<input type='hidden' name='filename' value='" + $(this).val()+"'>";
 			});
 			
 			// 로컬드라이브에 저장되어있는 해당 게시글 

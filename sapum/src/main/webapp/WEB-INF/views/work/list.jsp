@@ -53,36 +53,43 @@
 			<div class="new_container">
 				
 				<div class="grid_wrap">
+				<!-- HashMap으로 반환받아와서 wDto.대문자로 꺼내서써야함. -->
 					<c:forEach items="${map.list}" var="wDto">
 						<div class="ne_con_wrap work_hover">
 							<div class="img_wrap">
-								<a href="${path}/work/view?wno=${wDto.wno}"><img class="object_container" src="${path}/resources/img/${wDto.filename}"></a>
+							<!-- ${fn:substring(wDto.FILENAME,0,12)} = 날짜 디렉터리 부분만 잘라옴. 이름을front라고 지었다. -->
+							<c:set var="front" value="${fn:substring(wDto.FILENAME,0,12)}"/>
+							<!-- wDto.FILENAME,14,fn:length(wDto.FILENAME) = s_뗀 마지막 글씨까지 가져옴. 이름을 back이라고 지음.
+							 -->
+							<c:set var="back" value="${fn:substring(wDto.FILENAME,14,fn:length(wDto.FILENAME))}"/>
+							<!-- ${front}${back} = s_를 뗀 원본파일 이름을 가져와 띄워 -->
+								<a href="${path}/work/view?wno=${wDto.WNO}"><img class="object_container" src="${path}/upload/displayFile?fileName=${front}${back}"></a>
 							</div>
 							<div class="text_wrap">
-								<a href="${path}/work/view?wno=${wDto.wno}"><span class="work_user">${wDto.title}</span></a><br>
+								<a href="${path}/work/view?wno=${wDto.WNO}"><span class="work_user">${wDto.TITLE}</span></a><br>
 								
 								<!-- 시간포맷 -->
 								<jsp:useBean id="now" class="java.util.Date"/>
 								<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="today"/>
-								<fmt:formatDate value="${wDto.regdate}" pattern="yyyy-MM-dd" var="regdate"/>
+								<fmt:formatDate value="${wDto.REGDATE}" pattern="yyyy-MM-dd" var="regdate"/>
 								
 								<div class="side_title">
 									<c:choose>
 										<c:when test="${today == regdate}">
-											<span class="work_text"><fmt:formatDate value="${wDto.regdate}" pattern="hh:mm:ss"/></span>
+											<span class="work_text"><fmt:formatDate value="${wDto.REGDATE}" pattern="hh:mm:ss"/></span>
 										</c:when>
 										<c:otherwise>
-											<span class="work_text"><fmt:formatDate value="${wDto.regdate}" pattern="yyyy-MM-dd"/></span>
+											<span class="work_text"><fmt:formatDate value="${wDto.REGDATE}" pattern="yyyy-MM-dd"/></span>
 										</c:otherwise>
 									</c:choose>
 									<div class="like_view_wrap">
 										<div class="view_icon like_icon">
 											<i class="fas fa-heart"></i>
-											<span>${wDto.w_like}</span>
+											<span>${wDto.W_LIKE}</span>
 										</div>
 										<div class="view_icon">
 											<i class="far fa-eye"></i>
-											<span>${wDto.viewcnt}</span>
+											<span>${wDto.VIEWCNT}</span>
 										</div>
 									</div>
 								</div>

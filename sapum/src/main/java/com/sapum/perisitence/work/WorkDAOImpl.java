@@ -28,7 +28,7 @@ public class WorkDAOImpl implements WorkDAO{
 	}
 
 	@Override
-	public List<WorkDTO> listAll(String sort_option, String search_option, String keyword, int start, int end) {
+	public List<HashMap<String, Object>> listAll(String sort_option, String search_option, String keyword, int start, int end) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("sort_option", sort_option);
 		map.put("search_option", search_option);

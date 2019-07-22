@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" href="${path}/resources/css/include/common.css?v=1">
 <link rel="stylesheet" href="${path}/resources/css/include/header.css?v=1">
+<script type="text/javascript" src="${path}/resources/js/jquery.cookie.js"></script>
 <title>Insert title here</title>
 </head>
 <body>
@@ -89,14 +90,44 @@
 				<span class="modal_err_msg"></span>
 				<button id="login_btn" type="button" class="lo_btn">login</button>
 				<a href="${path}/member/find" class="forgot"><span>Forgot Password?</span></a>
+				<div class="id_save_wrap">
+					<input type="checkbox" id="idSaveCheck">
+					<span class="save_id_text">아이디 기억하기</span>
+				</div>
 			</form>
 		</div>
 	</div>
 	
 	
+	
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function () {
+			// 쿠키를 활용한 아이디 저장
+			// 저장된 쿠키값을 가져와서 ID 칸에 넣어준다. 없으면 공백으로 들어감.
+		    var key = getCookie("key");
+		    $("#login_id").val(key); 
+		     
+		    if($("#login_id").val() != ""){ // 그 전에 ID를 저장해서 처음 페이지 로딩 시, 입력 칸에 저장된 ID가 표시된 상태라면,
+		        $("#idSaveCheck").attr("checked", true); // ID 저장하기를 체크 상태로 두기.
+		    }
+		     
+		    $("#idSaveCheck").change(function(){ // 체크박스에 변화가 있다면,
+		        if($("#idSaveCheck").is(":checked")){ // ID 저장하기 체크했을 때,
+		            setCookie("key", $("#login_id").val(), 7); // 7일 동안 쿠키 보관
+		        }else{ // ID 저장하기 체크 해제 시,
+		            deleteCookie("key");
+		        }
+		    });
+		     
+		    // ID 저장하기를 체크한 상태에서 ID를 입력하는 경우, 이럴 때도 쿠키 저장.
+		    $("#login_id").keyup(function(){ // ID 입력 칸에 ID를 입력할 때,
+		        if($("#idSaveCheck").is(":checked")){ // ID 저장하기를 체크한 상태라면,
+		            setCookie("key", $("#login_id").val(), 7); // 7일 동안 쿠키 보관
+		        }
+		    });
+			
+			
 			// 인덱스에만 헤더를 fixed로 주기위함
 			if(${!empty code}) {
 				$('#header').css('position', 'fixed');
@@ -104,6 +135,39 @@
 				$('#header').css('position', 'inherit');
 			}
 		});
+		// 사용할 쿠키에 데이터와 만료일자를 정의함
+		function setCookie(cookieName, value, exdays){
+		    var exdate = new Date(); // 날짜 객체 생성. 데이터 객체가 exdate에 들어있음
+		    exdate.setDate(exdate.getDate() + exdays); // exdate를 값 세팅 = 오늘 일자를 가져와서 일주일(exdays)을 더해줌
+		    // escape(value)->받아온 로그인 아이디를 유니코드 형식으로 반환
+		    // (exdays==null) -> 일주일 뒤로 세팅한 날짜가 null일때 ""(쿠키를 삭제하지 않는 이상 영구적으로 쿠키가 남아있는 경우임)
+		    // null아닐때 -> exdate.toGMTString() = 일주일(exdate)을 국제 표준시로 반환해서 만료일자(expires)를 일주일 뒤로 정함
+		    var cookieValue = escape(value) + ((exdays==null) ? "" : "; expires=" + exdate.toGMTString());
+		    // 이 페이지에서 계속 물고다니는 쿠키에게 쿠키이름(key)이랑 cookieValue(로그인아이디+만료일자)를 넣어줌
+		    document.cookie = cookieName + "=" + cookieValue;
+		}
+		 // 쿠키를 만료시킴
+		function deleteCookie(cookieName){
+		    var expireDate = new Date();
+		    expireDate.setDate(expireDate.getDate() - 1); // 해당 쿠키의 만료일을 어제날짜로 설정해, 
+		    document.cookie = cookieName + "= " + "; expires=" + expireDate.toGMTString(); // 쿠키를강제로 만료시킴
+		}
+		 // 쿠키에 담겨져있는 값을 사용하기 위해 유효 데이터를 빼내기 위한 과정
+		function getCookie(cookieName) {
+		    cookieName = cookieName + '=';
+		    var cookieData = document.cookie;
+		    var start = cookieData.indexOf(cookieName); // 홈페이지에 있는 쿠키를 전부 불러와서 원하는 쿠키를 가져옴(넘겨준 key에 해당하는 아이디)
+		    var cookieValue = '';
+		    alert(cookieData);
+		    if(start != -1){ // 쿠키 정보가 없을때 = -1  ---> 부정이니까 쿠키정보 있을때
+		        start += cookieName.length; // 유저 아이디의 key자체의 길이를 불러와서 start에 더함
+		        var end = cookieData.indexOf(';', start); // key이후로 처음으로 만나는 세미콜론. 즉, 다른 쿠키를 썼을때 구분을 위함.
+		        if(end == -1)end = cookieData.length; // 쿠키를 사용하는 것이 한개일 때(end == -1), 쿠키의 길이만큼을 end에 넣어줌.
+		        cookieValue = cookieData.substring(start, end); // key = user01; 을 받았었는데 여기서 'key='과 ';'를 떼서 필요한 'user01'이라는 데이터만 주기 위함.
+		    }
+		    return unescape(cookieValue); // 유니코드로 저장한 데이터를 다시 문자열로 반환
+		}
+
 		// --------------------header에 반드시 필요한 스크립트----------------------
 		// 햄버거버튼 메뉴 동작
 		var burger = $('.menu-trigger');
@@ -259,6 +323,8 @@
 			
 			
 		});
+		
+		
 		
 
 	</script>

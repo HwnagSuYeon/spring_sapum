@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="${path}/resources/css/work/work.css?v=1">
+<link rel="stylesheet" href="${path}/resources/css/work/workAll.css?v=1">
 <title>Insert title here</title>
 </head>
 <body>
@@ -66,6 +66,7 @@
 				</div>
 				<span class="cmt_err_msg" style="display: none;">댓글의 내용이 없습니다!</span>
 				<input type="hidden" name="writer" class="comment_userid">
+				<input type="hidden" name="wno" id="cmt_wno">
 				<button id="cmt_add_btn" type="button" class="cmt_add_btn"><i class="fas fa-plus"></i></button>
 			</form>
 		</c:otherwise>

@@ -48,8 +48,8 @@ public class WorkReplyController {
 	// 댓글 삭제 기능
 	@ResponseBody
 	@RequestMapping(value = "delete", method = RequestMethod.GET)
-	public void delete(HttpSession session, int wrno, String cmt_writer) {
+	public void delete(int wrno, String cmt_writer) {
 		log.info(">>>갤러리 댓글 삭제기능");
-		service.delete(session, wrno, cmt_writer);
+		service.delete(wrno, cmt_writer);
 	}
 }

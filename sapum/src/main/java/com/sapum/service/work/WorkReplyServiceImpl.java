@@ -30,11 +30,8 @@ public class WorkReplyServiceImpl implements WorkReplyService{
 
 
 	@Override
-	public void delete(HttpSession session, int wrno, String cmt_writer) {
+	public void delete(int wrno, String cmt_writer) {
 		// url로 접근해서 댓글 삭제할수도 있으니까 session 검사
-		String userId = (String) session.getAttribute("userId");
-		if(userId == cmt_writer) {
 			rDao.delete(wrno);
-		}
 	}
 }

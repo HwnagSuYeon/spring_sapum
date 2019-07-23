@@ -94,48 +94,6 @@
 			<div class="new_content">
 				<h1 class="new_title">My works</h1>
 				
-				<%-- <div class="new_container">
-					<div class="grid_wrap">
-						<c:forEach items="${map.list}" var="list">
-							<div class="ne_con_wrap work_hover">
-								<div class="img_wrap">
-									<a href="${path}/work/view?wno=${list.wno}"><img class="object_container" src="${path}/resources/img/${list.filename}"></a>
-								</div>
-								<div class="text_wrap">
-									<a href="${path}/work/view?wno=${list.wno}"><span class="work_user">${list.title}</span></a><br>
-									
-									<!-- 시간포맷 -->
-									<jsp:useBean id="now" class="java.util.Date"/>
-									<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="today"/>
-									<fmt:formatDate value="${list.regdate}" pattern="yyyy-MM-dd" var="regdate"/>
-									
-									<div class="side_title">
-										<c:choose>
-											<c:when test="${today == regdate}">
-												<span class="work_text"><fmt:formatDate value="${list.regdate}" pattern="hh:mm:ss"/></span>
-											</c:when>
-											<c:otherwise>
-												<span class="work_text"><fmt:formatDate value="${list.regdate}" pattern="yyyy-MM-dd"/></span>
-											</c:otherwise>
-										</c:choose>
-										<div class="like_view_wrap">
-											<div class="view_icon like_icon">
-												<i class="fas fa-heart"></i>
-												<span>${list.w_like}</span>
-											</div>
-											<div class="view_icon">
-												<i class="far fa-eye"></i>
-												<span>${list.viewcnt}</span>
-											</div>
-										</div>
-									</div>
-									
-									
-								</div>
-							</div>
-						</c:forEach>
-					</div> --%>
-				
 				<div class="new_container">
 					<div class="grid_wrap">
 						<c:forEach items="${map.list}" var="list">

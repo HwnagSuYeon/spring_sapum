@@ -126,14 +126,14 @@
 		            setCookie("key", $("#login_id").val(), 7); // 7일 동안 쿠키 보관
 		        }
 		    });
-			
-			
-			// 인덱스에만 헤더를 fixed로 주기위함
+		 // 인덱스에만 헤더를 fixed로 주기위함
 			if(${!empty code}) {
 				$('#header').css('position', 'fixed');
 			} else {
 				$('#header').css('position', 'inherit');
 			}
+			
+			
 		});
 		// 사용할 쿠키에 데이터와 만료일자를 정의함
 		function setCookie(cookieName, value, exdays){
@@ -158,7 +158,6 @@
 		    var cookieData = document.cookie;
 		    var start = cookieData.indexOf(cookieName); // 홈페이지에 있는 쿠키를 전부 불러와서 원하는 쿠키를 가져옴(넘겨준 key에 해당하는 아이디)
 		    var cookieValue = '';
-		    alert(cookieData);
 		    if(start != -1){ // 쿠키 정보가 없을때 = -1  ---> 부정이니까 쿠키정보 있을때
 		        start += cookieName.length; // 유저 아이디의 key자체의 길이를 불러와서 start에 더함
 		        var end = cookieData.indexOf(';', start); // key이후로 처음으로 만나는 세미콜론. 즉, 다른 쿠키를 썼을때 구분을 위함.

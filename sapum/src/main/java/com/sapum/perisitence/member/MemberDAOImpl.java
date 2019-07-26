@@ -96,7 +96,7 @@ public class MemberDAOImpl implements MemberDAO{
 	}
 
 	@Override
-	public List<WorkDTO> mywork_list(String followingid) {
+	public List<HashMap<String, Object>> mywork_list(String followingid) {
 		return sqlSession.selectList("member.mywork_list", followingid);
 	}
 

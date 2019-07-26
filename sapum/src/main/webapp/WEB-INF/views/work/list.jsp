@@ -11,7 +11,7 @@
 <body>
 	<!-- 검색창& 작품추가, top버튼 -->
 	<div class="btn_wrap">
-		<div class="btn">
+		<div class="btn_all">
 			<a class="all_btn plus_btn" href="${path}/work/register"><i class="fas fa-plus"></i></a>
 			<a id="topBtn" class="all_btn top_btn"><i class="fas fa-arrow-up"></i></a>
 		</div>

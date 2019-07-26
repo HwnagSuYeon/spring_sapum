@@ -103,6 +103,12 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function () {
+			 // 인덱스에만 헤더를 fixed로 주기위함
+			if(${!empty code}) {
+				$('#header').css('position', 'fixed');
+			} else {
+				$('#header').css('position', 'inherit');
+			}
 			// 쿠키를 활용한 아이디 저장
 			// 저장된 쿠키값을 가져와서 ID 칸에 넣어준다. 없으면 공백으로 들어감.
 		    var key = getCookie("key");
@@ -126,13 +132,6 @@
 		            setCookie("key", $("#login_id").val(), 7); // 7일 동안 쿠키 보관
 		        }
 		    });
-		 // 인덱스에만 헤더를 fixed로 주기위함
-			if(${!empty code}) {
-				$('#header').css('position', 'fixed');
-			} else {
-				$('#header').css('position', 'inherit');
-			}
-			
 			
 		});
 		// 사용할 쿠키에 데이터와 만료일자를 정의함

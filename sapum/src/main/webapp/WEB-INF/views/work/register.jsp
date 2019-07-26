@@ -27,7 +27,7 @@
 						<span class="up_wor">Recommendation: High-quality imagery</span>
 					</div>
 				</div>
-				<div class="write_input_wrap">
+				<div class="write_input_wrap up_sample_img">
 					<ul id="uploadedList" class="mailbox-attachments clearfix uploadedList"></ul>
 				</div>
 				<input class="img_uplaod_in" type="file" style="display: none;" name="">
@@ -68,7 +68,7 @@
 	<script id="fileTemplate" type="text/x-handlebars-template">
     <li>
         <div class="mailbox-attachment-icon has-img">
-            <center><img src="{{imgSrc}}" alt="Attachment" class="s_img"></center>
+            <center><img src="{{originalFileUrl}}" alt="Attachment" class="s_img"></center>
         </div>
         <div class="mailbox-attachment-info">
             <a href="{{originalFileUrl}}" class="mailbox-attachment-name">

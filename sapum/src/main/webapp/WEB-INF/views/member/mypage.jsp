@@ -33,10 +33,11 @@
 			</div>
 		</div>
 		<!-- 최근본 작품 -->
-		<%-- <div class="new_wrap">
+		<div class="new_wrap">
 			<div class="new_content">
 				<h1 class="new_title">Recently watched</h1>
 				<div class="new_container">
+				
 					<div class="ne_con_wrap work_hover">
 						<div class="img_wrap">
 							<a href="#"><img class="object_container" src="${path}/resources/img/main.jpg"></a>
@@ -47,38 +48,9 @@
 						</div>
 					</div>
 
-					<div class="ne_con_wrap work_hover">
-						<div class="img_wrap">
-							<a href="#"><img class="object_container" src="${path}/resources/img/sc1.jpg"></a>
-						</div>
-						<div class="text_wrap">
-							<a href="#"><span class="work_user">ggugguri</span></a><br>
-							<span class="work_text">2019-04-24 16:00:00</span>
-						</div>
-					</div>
-
-					<div class="ne_con_wrap work_hover">
-						<div class="img_wrap">
-							<a href="#"><img class="object_container" src="../img/sc3.jpg"></a>
-						</div>
-						<div class="text_wrap">
-							<a href="#"><span class="work_user">kim</span></a><br>
-							<span class="work_text">2019-04-24 16:00:00</span>
-						</div>
-					</div>
-
-					<div class="ne_con_wrap work_hover">
-						<div class="img_wrap">
-							<a href="#"><img class="object_container" src="../img/main.jpg"></a>
-						</div>
-						<div class="text_wrap">
-							<a href="#"><span class="work_user">lalla</span></a><br>
-							<span class="work_text">2019-04-24 16:00:00</span>
-						</div>
-					</div>
 				</div>
 			</div>
-		</div> --%>
+		</div>
 
 
 		<!-- 관심 작가 -->
@@ -134,51 +106,6 @@
 						</c:forEach>
 					</div>
 				</div>
-				
-				
-				<!--  pagenation -->
-				<%-- <div class="pagenation">
-					<!-- 이전페이지보기 버튼을 나타내는 경우 -->
-					<c:choose>
-						<c:when test="${map.pager.curPage > 1}">
-							<div class="prev">
-								<a href="${path}/work/list?curPage=${map.pager.curPage-1}&sort_option=${map.sort_option}&keyword=${map.keyword}&search_option=${map.search_option}">
-									<img class="page_icon" src="${path}/resources/img/pre_on.png">
-								</a>
-							</div>
-						</c:when>
-						<c:otherwise>
-							<div class="prev">
-								<a href="${path}/work/list?curPage=${map.pager.curPage-1}&sort_option=${map.sort_option}&keyword=${map.keyword}&search_option=${map.search_option}">
-									<img class="page_icon" src="${path}/resources/img/pre_off.png">
-								</a>
-							</div>
-						</c:otherwise>
-					</c:choose>
-					
-					<div class="center_line">
-						<span class="ce_line"></span>
-					</div>
-					
-					<!-- 다음페이지보기 버튼을 나타내는 경우 -->
-					<c:choose>
-						<c:when test="${map.pager.curPage < map.pager.totPage}">
-							<div class="next">
-								<a href="${path}/work/list?curPage=${map.pager.curPage+1}&sort_option=${map.sort_option}&keyword=${map.keyword}&search_option=${map.search_option}">
-									<img class="page_icon" src="${path}/resources/img/ne_on.png">
-								</a>
-							</div>
-						</c:when>
-						
-						<c:otherwise>
-							<div class="next">
-								<a href="${path}/work/list?curPage=${map.pager.curPage+1}&sort_option=${map.sort_option}&keyword=${map.keyword}&search_option=${map.search_option}">
-									<img class="page_icon" src="${path}/resources/img/ne_off.png">
-								</a>
-							</div>
-						</c:otherwise>
-					</c:choose>
-				</div> --%>
 				
 				</div>
 			</div>

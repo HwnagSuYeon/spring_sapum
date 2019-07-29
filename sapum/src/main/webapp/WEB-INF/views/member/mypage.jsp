@@ -32,27 +32,7 @@
 				</div>
 			</div>
 		</div>
-		<!-- 최근본 작품 -->
-		<div class="new_wrap">
-			<div class="new_content">
-				<h1 class="new_title">Recently watched</h1>
-				<div class="new_container">
-				
-					<div class="ne_con_wrap work_hover">
-						<div class="img_wrap">
-							<a href="#"><img class="object_container" src="${path}/resources/img/main.jpg"></a>
-						</div>
-						<div class="text_wrap">
-							<a href="#"><span class="work_user">lalla</span></a><br>
-							<span class="work_text">2019-04-24 16:00:00</span>
-						</div>
-					</div>
-
-				</div>
-			</div>
-		</div>
-
-
+		
 		<!-- 관심 작가 -->
 		<div class="follow_wrap">
 			<div class="new_content">
@@ -60,6 +40,32 @@
 				<div class="inter_all"></div>
 			</div>
 		</div>
+		
+		<!-- 최근본 작품 -->
+		<div class="new_wrap work_margin">
+			<div class="new_content">
+				<h1 class="new_title">Recently watched</h1>
+				<div class="new_container">
+					<div class="grid_wrap">
+					
+						<div class="ne_con_wrap work_hover">
+							<div class="img_wrap my_position">
+								<a href="#"><img class="object_container" src="${path}/resources/img/main.jpg""></a>
+							</div>
+							<div class="text_wrap ">
+								<a href="#"><span class="work_user">lalla</span></a><br>
+								<span class="work_text">
+									2019-04-24 16:00:00
+								</span>
+							</div>
+						</div>
+						
+					</div>
+				</div>
+				</div>
+			</div>
+		</div>
+
 
 		<!-- 내작품 관리 -->
 		<div class="new_wrap work_margin">

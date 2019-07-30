@@ -47,10 +47,6 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 			} else if (replaceURL.contains("member")) {
 				referer = request.getContextPath();
 			}
-			
-			
-			
-			
 			log.info("수정된 URL" + url);
 			
 			
@@ -76,5 +72,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 		// return에 들어올 수 있는 값은 두가지.
 		// true -> 메인액션 실행
 		// false -> 메인액션 실행 못함. 돌아가게만듦.
+		
+		
 	}
 }

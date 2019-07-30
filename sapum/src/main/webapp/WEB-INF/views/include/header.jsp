@@ -91,7 +91,7 @@
 				<button id="login_btn" type="button" class="lo_btn">login</button>
 				<a href="${path}/member/find" class="forgot"><span>Forgot Password?</span></a>
 				<div class="id_save_wrap">
-					<input type="checkbox" id="idSaveCheck">
+					<input type="checkbox" id="idSaveCheck" name="saveId">
 					<span class="save_id_text">아이디 기억하기</span>
 				</div>
 			</form>
@@ -109,6 +109,8 @@
 			} else {
 				$('#header').css('position', 'inherit');
 			}
+			
+			 
 			// 쿠키를 활용한 아이디 저장
 			// 저장된 쿠키값을 가져와서 ID 칸에 넣어준다. 없으면 공백으로 들어감.
 		    var key = getCookie("key");
@@ -164,7 +166,7 @@
 		        cookieValue = cookieData.substring(start, end); // key = user01; 을 받았었는데 여기서 'key='과 ';'를 떼서 필요한 'user01'이라는 데이터만 주기 위함.
 		    }
 		    return unescape(cookieValue); // 유니코드로 저장한 데이터를 다시 문자열로 반환
-		}
+		} 
 
 		// --------------------header에 반드시 필요한 스크립트----------------------
 		// 햄버거버튼 메뉴 동작

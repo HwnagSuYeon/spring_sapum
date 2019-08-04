@@ -81,4 +81,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE w.wno = a.wno
 		AND writer = #{followerId}
 	</select>
+	
+	<select id="watched_list" parameterType="int" resultType="HashMap">
+		SELECT w.wno, title, content, writer, a.fullname AS "filename", w_like, viewcnt, w.regdate 
+		FROM tbl_sa_work w, tbl_sa_attach a
+		WHERE w.wno = a.wno
+		AND w.wno = #{watchedWno}
+	</select>
 </mapper>

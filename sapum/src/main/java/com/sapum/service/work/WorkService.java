@@ -30,4 +30,5 @@ public interface WorkService {
 	public void update(WorkDTO wDto);
 
 	public List<String> getAttach(int wno);
+
 }

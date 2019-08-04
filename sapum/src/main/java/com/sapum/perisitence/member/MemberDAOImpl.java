@@ -1,5 +1,6 @@
 package com.sapum.perisitence.member;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -98,6 +99,15 @@ public class MemberDAOImpl implements MemberDAO{
 	@Override
 	public List<HashMap<String, Object>> mywork_list(String followingid) {
 		return sqlSession.selectList("member.mywork_list", followingid);
+	}
+
+	@Override
+	public List<HashMap<String, Object>> watchedList(ArrayList<Integer> watchList) {
+		List<HashMap<String, Object>> list = new ArrayList<HashMap<String,Object>>();
+		for (Integer watchedWno : watchList) {
+			list.add(sqlSession.selectOne("member.watched_list",watchedWno));
+		}
+		return list;
 	}
 
 }

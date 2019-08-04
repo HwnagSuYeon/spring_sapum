@@ -93,7 +93,8 @@
 	// 디테일페이지
 	$(document).ready(function() {
 		// 좋아요가 기존에 있는지 없는지 알기위한 메서드 호출
-		check_like();
+		if(${!empty sessionScope.userid}) check_like();
+		
 		// 댓글 목록을 띄우기 위한 메서드 호출
 		comment_list();
 		

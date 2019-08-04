@@ -1,5 +1,6 @@
 package com.sapum.service.member;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -140,6 +141,11 @@ public class MemberServiceImpl implements MemberService{
 		map.put("following_count", following_count);
 		map.put("list", list);
 		return map;
+	}
+	@Override
+	public List<HashMap<String, Object>> watchedList(ArrayList<Integer> watchList) {
+		List<HashMap<String, Object>> list = mDao.watchedList(watchList);
+		return list;
 	}
 	
 	

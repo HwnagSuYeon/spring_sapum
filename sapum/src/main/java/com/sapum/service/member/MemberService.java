@@ -1,11 +1,13 @@
 package com.sapum.service.member;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
 import com.sapum.domain.member.MemberDTO;
+import com.sapum.domain.work.WorkDTO;
 
 public interface MemberService {
 	// Ajax로 id중복체크
@@ -44,4 +46,6 @@ public interface MemberService {
 	public List<String> following_list(HttpSession session);
 
 	public HashMap<String, Object> mypage_list(HttpSession session);
+
+	public List<HashMap<String, Object>> watchedList(ArrayList<Integer> watchList);
 }

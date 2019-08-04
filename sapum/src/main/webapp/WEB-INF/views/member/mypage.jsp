@@ -1,11 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ include file="../include/header.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="${path}/resources/css/member/mypage.css?v=1">
+<link rel="stylesheet"
+	href="${path}/resources/css/member/mypage.css?v=1">
 <title>Insert title here</title>
 </head>
 <body>
@@ -15,24 +16,26 @@
 		<div class="user_wrap">
 			<div class="user_info">
 				<h1 class="user_title">${sessionScope.userid}</h1>
-				<span class="follw_info">
-					<a>Follower <span style="font-weight: bold; color: #70D6C7;">${map.follower_count}</span></a>
+				<span class="follw_info"> <a>Follower <span
+						style="font-weight: bold; color: #70D6C7;">${map.follower_count}</span></a>
 					<a>Following <span style="font-weight: bold; color: #70D6C7;">${map.following_count}</span></a>
 				</span>
 			</div>
 			<div class="icon">
 				<div class="i_hover">
-					<a class="icon_wrap" href="${path}/member/delete"><i class="fas fa-user-slash"></i></a>
+					<a class="icon_wrap" href="${path}/member/delete"><i
+						class="fas fa-user-slash"></i></a>
 				</div>
 				<div class="i_hover">
-					<a class="icon_wrap" href="${path}/member/modify"><i class="fas fa-pencil-alt"></i></a>
+					<a class="icon_wrap" href="${path}/member/modify"><i
+						class="fas fa-pencil-alt"></i></a>
 				</div>
 				<div class="i_hover">
 					<a class="icon_wrap" href="#"><i class="fas fa-sign-out-alt"></i></a>
 				</div>
 			</div>
 		</div>
-		
+
 		<!-- 관심 작가 -->
 		<div class="follow_wrap">
 			<div class="new_content">
@@ -40,89 +43,112 @@
 				<div class="inter_all"></div>
 			</div>
 		</div>
-		
+
+		<!-- 시간포맷 -->
+		<jsp:useBean id="now" class="java.util.Date" />
+		<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="today" />
 		<!-- 최근본 작품 -->
 		<div class="new_wrap work_margin">
 			<div class="new_content">
 				<h1 class="new_title">Recently watched</h1>
 				<div class="new_container">
 					<div class="grid_wrap">
-					
-						<div class="ne_con_wrap work_hover">
-							<div class="img_wrap my_position">
-								<a href="#"><img class="object_container" src="${path}/resources/img/main.jpg""></a>
-							</div>
-							<div class="text_wrap ">
-								<a href="#"><span class="work_user">lalla</span></a><br>
-								<span class="work_text">
-									2019-04-24 16:00:00
-								</span>
-							</div>
-						</div>
-						
-					</div>
-				</div>
-				</div>
-			</div>
-		</div>
-
-
-		<!-- 내작품 관리 -->
-		<div class="new_wrap work_margin">
-			<div class="new_content">
-				<h1 class="new_title">My works</h1>
-				
-				<div class="new_container">
-					<div class="grid_wrap">
-						<c:forEach items="${map.list}" var="list">
+						<c:forEach items="${watched}" var="list">
 							<div class="ne_con_wrap work_hover">
 								<div class="img_wrap my_position">
 									<!-- ${fn:substring(wDto.FILENAME,0,12)} = 날짜 디렉터리 부분만 잘라옴. 이름을front라고 지었다. -->
-									<c:set var="front" value="${fn:substring(list.filename,0,12)}"/>
+									<c:set var="front" value="${fn:substring(list.filename,0,12)}" />
 									<!-- wDto.FILENAME,14,fn:length(wDto.FILENAME) = s_뗀 마지막 글씨까지 가져옴. 이름을 back이라고 지음.
 									 -->
-									<c:set var="back" value="${fn:substring(list.filename,14,fn:length(list.filename))}"/>
+									<c:set var="back"
+										value="${fn:substring(list.filename,14,fn:length(list.filename))}" />
 									<!-- ${front}${back} = s_를 뗀 원본파일 이름을 가져와 띄워 -->
-									<a href="#"><img class="object_container" src="${path}/upload/displayFile?fileName=${front}${back}"></a>
+									<a href="#"><img class="object_container"
+										src="${path}/upload/displayFile?fileName=${front}${back}"></a>
 								</div>
 								<div class="text_wrap ">
 									<a href="#"><span class="work_user">${list.TITLE}</span></a><br>
+
 									
-									<!-- 시간포맷 -->
-									<jsp:useBean id="now" class="java.util.Date"/>
-									<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="today"/>
-									<fmt:formatDate value="${list.REGDATE}" pattern="yyyy-MM-dd" var="regdate"/>
-									<span class="work_text">
-										<c:choose>
+									<fmt:formatDate value="${list.REGDATE}" pattern="yyyy-MM-dd"
+										var="regdate" />
+									<span class="work_text"> <c:choose>
 											<c:when test="${today == regdate}">
-												<fmt:formatDate value="${list.REGDATE}" pattern="hh:mm:ss"/>
+												<fmt:formatDate value="${list.REGDATE}" pattern="hh:mm:ss" />
 											</c:when>
 											<c:otherwise>
-												<fmt:formatDate value="${list.REGDATE}" pattern="yyyy-MM-dd"/>
+												<fmt:formatDate value="${list.REGDATE}" pattern="yyyy-MM-dd" />
 											</c:otherwise>
 										</c:choose>
 									</span>
-								</div>
-								<div class="hover_del_btn">
-									<a href="#">
-										<i class="fas fa-times del_icon"></i>
-									</a>
 								</div>
 							</div>
 						</c:forEach>
 					</div>
 				</div>
-				
-				</div>
 			</div>
 		</div>
-	</div>	
+	</div>
+
+
+	<!-- 내작품 관리 -->
+	<div class="new_wrap work_margin">
+		<div class="new_content">
+			<h1 class="new_title">My works</h1>
+
+			<div class="new_container">
+				<div class="grid_wrap">
+					<c:forEach items="${map.list}" var="list">
+						<div class="ne_con_wrap work_hover">
+							<div class="img_wrap my_position">
+								<!-- ${fn:substring(wDto.FILENAME,0,12)} = 날짜 디렉터리 부분만 잘라옴. 이름을front라고 지었다. -->
+								<c:set var="front" value="${fn:substring(list.filename,0,12)}" />
+								<!-- wDto.FILENAME,14,fn:length(wDto.FILENAME) = s_뗀 마지막 글씨까지 가져옴. 이름을 back이라고 지음.
+									 -->
+								<c:set var="back"
+									value="${fn:substring(list.filename,14,fn:length(list.filename))}" />
+								<!-- ${front}${back} = s_를 뗀 원본파일 이름을 가져와 띄워 -->
+								<a href="#"><img class="object_container"
+									src="${path}/upload/displayFile?fileName=${front}${back}"></a>
+							</div>
+							<div class="text_wrap ">
+								<a href="#"><span class="work_user">${list.TITLE}</span></a><br>
+
+								<!-- 시간포맷 -->
+								<fmt:formatDate value="${list.REGDATE}" pattern="yyyy-MM-dd"
+									var="regdate" />
+								<span class="work_text"> <c:choose>
+										<c:when test="${today == regdate}">
+											<fmt:formatDate value="${list.REGDATE}" pattern="hh:mm:ss" />
+										</c:when>
+										<c:otherwise>
+											<fmt:formatDate value="${list.REGDATE}" pattern="yyyy-MM-dd" />
+										</c:otherwise>
+									</c:choose>
+								</span>
+							</div>
+							<div class="hover_del_btn">
+								<a href="#"> <i class="fas fa-times del_icon"></i>
+								</a>
+							</div>
+						</div>
+					</c:forEach>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	</div>
+	</div>
 	<!-- work delete modal -->
 	<div id="wo_de_modal" class="del_modal" style="display: none;">
 		<div class="modal_box delete_modal">
 			<div class="modal_wrap">
-				<span id="wo_de_btn" class="lo_modal_close"><i class="fas fa-times"></i></span>
-				<h1 class="de_modal_title delete_title">Are you sure to<br> delete this work?</h1>
+				<span id="wo_de_btn" class="lo_modal_close"><i
+					class="fas fa-times"></i></span>
+				<h1 class="de_modal_title delete_title">
+					Are you sure to<br> delete this work?
+				</h1>
 				<span class="warring"><i class="fas fa-exclamation-circle"></i></span>
 				<div class="btn_wrap">
 					<button id="n_btn" type="button" class="n_btn">NO</button>

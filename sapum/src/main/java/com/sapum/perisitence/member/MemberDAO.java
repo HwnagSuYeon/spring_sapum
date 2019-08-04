@@ -1,5 +1,6 @@
 package com.sapum.perisitence.member;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -30,6 +31,7 @@ public interface MemberDAO {
 		public List<String> following_list(String followerId);
 		public int following_coutn(String myId);
 		public List<HashMap<String, Object>> mywork_list(String followingid);
+		public List<HashMap<String, Object>> watchedList(ArrayList<Integer> watchList);
 		
 
 }

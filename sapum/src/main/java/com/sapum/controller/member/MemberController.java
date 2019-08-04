@@ -1,5 +1,10 @@
 package com.sapum.controller.member;
 
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -11,13 +16,19 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sapum.domain.member.MemberDTO;
+import com.sapum.domain.work.WorkDTO;
 import com.sapum.perisitence.member.MemberDAO;
 import com.sapum.service.member.MemberService;
+import com.sapum.service.work.WorkService;
 
 import lombok.val;
 import lombok.extern.slf4j.Slf4j;
@@ -129,9 +140,19 @@ public class MemberController {
 	
 	// 마이페이지 띄워주는 기능
 	@RequestMapping(value = "mypage", method = RequestMethod.GET)
-	public String mypage(HttpSession session, Model model) {
+	public String mypage(HttpSession session, Model model, @CookieValue(value = "watchlist", required = false) Cookie cookie) throws JsonParseException, JsonMappingException, IOException {
 		// 유저 정보 아래 팔로워/팔로잉 수를 띄워주고, 내가 올린 작품을 띄워주는 역할을 함
 		HashMap<String, Object> map = service.mypage_list(session);
+		// watchlist 쿠키가 존재할 경우 해당 쿠키에 저장된 게시물 번호를 토대로 mypage에 반환
+		if (cookie != null){
+			ObjectMapper mapper = new ObjectMapper();
+			ArrayList<Integer> watchList = mapper.readValue(URLDecoder.decode(cookie.getValue(), "UTF-8"),ArrayList.class);
+			List<HashMap<String, Object>> list = service.watchedList(watchList);
+			model.addAttribute("watched", list);
+			for (HashMap<String, Object> hashMap : list) {
+				System.out.println(hashMap.toString());
+			}
+	    }
 		model.addAttribute("map", map);
 		return "member/mypage";
 	}

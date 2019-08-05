@@ -42,29 +42,38 @@ public class WatchList {
 	
 	@Inject private WorkService wService;
 	
+	// @Around 메서드 실행 전후로 AOP를실행시키기 위함
 	@Around("execution(* com.sapum.controller.work.WorkController.*(..))")
     public Object workAOP(ProceedingJoinPoint joinPoint) throws Throwable {
     	
+		// joinPoint -> 핵심업무를 수행하는 메서드들의 정보가 담겨있음
 		String method = joinPoint.getSignature().getName(); // 실행된 메서드의 이름을 찾음
 		String type = joinPoint.getSignature().getDeclaringTypeName();
 		System.out.println("++++++++++++ " + type + " 의 " + method + " 메서드가 실행되었습니다 " + "++++++++++++");
 		
 		//해당페이지에 접근하며 주고받는 request와 response 정보를 가져옴
+		//AOP에서 request와 response의 정보를 가져오는 방법은 아래와 같다.
 		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
 		HttpServletResponse response = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getResponse();
 		
         Object result = joinPoint.proceed(); // 핵심업무 실행
-
+        
+        
         //작품 상세보기 페이지에 접근시
-		if(method.equals("view")) {
+		if(method.equals("view")) { // 실행된 메서드의 이름이 view일때 해당 if문 실행 (어떠한 작품을 봤을 때)
 			//쿠키 정보를 가져오기 위한 객체선언
+			// request.getCookies -> 클라이언트가 물고다니는 모든 쿠키 목록을 가져옴(배열형태)
+			// 특정쿠키를 가져오는 것이 불가능해서 배열로 통째로 가져옴
 			Cookie[] cookieList = request.getCookies();
+			// 출력되는 목록의 수를 제어하기위해서 변수선언
 			Cookie tempCookie = null;
 			ArrayList<Integer> watchList = new ArrayList<Integer>();
 			//쿠키에 json타입으로 넣고 빼줄 jackson객체 선언
+			//ObjectMapper -> json을 객체로 바꿔주거나, 객체를 json으로 바꿔줄 때 사용 함.
 			ObjectMapper mapper = new ObjectMapper();
+			// joinPoint.getArgs() -> 실행되는 메서드의 매개변수 목록
 			Model model = (Model) joinPoint.getArgs()[1];
-			
+			// model.asMap().get("one") -> 모델 내의 데이터를 map형태로 불러와서 one이라는 이름으로 호출
 			WorkDTO wDto = (WorkDTO) model.asMap().get("one");
 			
 			int wno = wDto.getWno();

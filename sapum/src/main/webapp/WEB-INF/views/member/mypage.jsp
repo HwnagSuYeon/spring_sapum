@@ -103,17 +103,15 @@
 							<div class="img_wrap my_position">
 								<!-- ${fn:substring(wDto.FILENAME,0,12)} = 날짜 디렉터리 부분만 잘라옴. 이름을front라고 지었다. -->
 								<c:set var="front" value="${fn:substring(list.filename,0,12)}" />
-								<!-- wDto.FILENAME,14,fn:length(wDto.FILENAME) = s_뗀 마지막 글씨까지 가져옴. 이름을 back이라고 지음.
-									 -->
-								<c:set var="back"
-									value="${fn:substring(list.filename,14,fn:length(list.filename))}" />
+								<!-- wDto.FILENAME,14,fn:length(wDto.FILENAME) = s_뗀 마지막 글씨까지 가져옴. 이름을 back이라고 지음. -->
+								<c:set var="back" value="${fn:substring(list.filename,14,fn:length(list.filename))}" />
 								<!-- ${front}${back} = s_를 뗀 원본파일 이름을 가져와 띄워 -->
-								<a href="#"><img class="object_container"
-									src="${path}/upload/displayFile?fileName=${front}${back}"></a>
+								<a href="#">
+									<img class="object_container" src="${path}/upload/displayFile?fileName=${front}${back}">
+								</a>
 							</div>
 							<div class="text_wrap ">
 								<a href="#"><span class="work_user">${list.TITLE}</span></a><br>
-
 								<!-- 시간포맷 -->
 								<fmt:formatDate value="${list.REGDATE}" pattern="yyyy-MM-dd"
 									var="regdate" />

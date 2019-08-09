@@ -95,44 +95,55 @@
 	<div class="new_wrap work_margin">
 		<div class="new_content">
 			<h1 class="new_title">My works</h1>
-
-			<div class="new_container">
-				<div class="grid_wrap">
-					<c:forEach items="${map.list}" var="list">
-						<div class="ne_con_wrap work_hover">
-							<div class="img_wrap my_position">
-								<!-- ${fn:substring(wDto.FILENAME,0,12)} = 날짜 디렉터리 부분만 잘라옴. 이름을front라고 지었다. -->
-								<c:set var="front" value="${fn:substring(list.filename,0,12)}" />
-								<!-- wDto.FILENAME,14,fn:length(wDto.FILENAME) = s_뗀 마지막 글씨까지 가져옴. 이름을 back이라고 지음. -->
-								<c:set var="back" value="${fn:substring(list.filename,14,fn:length(list.filename))}" />
-								<!-- ${front}${back} = s_를 뗀 원본파일 이름을 가져와 띄워 -->
-								<a href="#">
-									<img class="object_container" src="${path}/upload/displayFile?fileName=${front}${back}">
-								</a>
-							</div>
-							<div class="text_wrap ">
-								<a href="#"><span class="work_user">${list.TITLE}</span></a><br>
-								<!-- 시간포맷 -->
-								<fmt:formatDate value="${list.REGDATE}" pattern="yyyy-MM-dd"
-									var="regdate" />
-								<span class="work_text"> <c:choose>
-										<c:when test="${today == regdate}">
-											<fmt:formatDate value="${list.REGDATE}" pattern="hh:mm:ss" />
-										</c:when>
-										<c:otherwise>
-											<fmt:formatDate value="${list.REGDATE}" pattern="yyyy-MM-dd" />
-										</c:otherwise>
-									</c:choose>
-								</span>
-							</div>
-							<div class="hover_del_btn">
-								<a href="#"> <i class="fas fa-times del_icon"></i>
-								</a>
-							</div>
+			<c:choose>
+				<c:when test="${map.list  != ''}">
+					<div class="new_container">
+						<div class="grid_wrap">
+							<c:forEach items="${map.list}" var="list">
+								<div class="ne_con_wrap work_hover">
+									<div class="img_wrap my_position">
+										<!-- ${fn:substring(wDto.FILENAME,0,12)} = 날짜 디렉터리 부분만 잘라옴. 이름을front라고 지었다. -->
+										<c:set var="front" value="${fn:substring(list.filename,0,12)}" />
+										<!-- wDto.FILENAME,14,fn:length(wDto.FILENAME) = s_뗀 마지막 글씨까지 가져옴. 이름을 back이라고 지음. -->
+										<c:set var="back" value="${fn:substring(list.filename,14,fn:length(list.filename))}" />
+										<!-- ${front}${back} = s_를 뗀 원본파일 이름을 가져와 띄워 -->
+										<a href="#">
+											<img class="object_container" src="${path}/upload/displayFile?fileName=${front}${back}">
+										</a>
+									</div>
+									<div class="text_wrap ">
+										<a href="#"><span class="work_user">${list.TITLE}</span></a><br>
+										<!-- 시간포맷 -->
+										<fmt:formatDate value="${list.REGDATE}" pattern="yyyy-MM-dd"
+											var="regdate" />
+										<span class="work_text"> <c:choose>
+												<c:when test="${today == regdate}">
+													<fmt:formatDate value="${list.REGDATE}" pattern="hh:mm:ss" />
+												</c:when>
+												<c:otherwise>
+													<fmt:formatDate value="${list.REGDATE}" pattern="yyyy-MM-dd" />
+												</c:otherwise>
+											</c:choose>
+										</span>
+									</div>
+									<%-- <div class="hover_del_btn" data_num="${list.WNO}">
+										<a href="#"> <i class="fas fa-times del_icon"></i>
+										</a>
+									</div> --%>
+								</div>
+							</c:forEach>
 						</div>
-					</c:forEach>
-				</div>
-			</div>
+					</div>
+				</c:when>
+				
+				<c:otherwise>
+					<div class="no_mywork">
+						<span class="no_my_text">등록된 내 작품이 없습니다. 작품을 등록해 보세요:)</span>
+					</div>
+				</c:otherwise>
+			</c:choose>
+			
+			
 
 		</div>
 	</div>
@@ -150,7 +161,7 @@
 				<span class="warring"><i class="fas fa-exclamation-circle"></i></span>
 				<div class="btn_wrap">
 					<button id="n_btn" type="button" class="n_btn">NO</button>
-					<button type="button" class="n_btn">YES</button>
+					<button id="work_del_btn" type="button" class="n_btn">YES</button>
 				</div>
 			</div>
 		</div>
@@ -192,8 +203,6 @@
 				}
 			}); */
 		});
-		
-		
 
 	});
 	// 내가 팔로우하는 사람들을 띄워주기 위함
@@ -205,9 +214,10 @@
 			dataType: "JSON",
 			success: function (result) {
 				console.log(result);
-				result.forEach(function(e){
-					in_html = in_html+'<div class="inter_container"><div class="inter_box"><a><span class="inter_name">'+e+'</span></a><a href="#"><i value="'+e+'" class="fas fa-times inter_del"></i></a></div></div>';
-				});
+					result.forEach(function(e){
+						in_html = in_html+'<div class="inter_container"><div class="inter_box"><a><span class="inter_name">'+e+'</span></a><a href="#"><i value="'+e+'" class="fas fa-times inter_del"></i></a></div></div>';
+					});
+				
 				$(".inter_all").html(in_html);
 			}
 		});

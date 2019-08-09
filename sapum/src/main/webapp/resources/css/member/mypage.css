@@ -247,6 +247,16 @@
 .next {
 	margin-top: 30px;
 }
-.page_icon {
-	
+.no_mywork {
+	background-color: dadada;
+    height: 120px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.no_my_text {
+	color: 4c4c4c;
+    font-weight: 400;
+    font-size: 1.2em;
 }

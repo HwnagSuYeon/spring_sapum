@@ -100,6 +100,9 @@ public class WatchList {
 				watchList.remove(watchList.indexOf(wno));
 			}
 			
+			// 이미 watchList에 추가된 작품이 삭제가 된다면
+			// 삭제시켜줘야함
+			
 			watchList.add(wno);
 
 			// ArrayList 데이터를 다시 Json타입으로 변형

@@ -150,7 +150,7 @@ public class MemberController {
 			List<HashMap<String, Object>> list = service.watchedList(watchList);
 			model.addAttribute("watched", list);
 			for (HashMap<String, Object> hashMap : list) {
-				System.out.println(hashMap.toString());
+				//System.out.println(hashMap.toString());
 			}
 	    }
 		model.addAttribute("map", map);

@@ -39,7 +39,7 @@
 		<!-- 관심 작가 -->
 		<div class="follow_wrap">
 			<div class="new_content">
-				<h1 class="new_title">Follower</h1>
+				<h1 class="new_title">Folloing</h1>
 				<div class="inter_all"></div>
 			</div>
 		</div>
@@ -214,9 +214,14 @@
 			dataType: "JSON",
 			success: function (result) {
 				console.log(result);
+				if(result.length > 1) {
 					result.forEach(function(e){
 						in_html = in_html+'<div class="inter_container"><div class="inter_box"><a><span class="inter_name">'+e+'</span></a><a href="#"><i value="'+e+'" class="fas fa-times inter_del"></i></a></div></div>';
 					});
+				} else {
+					in_html = in_html+'<div class="inter_container"><div class="inter_box"><span class="inter_name">다른 작가를 팔로우 해보세요:)</span></div></div>';
+				}
+					
 				
 				$(".inter_all").html(in_html);
 			}
